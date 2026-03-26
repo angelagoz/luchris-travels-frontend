@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas - LUCHRIS TRAVELS</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tools-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .tool-card h3 {
+            color: #003366;
+            margin: 15px 0;
+            font-size: 1.3rem;
+        }
+
+        .tool-card p {
+            color: #666;
+            margin: 0 0 20px 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .tool-card .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #E63946;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .tool-card .btn:hover {
+            background-color: #d62828;
+            transform: scale(1.05);
+        }
+
+        .status-badge {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-live {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-coming {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .tools-header {
+            background: linear-gradient(135deg, #003366 0%, #004d80 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .tools-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+        }
+
+        .tools-header p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .secondary-card {
+            background-color: #f8f9fa;
+            border: 2px dashed #e0e0e0;
+        }
+
+        .secondary-card:hover {
+            border-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVEGACION -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <h1>LUCHRIS TRAVELS</h1>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="about.html">Sobre Nosotros</a></li>
+                <li><a href="tools.html" style="color: #E63946; font-weight: bold;">Herramientas</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="container tools-container">
+        <div class="tools-header">
+            <h1>🛠️ Herramientas de LUCHRIS TRAVELS</h1>
+            <p>Acceso rápido a todas las herramientas principales de la plataforma</p>
+        </div>
+
+        <div class="tools-grid">
+            <!-- PANEL ADMIN -->
+            <div class="tool-card">
+                <div class="tool-icon">📊</div>
+                <h3>Panel Admin</h3>
+                <p>Gestiona todas las cotizaciones recibidas, responde a clientes y haz seguimiento de solicitudes.</p>
+                <a href="admin-login.html" class="btn">Acceder →</a>
+                <div class="status-badge status-live">✓ En vivo</div>
+            </div>
+
+            <!-- SITIO PRINCIPAL -->
+            <div class="tool-card">
+                <div class="tool-icon">🌐</div>
+                <h3>Sitio Principal</h3>
+                <p>Catálogo de cruceros y productos. Aquí los clientes ven y solicitan cotizaciones.</p>
+                <a href="index.html" class="btn">Visitar →</a>
+                <div class="status-badge status-live">✓ En vivo</div>
+            </div>
+
+            <!-- DETALLES DE CRUCERO -->
+            <div class="tool-card">
+                <div class="tool-icon">🚢</div>
+                <h3>Detalles del Crucero</h3>
+                <p>Página de ejemplo con información detallada y formulario de cotización.</p>
+                <a href="cruise-detail.html" class="btn">Ver página →</a>
+                <div class="status-badge status-live">✓ En vivo</div>
+            </div>
+
+            <!-- DOCUMENTACIÓN -->
+            <div class="tool-card secondary-card">
+                <div class="tool-icon">📚</div>
+                <h3>Documentación</h3>
+                <p><strong>COTIZACIONES_GUIA.md</strong> - Sistema de cotizaciones<br><strong>ADMIN_GUIA.md</strong> - Panel administrativo</p>
+                <button class="btn" onclick="alert('Abre los archivos en tu editor de código')">Ver archivos 📖</button>
+                <div class="status-badge status-live">✓ Disponible</div>
+            </div>
+
+            <!-- CARRITO (DEPRECADO) -->
+            <div class="tool-card secondary-card">
+                <div class="tool-icon">🛒</div>
+                <h3>Carrito (Deprecado)</h3>
+                <p><del>Sistema antiguo de carrito de compras.</del> Reemplazado con sistema de cotizaciones.</p>
+                <button class="btn" disabled style="opacity: 0.5; cursor: not-allowed;">No disponible</button>
+                <div class="status-badge" style="background-color: #f8d7da; color: #721c24;">⚠ Deprecado</div>
+            </div>
+
+            <!-- PRÓXIMAS MEJORAS -->
+            <div class="tool-card secondary-card">
+                <div class="tool-icon">🚀</div>
+                <h3>Próximas Mejoras</h3>
+                <p>Emails automáticos, WhatsApp Business, CRM integrado y más características avanzadas.</p>
+                <button class="btn" disabled style="opacity: 0.5; cursor: not-allowed;">En desarrollo</button>
+                <div class="status-badge status-coming">⏳ Próximamente</div>
+            </div>
+        </div>
+
+        <!-- ESTADÍSTICAS -->
+        <div style="margin-top: 50px; padding: 30px; background-color: #f8f9fa; border-radius: 8px;">
+            <h2 style="color: #003366; text-align: center; margin-top: 0;">📈 Estado del Sistema</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                    <h4 style="margin: 0; color: #003366;">Frontend</h4>
+                    <p style="margin: 10px 0 0 0; color: #28A745; font-weight: bold;">✓ En vivo en Vercel</p>
+                    <small style="color: #999;">https://luchris-travels-frontend.vercel.app</small>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                    <h4 style="margin: 0; color: #003366;">Backend</h4>
+                    <p style="margin: 10px 0 0 0; color: #28A745; font-weight: bold;">✓ En vivo en Render</p>
+                    <small style="color: #999;">https://luchris-travels-backend.onrender.com</small>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                    <h4 style="margin: 0; color: #003366;">Base de Datos</h4>
+                    <p style="margin: 10px 0 0 0; color: #28A745; font-weight: bold;">✓ En vivo MongoDB</p>
+                    <small style="color: #999;">MongoDB Atlas Cloud</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCION INFO -->
+        <div style="margin-top: 50px; padding: 30px; background-color: #e7f3ff; border-left: 4px solid #003366; border-radius: 8px;">
+            <h3 style="color: #003366; margin-top: 0;">💡 Información Importante</h3>
+            <ul style="color: #003366; line-height: 1.8;">
+                <li><strong>Sistema de Cotizaciones:</strong> Los clientes solicitan cotización en lugar de pagar directamente</li>
+                <li><strong>Panel Admin:</strong> Todos los datos se sincronizan automáticamente cada 30 segundos</li>
+                <li><strong>Credenciales:</strong> admin@luchris.com / admin123 (cambiar en producción)</li>
+                <li><strong>Datos Seguros:</strong> Utiliza Stripe para pagos y MongoDB Atlas para base de datos</li>
+                <li><strong>Auto-Deploy:</strong> Los cambios en GitHub se despliegan automáticamente en Vercel y Render</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top: 50px;">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>LUCHRIS TRAVELS</h4>
+                    <p>Agencia de viajes con 8 años de experiencia en cruceros, tours y viajes internacionales.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>📞 (829) 550-2847</p>
+                    <p>📧 luchristravels@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LUCHRIS TRAVELS. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
