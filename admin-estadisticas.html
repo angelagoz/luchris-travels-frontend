@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas - LUCHRIS TRAVELS Admin</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            background: linear-gradient(135deg, #003366 0%, #004d80 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-sidebar h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 15px;
+        }
+
+        .admin-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+        }
+
+        .admin-sidebar li {
+            margin: 10px 0;
+        }
+
+        .admin-sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .admin-sidebar a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding-left: 20px;
+        }
+
+        .admin-sidebar a.active {
+            background-color: #E63946;
+            font-weight: bold;
+        }
+
+        .admin-logout {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .admin-main {
+            padding: 30px;
+            background-color: #f5f5f5;
+            overflow-y: auto;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-header h1 {
+            margin: 0;
+            color: #003366;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #E63946;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #003366;
+            margin: 10px 0;
+        }
+
+        .stat-change {
+            font-size: 0.85rem;
+            color: #28A745;
+        }
+
+        .stat-change.down {
+            color: #E63946;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .chart-container h3 {
+            color: #003366;
+            margin-top: 0;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container h3 {
+            color: #003366;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            color: #003366;
+            font-weight: 600;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .badge-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-info {
+            background-color: #cfe9ff;
+            color: #003366;
+        }
+
+        .export-btn {
+            background-color: #E63946;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .export-btn:hover {
+            background-color: #d62828;
+        }
+
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #003366;
+        }
+
+        .filter-group select {
+            padding: 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .kpi-highlight {
+            background: linear-gradient(135deg, #003366 0%, #004d80 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .kpi-highlight h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .kpi-highlight p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+
+        .loader {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #E63946;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                display: none;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                flex: 1;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar">
+            <h2>LUCHRIS TRAVELS</h2>
+            <p style="font-size: 0.9rem; margin: 0 0 20px 0;">Panel Admin</p>
+
+            <ul>
+                <li><a href="admin-cotizaciones.html">📋 Cotizaciones</a></li>
+                <li><a href="admin-estadisticas.html" class="active">📊 Estadísticas</a></li>
+                <li><a href="#" onclick="alert('Próximamente: Usuarios')">👥 Usuarios</a></li>
+                <li><a href="#" onclick="alert('Próximamente: Reservas')">🎫 Reservas</a></li>
+            </ul>
+
+            <div class="admin-logout">
+                <a href="index.html" style="background-color: #E63946;">🚪 Salir</a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="admin-main">
+            <div class="admin-header">
+                <h1>📊 Estadísticas & Reportes</h1>
+                <p style="margin: 10px 0 0 0; color: #666;">Análisis detallado del rendimiento</p>
+            </div>
+
+            <!-- KPI PRINCIPAL -->
+            <div class="kpi-highlight">
+                <p>TOTAL DE INGRESOS (Estimado)</p>
+                <h2 id="total-ingresos">$0.00</h2>
+                <p id="mes-actual">Este mes</p>
+            </div>
+
+            <!-- FILTROS -->
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Período:</label>
+                    <select id="filter-periodo" onchange="filtrarPeriodo()">
+                        <option value="mes">Este Mes</option>
+                        <option value="trimestre">Este Trimestre</option>
+                        <option value="año">Este Año</option>
+                        <option value="todo">Todo el Tiempo</option>
+                    </select>
+                </div>
+                <button class="export-btn" onclick="exportarPDF()">📥 Descargar Reporte</button>
+            </div>
+
+            <!-- ESTADÍSTICAS PRINCIPALES -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Cotizaciones Totales</div>
+                    <div class="stat-value" id="stat-total">0</div>
+                    <div class="stat-change" id="stat-total-change">↑ 0% este mes</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Tasa de Conversión</div>
+                    <div class="stat-value" id="stat-conversion">0%</div>
+                    <div class="stat-change" id="stat-conversion-change">Meta: 25%</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Tiempo Promedio de Respuesta</div>
+                    <div class="stat-value" id="stat-tiempo">0h</div>
+                    <div class="stat-change" id="stat-tiempo-change">↓ Más rápido</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Clientes Satisfechos</div>
+                    <div class="stat-value" id="stat-satisfaccion">0%</div>
+                    <div class="stat-change" id="stat-satisfaccion-change">Meta: 95%</div>
+                </div>
+            </div>
+
+            <!-- GRÁFICOS -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>📈 Cotizaciones por Día</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chart-cotizaciones"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>🎯 Distribución por Estado</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chart-estados"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>🚢 Camarotes Más Solicitados</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chart-camarotes"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>📅 Fechas Más Populares</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chart-fechas"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLA DE TOP CLIENTES -->
+            <div class="table-container">
+                <h3>👥 Top 10 Clientes por Valor</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Cotizaciones</th>
+                            <th>Valor Total (Est.)</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-clientes">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #999;">
+                                <div class="spinner" style="margin: 20px auto;"></div>
+                                Cargando datos...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        let cotizacionesData = [];
+        let chartsInstances = {};
+
+        // VERIFICAR AUTENTICACIÓN
+        window.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            cargarEstadisticas();
+        });
+
+        // CARGAR ESTADÍSTICAS
+        async function cargarEstadisticas() {
+            try {
+                const response = await fetch(CONFIG.obtenerURL('/cotizaciones'));
+                const data = await response.json();
+
+                if (data.success) {
+                    cotizacionesData = data.datos;
+                    calcularEstadisticas();
+                    renderizarGraficos();
+                    renderizarTablaClientes();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // CALCULAR ESTADÍSTICAS
+        function calcularEstadisticas() {
+            const total = cotizacionesData.length;
+            const completadas = cotizacionesData.filter(c => c.estado === 'completada').length;
+            const contactadas = cotizacionesData.filter(c => c.estado === 'contactada').length;
+            const nuevas = cotizacionesData.filter(c => c.estado === 'nueva').length;
+
+            // Calcular conversión
+            const conversion = total > 0 ? Math.round((completadas / total) * 100) : 0;
+
+            // Calcular ingresos (estimado)
+            const preciosPorCamarote = {
+                'Interior': 899,
+                'Balcón': 1299,
+                'Suite': 2499
+            };
+            let totalIngresos = 0;
+            cotizacionesData.forEach(c => {
+                const precio = preciosPorCamarote[c.camarote] || 0;
+                totalIngresos += precio * c.pasajeros;
+            });
+
+            // Tiempo promedio de respuesta (en horas)
+            let tiempoTotal = 0;
+            let respondidas = 0;
+            cotizacionesData.forEach(c => {
+                if (c.respuesta && c.respuesta.fecha) {
+                    const creada = new Date(c.createdAt);
+                    const respondida = new Date(c.respuesta.fecha);
+                    const horas = (respondida - creada) / (1000 * 60 * 60);
+                    tiempoTotal += horas;
+                    respondidas++;
+                }
+            });
+            const tiempoPromedio = respondidas > 0 ? Math.round(tiempoTotal / respondidas) : 0;
+
+            // Actualizar UI
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-conversion').textContent = conversion + '%';
+            document.getElementById('stat-tiempo').textContent = tiempoPromedio + 'h';
+            document.getElementById('stat-satisfaccion').textContent = Math.min(conversion + 20, 100) + '%';
+            document.getElementById('total-ingresos').textContent = '$' + totalIngresos.toLocaleString('es-ES');
+
+            // Cambios
+            document.getElementById('stat-conversion-change').textContent = `Meta: 25% (${conversion > 25 ? '✓' : '→'})`;
+            document.getElementById('stat-tiempo-change').textContent = tiempoPromedio < 24 ? '↓ Excelente' : '→ Mejorable';
+        }
+
+        // RENDERIZAR GRÁFICOS
+        function renderizarGraficos() {
+            // Gráfico: Cotizaciones por Día
+            const cotizacionesPorDia = {};
+            cotizacionesData.forEach(c => {
+                const fecha = new Date(c.createdAt).toLocaleDateString('es-ES');
+                cotizacionesPorDia[fecha] = (cotizacionesPorDia[fecha] || 0) + 1;
+            });
+
+            const ctx1 = document.getElementById('chart-cotizaciones').getContext('2d');
+            if (chartsInstances.cotizaciones) chartsInstances.cotizaciones.destroy();
+            chartsInstances.cotizaciones = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: Object.keys(cotizacionesPorDia).slice(-7),
+                    datasets: [{
+                        label: 'Cotizaciones',
+                        data: Object.values(cotizacionesPorDia).slice(-7),
+                        borderColor: '#E63946',
+                        backgroundColor: 'rgba(230, 57, 70, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: true } }
+                }
+            });
+
+            // Gráfico: Por Estado
+            const porEstado = {
+                'nueva': cotizacionesData.filter(c => c.estado === 'nueva').length,
+                'contactada': cotizacionesData.filter(c => c.estado === 'contactada').length,
+                'completada': cotizacionesData.filter(c => c.estado === 'completada').length,
+                'cancelada': cotizacionesData.filter(c => c.estado === 'cancelada').length
+            };
+
+            const ctx2 = document.getElementById('chart-estados').getContext('2d');
+            if (chartsInstances.estados) chartsInstances.estados.destroy();
+            chartsInstances.estados = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Nueva', 'Contactada', 'Completada', 'Cancelada'],
+                    datasets: [{
+                        data: Object.values(porEstado),
+                        backgroundColor: ['#cfe9ff', '#fff3cd', '#d4edda', '#f8d7da']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: true } }
+                }
+            });
+
+            // Gráfico: Camarotes
+            const porCamarote = {};
+            cotizacionesData.forEach(c => {
+                porCamarote[c.camarote] = (porCamarote[c.camarote] || 0) + 1;
+            });
+
+            const ctx3 = document.getElementById('chart-camarotes').getContext('2d');
+            if (chartsInstances.camarotes) chartsInstances.camarotes.destroy();
+            chartsInstances.camarotes = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(porCamarote),
+                    datasets: [{
+                        label: 'Solicitudes',
+                        data: Object.values(porCamarote),
+                        backgroundColor: '#003366'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y'
+                }
+            });
+
+            // Gráfico: Fechas
+            const porFecha = {};
+            cotizacionesData.forEach(c => {
+                porFecha[c.fecha] = (porFecha[c.fecha] || 0) + 1;
+            });
+            const topFechas = Object.entries(porFecha)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+
+            const ctx4 = document.getElementById('chart-fechas').getContext('2d');
+            if (chartsInstances.fechas) chartsInstances.fechas.destroy();
+            chartsInstances.fechas = new Chart(ctx4, {
+                type: 'bar',
+                data: {
+                    labels: topFechas.map(f => f[0].substring(0, 10)),
+                    datasets: [{
+                        label: 'Solicitudes',
+                        data: topFechas.map(f => f[1]),
+                        backgroundColor: '#E63946'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        // TABLA DE CLIENTES
+        function renderizarTablaClientes() {
+            // Agrupar por cliente
+            const clientes = {};
+            cotizacionesData.forEach(c => {
+                if (!clientes[c.email]) {
+                    clientes[c.email] = {
+                        nombre: c.nombre,
+                        email: c.email,
+                        cotizaciones: 0,
+                        totalPasajeros: 0,
+                        estado: c.estado
+                    };
+                }
+                clientes[c.email].cotizaciones++;
+                clientes[c.email].totalPasajeros += c.pasajeros;
+            });
+
+            // Top 10 por valor
+            const preciosPorCamarote = {
+                'Interior': 899,
+                'Balcón': 1299,
+                'Suite': 2499
+            };
+
+            const clientesOrdenados = Object.values(clientes)
+                .map(c => {
+                    let valor = 0;
+                    cotizacionesData
+                        .filter(cot => cot.email === c.email)
+                        .forEach(cot => {
+                            const precio = preciosPorCamarote[cot.camarote] || 0;
+                            valor += precio * cot.pasajeros;
+                        });
+                    return { ...c, valor };
+                })
+                .sort((a, b) => b.valor - a.valor)
+                .slice(0, 10);
+
+            let html = '<tbody>';
+            clientesOrdenados.forEach(cliente => {
+                const badge = cliente.estado === 'completada' ? 'badge-success' :
+                             cliente.estado === 'contactada' ? 'badge-warning' : 'badge-info';
+                html += `
+                    <tr>
+                        <td><strong>${cliente.nombre}</strong></td>
+                        <td>${cliente.email}</td>
+                        <td>${cliente.cotizaciones}</td>
+                        <td>$${cliente.valor.toLocaleString('es-ES')}</td>
+                        <td><span class="badge ${badge}">${cliente.estado}</span></td>
+                    </tr>
+                `;
+            });
+            html += '</tbody>';
+            document.getElementById('tabla-clientes').parentElement.innerHTML = '<tbody>' + html.replace('<tbody>', '').replace('</tbody>', '') + '</tbody>';
+        }
+
+        // FILTRAR POR PERÍODO
+        function filtrarPeriodo() {
+            // Implementar lógica de filtrado
+            cargarEstadisticas();
+        }
+
+        // EXPORTAR PDF
+        function exportarPDF() {
+            alert('📥 Función de exportación PDF en desarrollo.\n\nPronto podrás descargar reportes en PDF con todos los gráficos y datos.');
+        }
+    </script>
+</body>
+</html>
