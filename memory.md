@@ -29,7 +29,7 @@
 - [x] **PASO 2.5** - Sistema de Carrito Funcional
 - [x] **PASO 2.6** - Autenticación Completa
 - [x] **PASO 2.7** - Deploy (Vercel + Render)
-- [ ] **PASO 2.8** - Conectar Frontend con Backend
+- [x] **PASO 2.8** - Conectar Frontend con Backend
 
 ---
 
@@ -93,6 +93,14 @@
 - ✅ MongoDB Atlas configurado con cluster gratuito
 - ✅ Variables de entorno configuradas en Render (MONGODB_URI, JWT_SECRET, STRIPE keys)
 - ✅ Auto-deploy configurado (cada push a GitHub se redeploya automáticamente)
+
+**Conectar Frontend con Backend (PASO 2.8):**
+- ✅ Creado `config.js` con URL centralizada de API
+- ✅ Actualizado `auth.js` para usar CONFIG (login, registro)
+- ✅ Actualizado `checkout.html` para pagos con Render
+- ✅ Actualizado `login.html` y `registro.html` con config.js
+- ✅ Todos los endpoints apuntan a: `https://luchris-travels-backend.onrender.com/api`
+- ✅ Cambios subidos a GitHub y redesplegados en Vercel automáticamente
 
 ---
 
