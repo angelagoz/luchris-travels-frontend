@@ -572,7 +572,7 @@
                 <div id="responder-info" style="margin-bottom: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 4px;">
                     <!-- Se llena con JavaScript -->
                 </div>
-                <form id="form-responder" onsubmit="enviarRespuesta(event)">
+                <div id="form-responder">
                     <div class="form-group">
                         <label>Estado</label>
                         <select id="nuevo-estado" required>
@@ -587,9 +587,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn-secondary" onclick="cerrarModal('responder')">Cancelar</button>
-                        <button type="submit" class="btn-primary">Enviar Respuesta</button>
+                        <button type="button" class="btn-primary" onclick="enviarRespuesta()">Enviar Respuesta</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -822,12 +822,20 @@
         // ========================================
         // ENVIAR RESPUESTA
         // ========================================
-        async function enviarRespuesta(event) {
-            event.preventDefault();
-
+        async function enviarRespuesta() {
             const id = window.cotizacionRespondiendo;
             const nuevoEstado = document.getElementById('nuevo-estado').value;
             const mensajeRespuesta = document.getElementById('mensaje-respuesta').value;
+
+            if (!id) {
+                alert('Error: No se encontró el ID de la cotización');
+                return;
+            }
+
+            if (!mensajeRespuesta.trim()) {
+                alert('Por favor escribe una respuesta');
+                return;
+            }
 
             try {
                 const response = await fetch(CONFIG.obtenerURL(`/cotizaciones/${id}`), {
@@ -852,7 +860,7 @@
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('❌ Error al enviar respuesta');
+                alert('❌ Error al enviar respuesta: ' + error.message);
             }
         }
 
