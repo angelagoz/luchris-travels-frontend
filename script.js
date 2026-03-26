@@ -19,6 +19,9 @@ function inicializarFormularioReserva() {
     const precioTotal = document.querySelector('#precio-total');
     const btnAgregar = form.querySelector('.btn-primary');
 
+    // Validación: si no existen los elementos necesarios, salir
+    if (!selectFecha || !selectCamarote || !inputPasajeros || !btnAgregar) return;
+
     // Precios base por camarote
     const preciosCamarote = {
         interior: 899,
@@ -38,8 +41,8 @@ function inicializarFormularioReserva() {
         }
     }
 
-    selectCamarote.addEventListener('change', actualizarPrecio);
-    inputPasajeros.addEventListener('change', actualizarPrecio);
+    if (selectCamarote) selectCamarote.addEventListener('change', actualizarPrecio);
+    if (inputPasajeros) inputPasajeros.addEventListener('change', actualizarPrecio);
 
     // Agregar al carrito
     btnAgregar.addEventListener('click', function(e) {
