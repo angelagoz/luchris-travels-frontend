@@ -298,6 +298,7 @@
         }
     </style>
 
+    <script src="config.js"></script>
     <script>
         // Inicializar Stripe
         const stripe = Stripe('PUBLICABLE_KEY_AQUI'); // Reemplazar con tu clave
@@ -343,7 +344,7 @@
             btnPagar.textContent = 'Procesando...';
 
             try {
-                const response = await fetch('http://localhost:5000/api/pagos/pago-directo', {
+                const response = await fetch(CONFIG.obtenerURL(CONFIG.PAGOS.DIRECTO), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

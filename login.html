@@ -287,6 +287,7 @@
         }
     </style>
 
+    <script src="config.js"></script>
     <script src="auth.js"></script>
     <script>
         document.getElementById('form-login').addEventListener('submit', async (e) => {
@@ -297,7 +298,7 @@
             const recordar = document.getElementById('recordar').checked;
 
             try {
-                const response = await fetch('http://localhost:5000/api/usuarios/login', {
+                const response = await fetch(CONFIG.obtenerURL(CONFIG.USUARIOS.LOGIN), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

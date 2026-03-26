@@ -27,7 +27,7 @@ class SistemaAutenticacion {
     // LOGIN
     async login(email, contrasena) {
         try {
-            const response = await fetch('http://localhost:5000/api/usuarios/login', {
+            const response = await fetch(CONFIG.obtenerURL(CONFIG.USUARIOS.LOGIN), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ class SistemaAutenticacion {
     // REGISTRO
     async registro(datosUsuario) {
         try {
-            const response = await fetch('http://localhost:5000/api/usuarios/registro', {
+            const response = await fetch(CONFIG.obtenerURL(CONFIG.USUARIOS.REGISTRO), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

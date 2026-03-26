@@ -275,6 +275,7 @@
         }
     </style>
 
+    <script src="config.js"></script>
     <script src="auth.js"></script>
     <script>
         document.getElementById('form-registro').addEventListener('submit', async (e) => {
@@ -300,7 +301,7 @@
             }
 
             try {
-                const response = await fetch('http://localhost:5000/api/usuarios/registro', {
+                const response = await fetch(CONFIG.obtenerURL(CONFIG.USUARIOS.REGISTRO), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

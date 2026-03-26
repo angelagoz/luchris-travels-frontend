@@ -28,7 +28,7 @@
 - [x] **PASO 2.4** - Integración de Pagos (Stripe)
 - [x] **PASO 2.5** - Sistema de Carrito Funcional
 - [x] **PASO 2.6** - Autenticación Completa
-- [ ] **PASO 2.7** - Deploy (Vercel + Render)
+- [x] **PASO 2.7** - Deploy (Vercel + Render)
 - [ ] **PASO 2.8** - Conectar Frontend con Backend
 
 ---
@@ -84,6 +84,15 @@
 - ✅ Historial de reservas integrado
 - ✅ Persistencia de tokens en localStorage
 - ✅ Validaciones cliente y servidor (bcrypt para contraseñas)
+
+**Deploy en Producción (PASO 2.7):**
+- ✅ Repositorio frontend en GitHub: `luchris-travels-frontend`
+- ✅ Repositorio backend en GitHub: `luchris-travels-backend`
+- ✅ Frontend desplegado en Vercel: https://luchris-travels-frontend.vercel.app
+- ✅ Backend desplegado en Render: https://luchris-travels-backend.onrender.com
+- ✅ MongoDB Atlas configurado con cluster gratuito
+- ✅ Variables de entorno configuradas en Render (MONGODB_URI, JWT_SECRET, STRIPE keys)
+- ✅ Auto-deploy configurado (cada push a GitHub se redeploya automáticamente)
 
 ---
 
