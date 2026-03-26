@@ -417,4 +417,33 @@ async function solicitarCotizacion(event) {
     }
 }
 
+// ========================================
+// CARGAR PRODUCTOS DINÁMICOS
+// ========================================
+
+async function cargarProductosDinamicos() {
+    try {
+        const [cruceros, tours, disney] = await Promise.all([
+            fetch(CONFIG.obtenerURL('/productos/tipo/crucero')).then(r => r.json()),
+            fetch(CONFIG.obtenerURL('/productos/tipo/tour')).then(r => r.json()),
+            fetch(CONFIG.obtenerURL('/productos/tipo/disney')).then(r => r.json())
+        ]);
+
+        if (cruceros.success && cruceros.datos.length > 0) {
+            console.log('✅ Cruceros cargados:', cruceros.datos.length);
+        }
+        if (tours.success && tours.datos.length > 0) {
+            console.log('✅ Tours cargados:', tours.datos.length);
+        }
+        if (disney.success && disney.datos.length > 0) {
+            console.log('✅ Disney cargados:', disney.datos.length);
+        }
+    } catch (error) {
+        console.warn('⚠️ No se pudieron cargar productos dinámicos:', error.message);
+    }
+}
+
+// Ejecutar al cargar la página
+window.addEventListener('load', cargarProductosDinamicos);
+
 console.log('✅ LUCHRIS TRAVELS - JavaScript cargado exitosamente');
