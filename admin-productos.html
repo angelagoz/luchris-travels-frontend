@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Productos - LUCHRIS TRAVELS</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            background: linear-gradient(135deg, #003366 0%, #004d80 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-sidebar h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 15px;
+        }
+
+        .admin-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+        }
+
+        .admin-sidebar li {
+            margin: 10px 0;
+        }
+
+        .admin-sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .admin-sidebar a:hover,
+        .admin-sidebar a.active {
+            background-color: #E63946;
+            font-weight: bold;
+        }
+
+        .admin-main {
+            padding: 30px;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            margin: 0;
+            color: #003366;
+        }
+
+        .btn {
+            background: #E63946;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #c1232b;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 3rem;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-info h3 {
+            margin: 0 0 10px 0;
+            color: #003366;
+            font-size: 1.1rem;
+        }
+
+        .product-info p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #E63946;
+            margin: 10px 0;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .product-actions button {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #003366;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 10px;
+            background: #f0f0f0;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-label:hover {
+            background: #e8f4f8;
+            border-color: #003366;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #003366;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .type-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .type-filter button {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .type-filter button.active {
+            border-color: #E63946;
+            background: #E63946;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- SIDEBAR -->
+        <div class="admin-sidebar">
+            <h2>🛠️ Admin</h2>
+            <ul>
+                <li><a href="admin-cotizaciones.html">📋 Cotizaciones</a></li>
+                <li><a href="admin-productos.html" class="active">🛍️ Productos</a></li>
+                <li><a href="admin-estadisticas.html">📊 Estadísticas</a></li>
+                <li><a href="index.html" style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px;">🏠 Inicio</a></li>
+                <li><a href="#" onclick="logout()" style="background: #c1232b;">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="admin-main">
+            <!-- HEADER -->
+            <div class="admin-header">
+                <h1>🛍️ Gestión de Productos</h1>
+                <button class="btn" onclick="abrirModalProducto()">➕ Nuevo Producto</button>
+            </div>
+
+            <!-- ALERTAS -->
+            <div id="alert-container"></div>
+
+            <!-- FILTROS POR TIPO -->
+            <div class="type-filter">
+                <button class="active" onclick="filtrarPorTipo('todos')">Todos</button>
+                <button onclick="filtrarPorTipo('crucero')">🚢 Cruceros</button>
+                <button onclick="filtrarPorTipo('tour')">✈️ Tours</button>
+                <button onclick="filtrarPorTipo('disney')">🏰 Disney</button>
+            </div>
+
+            <!-- PRODUCTOS -->
+            <div id="productos-loading" class="loading">
+                <div class="spinner"></div>
+                Cargando productos...
+            </div>
+            <div id="productos-container" class="products-grid"></div>
+        </div>
+    </div>
+
+    <!-- MODAL NUEVO/EDITAR PRODUCTO -->
+    <div id="modal-producto" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-titulo">Nuevo Producto</h2>
+                <button class="close-btn" onclick="cerrarModal('producto')">&times;</button>
+            </div>
+
+            <form id="form-producto" onsubmit="guardarProducto(event)">
+                <div class="form-group">
+                    <label>Nombre *</label>
+                    <input type="text" id="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Tipo *</label>
+                    <select id="tipo" required>
+                        <option value="">Selecciona tipo...</option>
+                        <option value="crucero">🚢 Crucero</option>
+                        <option value="tour">✈️ Tour</option>
+                        <option value="disney">🏰 Disney</option>
+                        <option value="boleto">🎫 Boleto Aéreo</option>
+                        <option value="seguro">🛡️ Seguro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción *</label>
+                    <textarea id="descripcion" required placeholder="Descripción breve del producto"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción Larga</label>
+                    <textarea id="descripcion_larga" placeholder="Detalles adicionales..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Destino</label>
+                    <input type="text" id="destino" placeholder="Ej: Caribe, Dubai, etc.">
+                </div>
+
+                <div class="form-group">
+                    <label>Precio Base (USD) *</label>
+                    <input type="number" id="precio_base" required min="0" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label>Duración (días)</label>
+                    <input type="number" id="duracion_dias" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Capacidad</label>
+                    <input type="number" id="capacidad" min="0" placeholder="Número máximo de personas">
+                </div>
+
+                <div class="form-group">
+                    <label>Foto Principal</label>
+                    <div class="file-upload">
+                        <input type="file" id="foto-principal" accept="image/*">
+                        <label class="file-upload-label" for="foto-principal">
+                            📸 Haz clic o arrastra una imagen
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; margin-top: 20px;">💾 Guardar Producto</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        let productoActual = null;
+        let tipoFiltro = 'todos';
+
+        // ========================================
+        // VERIFICAR AUTENTICACIÓN
+        // ========================================
+        window.addEventListener('load', () => {
+            const token = localStorage.getItem('admin-token');
+            if (!token) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            cargarProductos();
+        });
+
+        // ========================================
+        // CARGAR PRODUCTOS
+        // ========================================
+        async function cargarProductos() {
+            const container = document.getElementById('productos-container');
+            const loading = document.getElementById('productos-loading');
+
+            try {
+                const url = tipoFiltro === 'todos'
+                    ? CONFIG.obtenerURL('/productos')
+                    : CONFIG.obtenerURL(`/productos/tipo/${tipoFiltro}`);
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                loading.style.display = 'none';
+                container.innerHTML = '';
+
+                if (data.success && data.datos.length > 0) {
+                    data.datos.forEach(producto => {
+                        const card = document.createElement('div');
+                        card.className = 'product-card';
+                        const fotoUrl = producto.fotos && producto.fotos.length > 0
+                            ? producto.fotos[0].url
+                            : `https://via.placeholder.com/300x200?text=${producto.nombre}`;
+
+                        card.innerHTML = `
+                            <div class="product-image">
+                                <img src="${fotoUrl}" onerror="this.src='https://via.placeholder.com/300x200?text=${producto.nombre}'">
+                            </div>
+                            <div class="product-info">
+                                <h3>${producto.nombre}</h3>
+                                <p><strong>Tipo:</strong> ${producto.tipo}</p>
+                                <p><strong>Destino:</strong> ${producto.destino || 'N/A'}</p>
+                                <div class="product-price">$${producto.precio_base}</div>
+                                <div class="product-actions">
+                                    <button class="btn" onclick="editarProducto('${producto._id}')">✏️ Editar</button>
+                                    <button class="btn btn-secondary" onclick="eliminarProducto('${producto._id}')">🗑️ Eliminar</button>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
+                } else {
+                    container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">No hay productos registrados</p>';
+                }
+            } catch (error) {
+                console.error('Error cargando productos:', error);
+                loading.innerHTML = '<p style="color: #c33;">Error al cargar productos</p>';
+            }
+        }
+
+        // ========================================
+        // FILTRAR POR TIPO
+        // ========================================
+        function filtrarPorTipo(tipo) {
+            tipoFiltro = tipo;
+
+            // Actualizar botones activos
+            document.querySelectorAll('.type-filter button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Recargar productos
+            document.getElementById('productos-loading').style.display = 'block';
+            document.getElementById('productos-container').innerHTML = '';
+            cargarProductos();
+        }
+
+        // ========================================
+        // MODAL PRODUCTO
+        // ========================================
+        function abrirModalProducto() {
+            productoActual = null;
+            document.getElementById('modal-titulo').textContent = 'Nuevo Producto';
+            document.getElementById('form-producto').reset();
+            document.getElementById('modal-producto').classList.add('show');
+        }
+
+        function editarProducto(id) {
+            // Implementar edición después
+            alert('Función de edición disponible próximamente');
+        }
+
+        function cerrarModal(tipo) {
+            document.getElementById(`modal-${tipo}`).classList.remove('show');
+        }
+
+        // ========================================
+        // GUARDAR PRODUCTO
+        // ========================================
+        async function guardarProducto(event) {
+            event.preventDefault();
+
+            const producto = {
+                nombre: document.getElementById('nombre').value,
+                tipo: document.getElementById('tipo').value,
+                descripcion: document.getElementById('descripcion').value,
+                descripcion_larga: document.getElementById('descripcion_larga').value,
+                destino: document.getElementById('destino').value,
+                precio_base: parseFloat(document.getElementById('precio_base').value),
+                duracion_dias: parseInt(document.getElementById('duracion_dias').value) || 0,
+                capacidad: parseInt(document.getElementById('capacidad').value) || 0
+            };
+
+            try {
+                const response = await fetch(CONFIG.obtenerURL('/productos'), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(producto)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    mostrarAlerta('✅ Producto creado correctamente', 'success');
+                    cerrarModal('producto');
+                    setTimeout(cargarProductos, 1000);
+                } else {
+                    mostrarAlerta('❌ Error: ' + data.error, 'error');
+                }
+            } catch (error) {
+                mostrarAlerta('❌ Error al guardar producto', 'error');
+            }
+        }
+
+        // ========================================
+        // ELIMINAR PRODUCTO
+        // ========================================
+        async function eliminarProducto(id) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este producto?')) return;
+
+            try {
+                const response = await fetch(CONFIG.obtenerURL(`/productos/${id}`), {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    mostrarAlerta('✅ Producto eliminado', 'success');
+                    cargarProductos();
+                } else {
+                    mostrarAlerta('❌ Error al eliminar', 'error');
+                }
+            } catch (error) {
+                mostrarAlerta('❌ Error al eliminar producto', 'error');
+            }
+        }
+
+        // ========================================
+        // MOSTRAR ALERTA
+        // ========================================
+        function mostrarAlerta(mensaje, tipo) {
+            const container = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${tipo}`;
+            alert.textContent = mensaje;
+            container.appendChild(alert);
+
+            setTimeout(() => alert.remove(), 3000);
+        }
+
+        // ========================================
+        // LOGOUT
+        // ========================================
+        function logout() {
+            localStorage.removeItem('admin-token');
+            window.location.href = 'admin-login.html';
+        }
+    </script>
+</body>
+</html>
