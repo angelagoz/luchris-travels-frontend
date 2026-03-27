@@ -35,8 +35,12 @@ const CONFIG = {
     PAGOS: {
         CREAR: '/pagos/crear-pago',
         DIRECTO: '/pagos/pago-directo',
-        WEBHOOK: '/pagos/webhook'
+        WEBHOOK: '/pagos/webhook',
+        CONFIG: '/pagos/config'
     },
+
+    // Clave pública de Stripe
+    STRIPE_PUBLISHABLE_KEY: 'pk_test_51TFcKeAbjIysxkieV0OQLVBgjMzUadc6uSMbMYNkTKOcK1dvx8dGfDNvjfmHdtRoqkj1Y45VRRFgG61menGKuUbSS00eKRPrdc1',
 
     // Métodos auxiliares
     obtenerURL: function(endpoint) {

@@ -439,39 +439,32 @@
         // INICIALIZAR STRIPE
         // ========================================
         function inicializarStripe() {
-            // Obtener clave publicable del backend
-            fetch(CONFIG.obtenerURL('/pagos/config'))
-                .then(r => r.json())
-                .then(data => {
-                    if (data.publishableKey) {
-                        stripe = Stripe(data.publishableKey);
-                        elements = stripe.elements();
-                        cardElement = elements.create('card');
-                        cardElement.mount('#card-element');
-
-                        // Manejo de errores
-                        cardElement.on('change', (event) => {
-                            const displayError = document.getElementById('card-errors');
-                            if (event.error) {
-                                displayError.textContent = event.error.message;
-                            } else {
-                                displayError.textContent = '';
-                            }
-                        });
-                    } else {
-                        console.error('No se pudo obtener la clave de Stripe');
-                        document.getElementById('card-errors').textContent =
-                            'Error de configuración. Por favor intenta más tarde.';
-                    }
-                })
-                .catch(err => {
-                    console.error('Error al obtener clave Stripe:', err);
-                    // Usar clave pública real de Stripe
-                    stripe = Stripe('pk_test_51TFcKeAbjIysxkieV0OQLVBgjMzUadc6uSMbMYNkTKOcK1dvx8dGfDNvjfmHdtRoqkj1Y45VRRFgG61menGKuUbSS00eKRPrdc1');
+            // Usar clave pública de config.js
+            try {
+                if (CONFIG && CONFIG.STRIPE_PUBLISHABLE_KEY) {
+                    stripe = Stripe(CONFIG.STRIPE_PUBLISHABLE_KEY);
                     elements = stripe.elements();
                     cardElement = elements.create('card');
                     cardElement.mount('#card-element');
-                });
+
+                    // Manejo de errores
+                    cardElement.on('change', (event) => {
+                        const displayError = document.getElementById('card-errors');
+                        if (event.error) {
+                            displayError.textContent = event.error.message;
+                        } else {
+                            displayError.textContent = '';
+                        }
+                    });
+                    console.log('✅ Stripe cargado correctamente');
+                } else {
+                    throw new Error('Clave de Stripe no configurada');
+                }
+            } catch (err) {
+                console.error('❌ Error al inicializar Stripe:', err);
+                document.getElementById('card-errors').textContent =
+                    'Error de configuración de pago. Por favor recarga la página.';
+            }
         }
 
         // ========================================
