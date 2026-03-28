@@ -609,11 +609,11 @@
         async function subirImagenCloudinary(file) {
             const formData = new FormData();
             formData.append('file', file);
-            formData.append('upload_preset', 'luchris_travels_unsigned');
-            formData.append('cloud_name', 'duvfzsm0n');
+            formData.append('upload_preset', 'luchris_unsigned');
+            formData.append('cloud_name', 'dnjo55r9q');
 
             try {
-                const response = await fetch('https://api.cloudinary.com/v1_1/duvfzsm0n/image/upload', {
+                const response = await fetch('https://api.cloudinary.com/v1_1/dnjo55r9q/image/upload', {
                     method: 'POST',
                     body: formData
                 });
