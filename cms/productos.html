@@ -556,12 +556,6 @@
             document.getElementById('modal-producto').style.display = 'none';
         }
 
-        function logout() {
-            if (confirm('¿Estás seguro de que deseas salir?')) {
-                location.href = '../index.html';
-            }
-        }
-
         // Cerrar modal al hacer clic fuera
         window.onclick = function(event) {
             const modal = document.getElementById('modal-producto');
@@ -573,5 +567,6 @@
         // Cargar al abrir la página
         cargarProductos();
     </script>
+    <script src="auth.js"></script>
 </body>
 </html>
