@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizaciones - CMS LUCHRIS TRAVELS</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Arial; background: #f0f2f5; }
+
+        .container { display: flex; min-height: 100vh; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #1565c0;
+            color: white;
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            padding: 0 20px 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        .sidebar a:hover {
+            background: rgba(255,255,255,0.1);
+            border-left-color: #4fc3f7;
+            color: white;
+        }
+        .sidebar a.active {
+            background: rgba(255,255,255,0.2);
+            border-left-color: #4fc3f7;
+            color: white;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 280px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 { color: #333; font-size: 28px; }
+
+        /* Filters */
+        .filtros {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filtro-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filtro-group label {
+            color: #666;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .filtro-group input,
+        .filtro-group select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .btn-filtrar {
+            background: #1565c0;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            align-self: flex-end;
+        }
+
+        .btn-filtrar:hover {
+            background: #0d47a1;
+        }
+
+        /* Table */
+        .tabla-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table thead {
+            background: #f5f5f5;
+            border-bottom: 2px solid #1565c0;
+        }
+
+        table th {
+            padding: 15px;
+            text-align: left;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        /* Status badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge.pendiente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge.confirmado {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .badge.completado {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        /* Action Buttons */
+        .acciones {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-accion {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-ver {
+            background: #1565c0;
+            color: white;
+        }
+
+        .btn-ver:hover {
+            background: #0d47a1;
+        }
+
+        .btn-editar {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-editar:hover {
+            background: #388e3c;
+        }
+
+        .btn-eliminar {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-eliminar:hover {
+            background: #d32f2f;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state h2 {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1565c0;
+        }
+
+        .modal-header h2 {
+            color: #333;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .detalle-item {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .detalle-label {
+            color: #666;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .detalle-valor {
+            color: #333;
+            font-size: 14px;
+            margin-top: 3px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-modal {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-primary-modal {
+            background: #1565c0;
+            color: white;
+        }
+
+        .btn-primary-modal:hover {
+            background: #0d47a1;
+        }
+
+        .btn-secondary-modal {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary-modal:hover {
+            background: #eee;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 0; transform: translateX(-100%); }
+            .main { margin-left: 0; }
+            .header { flex-direction: column; gap: 15px; }
+            .filtros { flex-direction: column; }
+            .btn-filtrar { align-self: stretch; }
+            table { font-size: 12px; }
+            table th, table td { padding: 10px; }
+            .acciones { flex-direction: column; }
+            .btn-accion { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>🛒 LUCHRIS CMS</h2>
+            <a href="dashboard.html">📊 Dashboard</a>
+            <a href="index.html#crucero">⛴️ Cruceros</a>
+            <a href="index.html#boleto">✈️ Boletos</a>
+            <a href="index.html#disney">🏰 Disney</a>
+            <a href="index.html#tour">🗺️ Tours</a>
+            <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0;">
+            <a href="analisis.html">📈 Análisis</a>
+            <a href="cotizaciones.html" class="active">📋 Cotizaciones</a>
+            <a href="../index.html">👁️ Ver Sitio</a>
+            <a href="#" onclick="logout()">🚪 Salir</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <h1>📋 Cotizaciones</h1>
+                <div style="color: #999; font-size: 14px;">
+                    Total: <strong id="total-count">0</strong>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filtros">
+                <div class="filtro-group">
+                    <label>Buscar</label>
+                    <input type="text" id="buscar" placeholder="Nombre, email, producto...">
+                </div>
+                <div class="filtro-group">
+                    <label>Estado</label>
+                    <select id="filtro-estado">
+                        <option value="">Todos</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="confirmado">Confirmado</option>
+                        <option value="completado">Completado</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label>Tipo</label>
+                    <select id="filtro-tipo">
+                        <option value="">Todos</option>
+                        <option value="crucero">Crucero</option>
+                        <option value="boleto">Boleto</option>
+                        <option value="disney">Disney</option>
+                        <option value="tour">Tour</option>
+                    </select>
+                </div>
+                <button class="btn-filtrar" onclick="filtrarCotizaciones()">🔍 Filtrar</button>
+            </div>
+
+            <!-- Table -->
+            <div class="tabla-container">
+                <table id="tabla-cotizaciones">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-body">
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 40px;">
+                                <div class="empty-state">
+                                    <h2>📭 No hay cotizaciones</h2>
+                                    <p>Las cotizaciones solicitadas aparecerán aquí</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ver Detalles -->
+    <div id="modal-ver" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Detalles de Cotización</h2>
+                <button class="close-btn" onclick="cerrarModal('modal-ver')">&times;</button>
+            </div>
+            <div id="detalle-contenido"></div>
+            <div class="modal-footer">
+                <select id="estado-select" class="form-group" style="flex: 1; margin: 0;">
+                    <option value="pendiente">Pendiente</option>
+                    <option value="confirmado">Confirmado</option>
+                    <option value="completado">Completado</option>
+                </select>
+                <button class="btn-modal btn-primary-modal" onclick="guardarEstado()">Guardar Estado</button>
+                <button class="btn-modal btn-secondary-modal" onclick="cerrarModal('modal-ver')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cotizacionesData = [];
+        let cotizacionSeleccionada = null;
+
+        function cargarCotizaciones() {
+            // Cargar datos de la página de carrito/cotización
+            const carritoData = JSON.parse(localStorage.getItem('carrito_productos')) || [];
+            const cotizacionesGuardadas = JSON.parse(localStorage.getItem('cotizaciones')) || [];
+
+            // Combinar datos (aquí se pueden agregar más fuentes)
+            cotizacionesData = cotizacionesGuardadas.map(cot => ({
+                id: cot.id || Date.now(),
+                fecha: cot.fecha || new Date().toLocaleDateString('es-ES'),
+                nombre: cot.nombre || 'N/A',
+                email: cot.email || 'N/A',
+                tipo: cot.tipo || 'desconocido',
+                productos: cot.productos || [],
+                monto: cot.monto || 0,
+                estado: cot.estado || 'pendiente',
+                notas: cot.notas || ''
+            }));
+
+            mostrarCotizaciones(cotizacionesData);
+        }
+
+        function mostrarCotizaciones(datos) {
+            const tbody = document.getElementById('tabla-body');
+            const totalCount = document.getElementById('total-count');
+
+            if (datos.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 40px;">
+                            <div class="empty-state">
+                                <h2>📭 No hay cotizaciones</h2>
+                                <p>Las cotizaciones solicitadas aparecerán aquí</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                totalCount.textContent = '0';
+                return;
+            }
+
+            tbody.innerHTML = datos.map(cot => `
+                <tr>
+                    <td>${cot.fecha}</td>
+                    <td><strong>${cot.nombre}</strong></td>
+                    <td>${cot.tipo}</td>
+                    <td>$${parseFloat(cot.monto).toFixed(2)}</td>
+                    <td>
+                        <span class="badge ${cot.estado}">${cot.estado}</span>
+                    </td>
+                    <td>
+                        <div class="acciones">
+                            <button class="btn-accion btn-ver" onclick="verDetalles('${cot.id}')">👁️ Ver</button>
+                            <button class="btn-accion btn-eliminar" onclick="eliminarCotizacion('${cot.id}')">🗑️ Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            totalCount.textContent = datos.length;
+        }
+
+        function verDetalles(id) {
+            cotizacionSeleccionada = cotizacionesData.find(c => c.id == id);
+            if (!cotizacionSeleccionada) return;
+
+            const detalleDiv = document.getElementById('detalle-contenido');
+            detalleDiv.innerHTML = `
+                <div class="detalle-item">
+                    <div class="detalle-label">Nombre</div>
+                    <div class="detalle-valor">${cotizacionSeleccionada.nombre}</div>
+                </div>
+                <div class="detalle-item">
+                    <div class="detalle-label">Email</div>
+                    <div class="detalle-valor">${cotizacionSeleccionada.email}</div>
+                </div>
+                <div class="detalle-item">
+                    <div class="detalle-label">Tipo</div>
+                    <div class="detalle-valor">${cotizacionSeleccionada.tipo}</div>
+                </div>
+                <div class="detalle-item">
+                    <div class="detalle-label">Monto Total</div>
+                    <div class="detalle-valor" style="color: #c8102e; font-size: 18px; font-weight: bold;">
+                        $${parseFloat(cotizacionSeleccionada.monto).toFixed(2)}
+                    </div>
+                </div>
+                <div class="detalle-item">
+                    <div class="detalle-label">Fecha de Solicitud</div>
+                    <div class="detalle-valor">${cotizacionSeleccionada.fecha}</div>
+                </div>
+                ${cotizacionSeleccionada.productos.length > 0 ? `
+                    <div class="detalle-item">
+                        <div class="detalle-label">Productos</div>
+                        <div class="detalle-valor">
+                            ${cotizacionSeleccionada.productos.map(p =>
+                                `<div style="margin-top: 5px;">• ${p.nombre || p}</div>`
+                            ).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+                <div class="detalle-item">
+                    <div class="detalle-label">Estado Actual</div>
+                    <div class="detalle-valor">
+                        <span class="badge ${cotizacionSeleccionada.estado}">${cotizacionSeleccionada.estado}</span>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('estado-select').value = cotizacionSeleccionada.estado;
+            document.getElementById('modal-ver').style.display = 'block';
+        }
+
+        function guardarEstado() {
+            if (!cotizacionSeleccionada) return;
+
+            const nuevoEstado = document.getElementById('estado-select').value;
+            cotizacionSeleccionada.estado = nuevoEstado;
+
+            // Actualizar en localStorage
+            const index = cotizacionesData.findIndex(c => c.id == cotizacionSeleccionada.id);
+            if (index !== -1) {
+                cotizacionesData[index] = cotizacionSeleccionada;
+                localStorage.setItem('cotizaciones', JSON.stringify(cotizacionesData));
+            }
+
+            alert('✅ Estado actualizado correctamente');
+            cerrarModal('modal-ver');
+            mostrarCotizaciones(cotizacionesData);
+        }
+
+        function eliminarCotizacion(id) {
+            if (!confirm('¿Estás seguro de que deseas eliminar esta cotización?')) return;
+
+            cotizacionesData = cotizacionesData.filter(c => c.id != id);
+            localStorage.setItem('cotizaciones', JSON.stringify(cotizacionesData));
+            mostrarCotizaciones(cotizacionesData);
+            alert('✅ Cotización eliminada');
+        }
+
+        function filtrarCotizaciones() {
+            const buscar = document.getElementById('buscar').value.toLowerCase();
+            const estado = document.getElementById('filtro-estado').value;
+            const tipo = document.getElementById('filtro-tipo').value;
+
+            let filtrados = cotizacionesData.filter(cot => {
+                const coincideBuscar = !buscar ||
+                    cot.nombre.toLowerCase().includes(buscar) ||
+                    cot.email.toLowerCase().includes(buscar) ||
+                    cot.tipo.toLowerCase().includes(buscar);
+
+                const coincideEstado = !estado || cot.estado === estado;
+                const coincideTipo = !tipo || cot.tipo === tipo;
+
+                return coincideBuscar && coincideEstado && coincideTipo;
+            });
+
+            mostrarCotizaciones(filtrados);
+        }
+
+        function cerrarModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function logout() {
+            if (confirm('¿Estás seguro de que deseas salir?')) {
+                location.href = '../index.html';
+            }
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal-ver');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Cargar al abrir la página
+        cargarCotizaciones();
+    </script>
+</body>
+</html>
