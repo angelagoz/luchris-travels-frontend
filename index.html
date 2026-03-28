@@ -1716,56 +1716,33 @@ console.log('✅ LUCHRIS TRAVELS & TOURS — Página dinámica cargada');
 <!-- Swiper Carruseles -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<!-- Botones Flotantes - WhatsApp e Instagram -->
-<div class="floating-buttons">
-  <a href="https://wa.me/18295502847?text=Hola%20LUCHRIS%20TRAVELS%20%26%20TOURS%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios"
-     target="_blank"
-     class="float-btn whatsapp-btn"
-     title="Contactar por WhatsApp">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a6.963 6.963 0 00-6.952 6.951c0 1.93.617 3.742 1.778 5.259L2.05 19.89l2.267-.73a6.962 6.962 0 005.313 2.267h.005c3.837 0 6.953-3.114 6.953-6.951 0-1.856-.72-3.603-2.028-4.911-1.308-1.308-3.054-2.028-4.911-2.028"/>
-    </svg>
-  </a>
-
-  <a href="https://instagram.com/luchristravels"
-     target="_blank"
-     class="float-btn instagram-btn"
-     title="Seguir en Instagram">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2" fill="none"/>
-      <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
-      <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
-    </svg>
-  </a>
-</div>
+<!-- Botón WhatsApp Flotante -->
+<a href="https://wa.me/18295502847?text=Hola%20LUCHRIS%20TRAVELS%20%26%20TOURS%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios"
+   target="_blank"
+   class="whatsapp-btn"
+   title="Contactar por WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a6.963 6.963 0 00-6.952 6.951c0 1.93.617 3.742 1.778 5.259L2.05 19.89l2.267-.73a6.962 6.962 0 005.313 2.267h.005c3.837 0 6.953-3.114 6.953-6.951 0-1.856-.72-3.603-2.028-4.911-1.308-1.308-3.054-2.028-4.911-2.028"/>
+  </svg>
+</a>
 
 <style>
-.floating-buttons {
+.whatsapp-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  z-index: 999;
-}
-
-.float-btn {
   width: 60px;
   height: 60px;
+  background: #25D366;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-.whatsapp-btn {
-  background: #25D366;
   box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+  z-index: 999;
 }
 
 .whatsapp-btn:hover {
@@ -1774,24 +1751,10 @@ console.log('✅ LUCHRIS TRAVELS & TOURS — Página dinámica cargada');
   background: #20BA5A;
 }
 
-.instagram-btn {
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-  box-shadow: 0 4px 12px rgba(220, 39, 67, 0.4);
-}
-
-.instagram-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(220, 39, 67, 0.6);
-  filter: brightness(1.1);
-}
-
 @media (max-width: 768px) {
-  .float-btn {
+  .whatsapp-btn {
     width: 50px;
     height: 50px;
-  }
-
-  .floating-buttons {
     bottom: 15px;
     right: 15px;
   }
