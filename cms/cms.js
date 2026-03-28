@@ -2,7 +2,7 @@
    CMS - JAVASCRIPT
    ======================================== */
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'https://luchris-travels-backend.onrender.com/api';
 let currentType = 'crucero';
 let editingId = null;
 let allItems = [];

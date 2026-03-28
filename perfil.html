@@ -252,7 +252,7 @@
 
             try {
                 const usuario = autenticacion.obtenerUsuario();
-                const response = await fetch(`http://localhost:5000/api/reservas/usuario/${usuario.id}`, {
+                const response = await fetch(`https://luchris-travels-backend.onrender.com/api/reservas/usuario/${usuario.id}`, {
                     headers: autenticacion.obtenerHeaders()
                 });
 
