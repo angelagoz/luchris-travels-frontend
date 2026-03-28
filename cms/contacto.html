@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - CMS LUCHRIS TRAVELS</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Arial; background: #f0f2f5; }
+
+        .container { display: flex; min-height: 100vh; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #1565c0;
+            color: white;
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            padding: 0 20px 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        .sidebar a:hover {
+            background: rgba(255,255,255,0.1);
+            border-left-color: #4fc3f7;
+            color: white;
+        }
+        .sidebar a.active {
+            background: rgba(255,255,255,0.2);
+            border-left-color: #4fc3f7;
+            color: white;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 280px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 { color: #333; font-size: 28px; }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-badge {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1565c0;
+            margin-top: 5px;
+        }
+
+        .stat-badge.nuevo .stat-number {
+            color: #ff9800;
+        }
+
+        .stat-badge.respondido .stat-number {
+            color: #4caf50;
+        }
+
+        /* Filters */
+        .filtros {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filtro-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filtro-group label {
+            color: #666;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .filtro-group input,
+        .filtro-group select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Messages */
+        .mensajes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .mensaje-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #ff9800;
+            transition: all 0.3s;
+        }
+
+        .mensaje-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .mensaje-card.respondido {
+            border-left-color: #4caf50;
+            opacity: 0.8;
+        }
+
+        .mensaje-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mensaje-titulo {
+            color: #333;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .mensaje-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .mensaje-status.respondido {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .mensaje-info {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .mensaje-info strong {
+            color: #333;
+        }
+
+        .mensaje-contenido {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 15px 0;
+            max-height: 100px;
+            overflow: hidden;
+        }
+
+        .mensaje-acciones {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-mensaje {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-ver {
+            background: #1565c0;
+            color: white;
+        }
+
+        .btn-ver:hover {
+            background: #0d47a1;
+        }
+
+        .btn-eliminar {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-eliminar:hover {
+            background: #d32f2f;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #999;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state h2 {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1565c0;
+        }
+
+        .modal-header h2 {
+            color: #333;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .detalle-item {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .detalle-label {
+            color: #666;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .detalle-valor {
+            color: #333;
+            font-size: 14px;
+            margin-top: 3px;
+            word-break: break-word;
+        }
+
+        .respuesta-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-modal {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-primary-modal {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-primary-modal:hover {
+            background: #388e3c;
+        }
+
+        .btn-secondary-modal {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary-modal:hover {
+            background: #eee;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 0; transform: translateX(-100%); }
+            .main { margin-left: 0; }
+            .header { flex-direction: column; gap: 15px; }
+            .filtros { flex-direction: column; }
+            .mensajes-container { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>🛒 LUCHRIS CMS</h2>
+            <a href="dashboard.html">📊 Dashboard</a>
+            <a href="index.html#crucero">⛴️ Cruceros</a>
+            <a href="index.html#boleto">✈️ Boletos</a>
+            <a href="index.html#disney">🏰 Disney</a>
+            <a href="index.html#tour">🗺️ Tours</a>
+            <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0;">
+            <a href="analisis.html">📈 Análisis</a>
+            <a href="cotizaciones.html">📋 Cotizaciones</a>
+            <a href="productos.html">🛍️ Productos</a>
+            <a href="contacto.html" class="active">📧 Contacto</a>
+            <a href="../index.html">👁️ Ver Sitio</a>
+            <a href="#" onclick="logout()">🚪 Salir</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <h1>📧 Mensajes de Contacto</h1>
+                <div style="color: #999; font-size: 14px;">
+                    Total: <strong id="total-count">0</strong>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat-badge">
+                    <div class="stat-label">Total Mensajes</div>
+                    <div class="stat-number" id="stat-total">0</div>
+                </div>
+                <div class="stat-badge nuevo">
+                    <div class="stat-label">Sin Responder</div>
+                    <div class="stat-number" id="stat-nuevo">0</div>
+                </div>
+                <div class="stat-badge respondido">
+                    <div class="stat-label">Respondidos</div>
+                    <div class="stat-number" id="stat-respondido">0</div>
+                </div>
+            </div>
+
+            <!-- Messages Grid -->
+            <div class="mensajes-container" id="mensajes-container">
+                <div class="empty-state">
+                    <h2>📭 No hay mensajes</h2>
+                    <p>Los mensajes de contacto aparecerán aquí</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ver Mensaje -->
+    <div id="modal-mensaje" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Detalles del Mensaje</h2>
+                <button class="close-btn" onclick="cerrarModal()">&times;</button>
+            </div>
+
+            <div id="detalle-mensaje"></div>
+
+            <div class="respuesta-section" id="respuesta-section" style="display: none;">
+                <h3 style="margin-bottom: 15px; color: #333;">Enviar Respuesta</h3>
+                <div class="form-group">
+                    <label>Mensaje de Respuesta</label>
+                    <textarea id="respuesta-texto" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-modal btn-primary-modal" onclick="guardarRespuesta()" id="btn-guardar-respuesta">
+                    ✉️ Enviar Respuesta
+                </button>
+                <button class="btn-modal btn-secondary-modal" onclick="cerrarModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let mensajesData = [];
+        let mensajeSeleccionado = null;
+
+        function cargarMensajes() {
+            // Cargar mensajes de localStorage (vendrían del formulario de contacto)
+            const mensajesGuardados = JSON.parse(localStorage.getItem('mensajes_contacto')) || [];
+            mensajesData = mensajesGuardados;
+            mostrarMensajes();
+            actualizarStats();
+        }
+
+        function mostrarMensajes() {
+            const container = document.getElementById('mensajes-container');
+
+            if (mensajesData.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h2>📭 No hay mensajes</h2>
+                        <p>Los mensajes de contacto aparecerán aquí</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = mensajesData.map(msg => `
+                <div class="mensaje-card ${msg.respondido ? 'respondido' : ''}">
+                    <div class="mensaje-header">
+                        <div class="mensaje-titulo">${msg.nombre}</div>
+                        <span class="mensaje-status ${msg.respondido ? 'respondido' : ''}">
+                            ${msg.respondido ? '✓ Respondido' : '● Nuevo'}
+                        </span>
+                    </div>
+                    <div class="mensaje-info">
+                        <strong>Email:</strong> ${msg.email}<br>
+                        <strong>Teléfono:</strong> ${msg.telefono || 'N/A'}<br>
+                        <strong>Fecha:</strong> ${msg.fecha || new Date().toLocaleDateString('es-ES')}
+                    </div>
+                    <div class="mensaje-contenido">
+                        ${msg.mensaje}
+                    </div>
+                    <div class="mensaje-acciones">
+                        <button class="btn-mensaje btn-ver" onclick="verMensaje('${msg.id}')">👁️ Ver Detalles</button>
+                        <button class="btn-mensaje btn-eliminar" onclick="eliminarMensaje('${msg.id}')">🗑️ Eliminar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function verMensaje(id) {
+            mensajeSeleccionado = mensajesData.find(m => m.id === id);
+            if (!mensajeSeleccionado) return;
+
+            const detalleDiv = document.getElementById('detalle-mensaje');
+            detalleDiv.innerHTML = `
+                <div class="detalle-item">
+                    <div class="detalle-label">Nombre</div>
+                    <div class="detalle-valor">${mensajeSeleccionado.nombre}</div>
+                </div>
+                <div class="detalle-item">
+                    <div class="detalle-label">Email</div>
+                    <div class="detalle-valor">${mensajeSeleccionado.email}</div>
+                </div>
+                <div class="detalle-item">
+                    <div class="detalle-label">Teléfono</div>
+                    <div class="detalle-valor">${mensajeSeleccionado.telefono || 'No proporcionado'}</div>
+                </div>
+                <div class="detalle-item">
+                    <div class="detalle-label">Asunto</div>
+                    <div class="detalle-valor">${mensajeSeleccionado.asunto || 'N/A'}</div>
+                </div>
+                <div class="detalle-item">
+                    <div class="detalle-label">Mensaje</div>
+                    <div class="detalle-valor">${mensajeSeleccionado.mensaje}</div>
+                </div>
+                <div class="detalle-item">
+                    <div class="detalle-label">Fecha de Solicitud</div>
+                    <div class="detalle-valor">${mensajeSeleccionado.fecha || new Date().toLocaleDateString('es-ES')}</div>
+                </div>
+                ${mensajeSeleccionado.respuesta ? `
+                    <div class="detalle-item" style="background: #d1e7dd; border-left: 4px solid #4caf50;">
+                        <div class="detalle-label">Respuesta Enviada</div>
+                        <div class="detalle-valor">${mensajeSeleccionado.respuesta}</div>
+                    </div>
+                ` : ''}
+            `;
+
+            const respuestaSection = document.getElementById('respuesta-section');
+            const btnGuardar = document.getElementById('btn-guardar-respuesta');
+
+            if (mensajeSeleccionado.respondido) {
+                respuestaSection.style.display = 'none';
+                btnGuardar.textContent = '✓ Respondido';
+                btnGuardar.disabled = true;
+            } else {
+                respuestaSection.style.display = 'block';
+                btnGuardar.textContent = '✉️ Enviar Respuesta';
+                btnGuardar.disabled = false;
+                document.getElementById('respuesta-texto').value = '';
+            }
+
+            document.getElementById('modal-mensaje').style.display = 'block';
+        }
+
+        function guardarRespuesta() {
+            if (!mensajeSeleccionado) return;
+
+            const respuesta = document.getElementById('respuesta-texto').value.trim();
+            if (!respuesta) {
+                alert('Por favor escribe una respuesta');
+                return;
+            }
+
+            mensajeSeleccionado.respuesta = respuesta;
+            mensajeSeleccionado.respondido = true;
+            mensajeSeleccionado.fecha_respuesta = new Date().toLocaleDateString('es-ES');
+
+            const index = mensajesData.findIndex(m => m.id === mensajeSeleccionado.id);
+            if (index !== -1) {
+                mensajesData[index] = mensajeSeleccionado;
+                localStorage.setItem('mensajes_contacto', JSON.stringify(mensajesData));
+            }
+
+            alert('✅ Respuesta guardada correctamente');
+            cerrarModal();
+            mostrarMensajes();
+            actualizarStats();
+        }
+
+        function eliminarMensaje(id) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este mensaje?')) return;
+
+            mensajesData = mensajesData.filter(m => m.id !== id);
+            localStorage.setItem('mensajes_contacto', JSON.stringify(mensajesData));
+            mostrarMensajes();
+            actualizarStats();
+            alert('✅ Mensaje eliminado');
+        }
+
+        function actualizarStats() {
+            const total = mensajesData.length;
+            const respondidos = mensajesData.filter(m => m.respondido).length;
+            const sinResponder = total - respondidos;
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-nuevo').textContent = sinResponder;
+            document.getElementById('stat-respondido').textContent = respondidos;
+            document.getElementById('total-count').textContent = total;
+        }
+
+        function cerrarModal() {
+            document.getElementById('modal-mensaje').style.display = 'none';
+        }
+
+        function logout() {
+            if (confirm('¿Estás seguro de que deseas salir?')) {
+                location.href = '../index.html';
+            }
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal-mensaje');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Cargar al abrir la página
+        cargarMensajes();
+    </script>
+</body>
+</html>
