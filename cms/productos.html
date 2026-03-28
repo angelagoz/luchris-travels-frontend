@@ -436,8 +436,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label>URL de Imagen</label>
-                    <input type="url" id="imagen" placeholder="https://ejemplo.com/imagen.jpg">
+                    <label>Imagen del Producto</label>
+                    <input type="file" id="imagen-file" accept="image/*" onchange="previewImagen(event)">
+                    <input type="hidden" id="imagen">
+                    <div id="image-preview" style="margin-top: 10px; max-height: 150px; overflow: hidden;">
+                        <img id="preview-img" style="max-width: 100%; max-height: 150px; border-radius: 4px; display: none;">
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -488,7 +492,10 @@
 
             tbody.innerHTML = productos.map(prod => `
                 <tr>
-                    <td><strong>${prod.nombre}</strong></td>
+                    <td>
+                        ${prod.imagen ? `<img src="${prod.imagen}" style="height: 40px; width: 40px; object-fit: cover; border-radius: 4px; margin-right: 8px; vertical-align: middle;">` : '📷'}
+                        <strong>${prod.nombre}</strong>
+                    </td>
                     <td>${prod.descripcion.substring(0, 40)}...</td>
                     <td style="color: #c8102e; font-weight: bold;">$${parseFloat(prod.precio).toFixed(2)}</td>
                     <td>${prod.tipo}</td>
@@ -514,6 +521,8 @@
             document.getElementById('modal-titulo').textContent = 'Agregar Producto';
             document.getElementById('form-producto').reset();
             document.getElementById('tipo').value = tipoActual;
+            document.getElementById('preview-img').style.display = 'none';
+            document.getElementById('imagen-file').value = '';
             document.getElementById('modal-producto').style.display = 'block';
         }
 
@@ -528,6 +537,14 @@
             document.getElementById('tipo').value = productoEditando.tipo;
             document.getElementById('imagen').value = productoEditando.imagen || '';
             document.getElementById('detalles').value = productoEditando.detalles || '';
+
+            // Mostrar preview de imagen existente
+            if (productoEditando.imagen) {
+                document.getElementById('preview-img').src = productoEditando.imagen;
+                document.getElementById('preview-img').style.display = 'block';
+            } else {
+                document.getElementById('preview-img').style.display = 'none';
+            }
 
             document.getElementById('modal-producto').style.display = 'block';
         }
@@ -570,6 +587,47 @@
 
         function cerrarModal() {
             document.getElementById('modal-producto').style.display = 'none';
+        }
+
+        // Preview de imagen
+        function previewImagen(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('preview-img');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+                // Subir a Cloudinary
+                subirImagenCloudinary(file);
+            }
+        }
+
+        // Subir a Cloudinary
+        async function subirImagenCloudinary(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', 'luchris_travels_unsigned');
+            formData.append('cloud_name', 'duvfzsm0n');
+
+            try {
+                const response = await fetch('https://api.cloudinary.com/v1_1/duvfzsm0n/image/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('imagen').value = data.secure_url;
+                    console.log('Imagen subida:', data.secure_url);
+                } else {
+                    console.error('Error al subir imagen');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
 
         // Cerrar modal al hacer clic fuera
