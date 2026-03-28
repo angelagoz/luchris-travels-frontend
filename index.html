@@ -648,7 +648,16 @@ footer{
   .why-grid{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr;}
 }
+
+/* ===== SWIPER CARRUSEL ===== */
+.swiper{width:100%;height:auto;}
+.swiper-slide{display:flex;justify-content:center;}
+.swiper-button-next,.swiper-button-prev{color:#1565c0;top:50%;transform:translateY(-50%);}
+.swiper-button-next:after,.swiper-button-prev:after{font-size:24px;}
+.swiper-pagination-bullet{background:#1565c0;}
+.swiper-pagination-bullet-active{background:#c8102e;}
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 <body>
 
@@ -1711,6 +1720,38 @@ console.log('✅ LUCHRIS TRAVELS & TOURS — Página dinámica cargada');
 
 <!-- Carrito de Compras -->
 <script src="carrito-simple.js"></script>
+
+<!-- Swiper Carruseles -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  // Convertir grillas en carruseles
+  document.querySelectorAll('.grid-4, .grid-3, .grid-2').forEach((grid, idx) => {
+    // Saltar grillas que no sean de productos
+    if(grid.id && ['cruceros-grid','boletos-grid','disney-grid','universal-grid','tours-grid'].includes(grid.id)) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'swiper-wrapper';
+      const cards = grid.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.classList.add('swiper-slide');
+        wrapper.appendChild(card.cloneNode(true));
+      });
+      grid.innerHTML = `${wrapper.outerHTML}<div class="swiper-button-prev"></div><div class="swiper-button-next"></div><div class="swiper-pagination"></div>`;
+      grid.classList.add('swiper');
+      grid.classList.remove('grid-4','grid-3','grid-2');
+
+      new Swiper(grid, {
+        spaceBetween: 20,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        breakpoints: {
+          320: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1200: { slidesPerView: 4 }
+        }
+      });
+    }
+  });
+</script>
 
 </body>
 </html>
