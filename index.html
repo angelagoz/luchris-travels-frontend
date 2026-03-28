@@ -1442,12 +1442,12 @@ async function cargarUniversal() {
         return `<div class="card"><div class="card-img" style="background:#FF6B35;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">🎢</div><div class="card-body"><div class="card-cat">🎢 Universal Studios</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta" onclick="agregarCarrito('${p.nombre}', ${p.precio_base}, 'universal')">🛒 Agregar</button></div></div></div>`;
       }).join('');
     } else {
-      console.log('❌ No hay Universal o respuesta inválida');
-      grid.innerHTML = '<div class="error-message">No hay paquetes Universal disponibles en este momento.</div>';
+      console.log('❌ No hay Universal en API, mostrando paquetes de ejemplo');
+      // Dejar los paquetes de ejemplo que están en el HTML
     }
   } catch (error) {
     console.error('❌ Error cargando Universal:', error);
-    grid.innerHTML = '<div class="error-message">Error al cargar paquetes. Intenta más tarde.</div>';
+    // Dejar los paquetes de ejemplo que están en el HTML
   }
 }
 
