@@ -48,10 +48,24 @@ const translations = {
     'price.desde': 'Desde',
     'price.por_persona': 'Por persona',
 
+    // Carrito
+    'cart.title': 'Carrito de Compras',
+    'cart.empty': 'Tu carrito está vacío',
+    'cart.continue': 'Continuar comprando',
+    'cart.checkout': 'Proceder al pago',
+    'cart.total': 'Total',
+
     // Footer
     'footer.derechos': 'Todos los derechos reservados',
     'footer.contacto': 'Contacto',
     'footer.politica': 'Política de Privacidad',
+    'footer.empresa': 'LUCHRIS TRAVELS & TOURS',
+
+    // Textos comunes
+    'common.cargar': 'Cargando...',
+    'common.error': 'Algo salió mal',
+    'common.reintentar': 'Reintentar',
+    'common.cerrar': 'Cerrar',
   },
 
   en: {
@@ -102,10 +116,24 @@ const translations = {
     'price.desde': 'From',
     'price.por_persona': 'Per person',
 
+    // Carrito
+    'cart.title': 'Shopping Cart',
+    'cart.empty': 'Your cart is empty',
+    'cart.continue': 'Continue Shopping',
+    'cart.checkout': 'Proceed to Checkout',
+    'cart.total': 'Total',
+
     // Footer
     'footer.derechos': 'All rights reserved',
     'footer.contacto': 'Contact',
     'footer.politica': 'Privacy Policy',
+    'footer.empresa': 'LUCHRIS TRAVELS & TOURS',
+
+    // Textos comunes
+    'common.cargar': 'Loading...',
+    'common.error': 'Something went wrong',
+    'common.reintentar': 'Retry',
+    'common.cerrar': 'Close',
   },
 
   fr: {
@@ -156,10 +184,24 @@ const translations = {
     'price.desde': 'À partir de',
     'price.por_persona': 'Par personne',
 
+    // Carrito
+    'cart.title': 'Panier d\'Achat',
+    'cart.empty': 'Votre panier est vide',
+    'cart.continue': 'Continuer vos Achats',
+    'cart.checkout': 'Procéder au Paiement',
+    'cart.total': 'Total',
+
     // Footer
     'footer.derechos': 'Tous droits réservés',
     'footer.contacto': 'Contact',
     'footer.politica': 'Politique de Confidentialité',
+    'footer.empresa': 'LUCHRIS TRAVELS & TOURS',
+
+    // Textos comunes
+    'common.cargar': 'Chargement...',
+    'common.error': 'Une erreur s\'est produite',
+    'common.reintentar': 'Réessayer',
+    'common.cerrar': 'Fermer',
   }
 };
 
