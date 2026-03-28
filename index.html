@@ -656,8 +656,13 @@ footer{
 .swiper-button-next:after,.swiper-button-prev:after{font-size:24px;}
 .swiper-pagination-bullet{background:#1565c0;}
 .swiper-pagination-bullet-active{background:#c8102e;}
+
+/* Selector de idioma */
+.nav-lang select{padding:6px 10px;border:1px solid #ddd;border-radius:4px;cursor:pointer;font-weight:600;background:#fff;font-size:.8rem;transition:.2s;}
+.nav-lang select:hover{border-color:#1565c0;box-shadow:0 2px 4px rgba(21,101,192,0.1);}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="translations.js"></script>
 </head>
 <body>
 
@@ -689,12 +694,19 @@ footer{
       LUCHRIS <span>TRAVELS & TOURS</span>
     </div>
     <ul class="nav-menu">
-      <li><a href="#destinos">Destinos</a></li>
-      <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="#cruceros">Cruceros</a></li>
-      <li><a href="#parques">Parques</a></li>
+      <li><a href="#destinos" data-i18n="nav.destinos">Destinos</a></li>
+      <li><a href="#nosotros" data-i18n="nav.nosotros">Nosotros</a></li>
+      <li><a href="#cruceros" data-i18n="nav.cruceros">Cruceros</a></li>
+      <li><a href="#parques" data-i18n="nav.parques">Parques</a></li>
+      <li class="nav-lang">
+        <select id="lang-selector" onchange="setLanguage(this.value)" style="padding:6px 10px;border:1px solid #ddd;border-radius:4px;cursor:pointer;font-weight:600;background:#fff;">
+          <option value="es">🇪🇸 Español</option>
+          <option value="en">🇺🇸 English</option>
+          <option value="fr">🇫🇷 Français</option>
+        </select>
+      </li>
       <li class="nav-carrito"><a href="carrito-simple.html"><span class="carrito-badge" id="carrito-count">0</span>🛒 Carrito</a></li>
-      <li><a href="#cotizar" class="nav-cta">✈️ Cotizar</a></li>
+      <li><a href="#cotizar" class="nav-cta" data-i18n="nav.cotizar">✈️ Cotizar</a></li>
     </ul>
     <button class="hbg" id="hbg" onclick="openMob()">
       <span></span><span></span><span></span>
