@@ -24,7 +24,22 @@ const cruceroSchema = new mongoose.Schema({
     },
     salida: {
         type: String,
-        enum: ['Republica Dominicana', 'Miami'],
+        enum: [
+            'Republica Dominicana',
+            'Miami',
+            'Alemania',
+            'Austria',
+            'Francia',
+            'Hungría',
+            'Rumania',
+            'Holanda',
+            'Bélgica',
+            'Suiza',
+            'Italia',
+            'España',
+            'Portugal',
+            'Otros'
+        ],
         required: true
     },
     destinos: [{

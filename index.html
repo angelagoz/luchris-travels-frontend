@@ -804,7 +804,7 @@ footer{
         <div class="sec-title">Cruceros</div>
         <div class="sec-sub">Marítimos, fluviales y de lujo — todas las navieras al mejor precio</div>
       </div>
-      <a href="#cotizar" class="ver-mas">Ver todos →</a>
+      <a href="javascript:void(0)" onclick="mostrarTodosCruceros()" class="ver-mas">Ver todos →</a>
     </div>
     <div class="grid-4" id="cruceros-grid">
       <div class="card">
@@ -895,7 +895,7 @@ footer{
         <div class="sec-title">Tours & Paquetes</div>
         <div class="sec-sub">Para cada tipo de viajero — nacionales, internacionales, luna de miel y grupos</div>
       </div>
-      <a href="#cotizar" class="ver-mas">Ver todos →</a>
+      <a onclick="mostrarTodosTours()" class="ver-mas" style="cursor:pointer;">Ver todos →</a>
     </div>
     <div class="grid-4" id="tours-grid">
       <div class="card">
@@ -937,7 +937,7 @@ footer{
         <div class="sec-title">Paquetes Disney</div>
         <div class="sec-sub">Experiencias mágicas para toda la familia — Orlando, California y más</div>
       </div>
-      <a href="#cotizar" class="ver-mas">Ver todos →</a>
+      <a onclick="mostrarTodosDisney()" class="ver-mas" style="cursor:pointer;">Ver todos →</a>
     </div>
     <div class="grid-4" id="disney-grid">
       <div class="card">
@@ -969,6 +969,21 @@ footer{
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOLETOS AÉREOS ── -->
+<section class="section blanco" id="boletos-section">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <div>
+        <div class="sec-title">Boletos Aéreos</div>
+        <div class="sec-sub">Vuelos internacionales desde República Dominicana — Directos y con conexiones</div>
+      </div>
+      <a onclick="mostrarTodosBoletos()" class="ver-mas" style="cursor:pointer;">Ver todos →</a>
+    </div>
+    <div class="grid-4" id="boletos-grid">
     </div>
   </div>
 </section>
@@ -1170,7 +1185,9 @@ footer{
 <script>
 // ─── CONFIG ───
 const CONFIG = {
-  apiBase: 'https://luchris-travels-backend.onrender.com/api',
+  apiBase: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:5000/api'
+    : 'https://luchris-travels-backend.onrender.com/api',
 
   obtenerURL: function(endpoint) {
     return this.apiBase + endpoint;
@@ -1236,25 +1253,22 @@ document.querySelectorAll('.fade').forEach(el => observador.observe(el));
 
 // ─── CREAR TARJETA DE PRODUCTO ───
 function crearTarjetaProducto(producto) {
-  const foto = producto.fotos && producto.fotos.length > 0
-    ? producto.fotos[0]
-    : 'https://via.placeholder.com/500x300?text=' + encodeURIComponent(producto.nombre);
-
-  const badge = producto.tipo === 'crucero' ? '🚢 Crucero' : '✈️ Tour';
-  const badgeColor = producto.tipo === 'crucero' ? 'b-azul' : 'b-verde';
+  const esMaritimo = producto.salida === 'Miami' || producto.salida === 'Republica Dominicana' || !producto.salida;
+  const badge = esMaritimo ? '🚢 Marítimo' : '🌊 Fluvial';
+  const badgeColor = esMaritimo ? 'b-azul' : 'b-verde';
 
   return `
     <div class="card fade">
-      <div class="card-img">
-        <img src="${foto}" alt="${producto.nombre}" onerror="this.src='https://via.placeholder.com/500x300?text=${encodeURIComponent(producto.nombre)}'">
+      <div class="card-img" style="background: linear-gradient(135deg, #1565c0, #0d47a1); display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem;">
+        ${esMaritimo ? '⛴️' : '🚢'}
         <span class="badge ${badgeColor}">${badge}</span>
       </div>
       <div class="card-body">
-        <div class="card-cat">${producto.tipo === 'crucero' ? '🚢 Marítimo' : '✈️ Internacional'}</div>
+        <div class="card-cat">🚢 ${producto.naviera}</div>
         <div class="card-title">${producto.nombre}</div>
-        <div class="card-desc">${producto.descripcion || 'Experiencia inolvidable a los mejores precios.'}</div>
+        <div class="card-desc">${producto.descripcion}</div>
         <div class="card-footer">
-          <div class="precio">Desde <strong>$${producto.precio_base.toLocaleString()}</strong></div>
+          <div class="precio">Desde <strong>$999</strong></div>
           <button class="card-cta" onclick="ir('cotizar')">Cotizar</button>
         </div>
       </div>
@@ -1266,17 +1280,130 @@ function crearTarjetaProducto(producto) {
 async function cargarCruceros() {
   const grid = document.getElementById('cruceros-grid');
   try {
-    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/crucero'));
+    console.log('🔄 Cargando cruceros desde:', CONFIG.obtenerURL('/cruceros'));
+    const response = await fetch(CONFIG.obtenerURL('/cruceros'));
     const data = await response.json();
 
+    console.log('📊 Respuesta del API:', data);
+
     if (data.success && data.datos && data.datos.length > 0) {
-      grid.innerHTML = data.datos.slice(0, 4).map(p => crearTarjetaProducto(p)).join('');
+      console.log('✅ Cruceros encontrados:', data.datos.length);
+      grid.innerHTML = data.datos.slice(0, 4).map(p => {
+        const esMaritimo = p.salida === 'Miami' || p.salida === 'Republica Dominicana';
+        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">${esMaritimo ? '⛴️' : '🚢'}</div><div class="card-body"><div class="card-cat">${p.naviera}</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$999</strong></div><button class="card-cta">Cotizar</button></div></div></div>`;
+      }).join('');
     } else {
+      console.log('❌ No hay cruceros o respuesta inválida');
       grid.innerHTML = '<div class="error-message">No hay cruceros disponibles en este momento.</div>';
     }
   } catch (error) {
-    console.error('Error cargando cruceros:', error);
+    console.error('❌ Error cargando cruceros:', error);
     grid.innerHTML = '<div class="error-message">Error al cargar cruceros. Intenta más tarde.</div>';
+  }
+}
+
+// ─── CARGAR DISNEY ───
+async function cargarDisney() {
+  const grid = document.getElementById('disney-grid');
+  try {
+    console.log('🔄 Cargando Disney desde:', CONFIG.obtenerURL('/productos/tipo/disney'));
+    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/disney'));
+    const data = await response.json();
+
+    console.log('📊 Disney respuesta:', data);
+
+    if (data.success && data.datos && data.datos.length > 0) {
+      console.log('✅ Paquetes Disney encontrados:', data.datos.length);
+      grid.innerHTML = data.datos.slice(0, 4).map(p => {
+        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">🏰</div><div class="card-body"><div class="card-cat">🎢 Paquete Disney</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta">Cotizar</button></div></div></div>`;
+      }).join('');
+    } else {
+      console.log('❌ No hay Disney o respuesta inválida');
+      grid.innerHTML = '<div class="error-message">No hay paquetes Disney disponibles en este momento.</div>';
+    }
+  } catch (error) {
+    console.error('❌ Error cargando Disney:', error);
+    grid.innerHTML = '<div class="error-message">Error al cargar paquetes. Intenta más tarde.</div>';
+  }
+}
+
+// ─── CARGAR BOLETOS ───
+async function cargarBoletos() {
+  const grid = document.getElementById('boletos-grid');
+  try {
+    console.log('🔄 Cargando boletos desde:', CONFIG.obtenerURL('/productos/tipo/boleto'));
+    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/boleto'));
+    const data = await response.json();
+
+    console.log('📊 Boletos respuesta:', data);
+
+    if (data.success && data.datos && data.datos.length > 0) {
+      console.log('✅ Boletos encontrados:', data.datos.length);
+      grid.innerHTML = data.datos.slice(0, 4).map(p => {
+        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">✈️</div><div class="card-body"><div class="card-cat">🛫 Vuelo Internacional</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta">Cotizar</button></div></div></div>`;
+      }).join('');
+    } else {
+      console.log('❌ No hay boletos o respuesta inválida');
+      grid.innerHTML = '<div class="error-message">No hay boletos disponibles en este momento.</div>';
+    }
+  } catch (error) {
+    console.error('❌ Error cargando boletos:', error);
+    grid.innerHTML = '<div class="error-message">Error al cargar boletos. Intenta más tarde.</div>';
+  }
+}
+
+// ─── MOSTRAR TODOS LOS CRUCEROS ───
+async function mostrarTodosCruceros() {
+  const grid = document.getElementById('cruceros-grid');
+  try {
+    const response = await fetch(CONFIG.obtenerURL('/cruceros'));
+    const data = await response.json();
+
+    if (data.success && data.datos && data.datos.length > 0) {
+      grid.innerHTML = data.datos.map(p => {
+        const esMaritimo = p.salida === 'Miami' || p.salida === 'Republica Dominicana';
+        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">${esMaritimo ? '⛴️' : '🚢'}</div><div class="card-body"><div class="card-cat">${p.naviera}</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$999</strong></div><button class="card-cta">Cotizar</button></div></div></div>`;
+      }).join('');
+      window.scrollTo({top: grid.offsetTop - 100, behavior: 'smooth'});
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+// ─── MOSTRAR TODOS LOS DISNEY ───
+async function mostrarTodosDisney() {
+  const grid = document.getElementById('disney-grid');
+  try {
+    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/disney'));
+    const data = await response.json();
+
+    if (data.success && data.datos && data.datos.length > 0) {
+      grid.innerHTML = data.datos.map(p => {
+        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">🏰</div><div class="card-body"><div class="card-cat">🎢 Paquete Disney</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta">Cotizar</button></div></div></div>`;
+      }).join('');
+      window.scrollTo({top: grid.offsetTop - 100, behavior: 'smooth'});
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+// ─── MOSTRAR TODOS LOS BOLETOS ───
+async function mostrarTodosBoletos() {
+  const grid = document.getElementById('boletos-grid');
+  try {
+    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/boleto'));
+    const data = await response.json();
+
+    if (data.success && data.datos && data.datos.length > 0) {
+      grid.innerHTML = data.datos.map(p => {
+        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">✈️</div><div class="card-body"><div class="card-cat">🛫 Vuelo Internacional</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta">Cotizar</button></div></div></div>`;
+      }).join('');
+      window.scrollTo({top: grid.offsetTop - 100, behavior: 'smooth'});
+    }
+  } catch (error) {
+    console.error('Error:', error);
   }
 }
 
@@ -1284,17 +1411,42 @@ async function cargarCruceros() {
 async function cargarTours() {
   const grid = document.getElementById('tours-grid');
   try {
+    console.log('🔄 Cargando tours desde:', CONFIG.obtenerURL('/productos/tipo/tour'));
+    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/tour'));
+    const data = await response.json();
+
+    console.log('📊 Tours respuesta:', data);
+
+    if (data.success && data.datos && data.datos.length > 0) {
+      console.log('✅ Tours encontrados:', data.datos.length);
+      grid.innerHTML = data.datos.slice(0, 4).map(p => {
+        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">🌍</div><div class="card-body"><div class="card-cat">✈️ ${p.destino}</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta">Cotizar</button></div></div></div>`;
+      }).join('');
+    } else {
+      console.log('❌ No hay tours o respuesta inválida');
+      grid.innerHTML = '<div class="error-message">No hay tours disponibles en este momento.</div>';
+    }
+  } catch (error) {
+    console.error('❌ Error cargando tours:', error);
+    grid.innerHTML = '<div class="error-message">Error al cargar tours. Intenta más tarde.</div>';
+  }
+}
+
+// ─── MOSTRAR TODOS LOS TOURS ───
+async function mostrarTodosTours() {
+  const grid = document.getElementById('tours-grid');
+  try {
     const response = await fetch(CONFIG.obtenerURL('/productos/tipo/tour'));
     const data = await response.json();
 
     if (data.success && data.datos && data.datos.length > 0) {
-      grid.innerHTML = data.datos.slice(0, 4).map(p => crearTarjetaProducto(p)).join('');
-    } else {
-      grid.innerHTML = '<div class="error-message">No hay tours disponibles en este momento.</div>';
+      grid.innerHTML = data.datos.map(p => {
+        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">🌍</div><div class="card-body"><div class="card-cat">✈️ ${p.destino}</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta">Cotizar</button></div></div></div>`;
+      }).join('');
+      window.scrollTo({top: grid.offsetTop - 100, behavior: 'smooth'});
     }
   } catch (error) {
-    console.error('Error cargando tours:', error);
-    grid.innerHTML = '<div class="error-message">Error al cargar tours. Intenta más tarde.</div>';
+    console.error('Error:', error);
   }
 }
 
@@ -1356,10 +1508,30 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 
 // ─── INICIALIZAR ───
-window.addEventListener('load', () => {
+console.log('✅ Script cargado, inicializando...');
+
+// Ejecutar inmediatamente y también en load
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('📄 DOM cargado');
   cargarCruceros();
+  cargarDisney();
+  cargarBoletos();
   cargarTours();
 });
+
+window.addEventListener('load', () => {
+  console.log('🔄 Página completamente cargada');
+  cargarCruceros();
+  cargarDisney();
+  cargarBoletos();
+  cargarTours();
+});
+
+// Ejecutar también en el scope global
+cargarCruceros();
+cargarDisney();
+cargarBoletos();
+cargarTours();
 
 console.log('✅ LUCHRIS TRAVELS — Página dinámica cargada');
 </script>

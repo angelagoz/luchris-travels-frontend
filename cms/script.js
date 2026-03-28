@@ -18,7 +18,7 @@ const fieldsConfig = {
         { name: 'naviera', label: 'Naviera', type: 'text', required: true },
         { name: 'descripcion', label: 'Descripción', type: 'textarea', required: false },
         { name: 'duracion', label: 'Duración (días)', type: 'number', required: true },
-        { name: 'salida', label: 'Salida desde', type: 'select', options: ['Republica Dominicana', 'Miami'], required: true },
+        { name: 'salida', label: 'Salida desde', type: 'select', options: ['Republica Dominicana', 'Miami', 'Alemania', 'Austria', 'Francia', 'Hungría', 'Rumania', 'Holanda', 'Bélgica', 'Suiza', 'Italia', 'España', 'Portugal', 'Otros'], required: true },
         { name: 'servicios', label: 'Servicios (separados por coma)', type: 'textarea', required: false }
     ],
     tours: [

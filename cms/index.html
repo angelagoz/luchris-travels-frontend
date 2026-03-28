@@ -3,160 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel CMS - LUCHRIS TRAVELS</title>
+    <title>CMS - LUCHRIS TRAVELS</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="cms-container">
+    <div class="cms-wrapper">
         <!-- SIDEBAR -->
         <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>📊 CMS LUCHRIS</h2>
-                <p>Administrador de Contenido</p>
+            <div class="logo-area">
+                <h2>📊 LUCHRIS CMS</h2>
+                <p>Gestor de Productos</p>
             </div>
-            <nav class="sidebar-menu">
-                <button class="menu-item active" data-tab="cruceros">
-                    <span class="icon">⛴️</span> Cruceros
-                </button>
-                <button class="menu-item" data-tab="tours">
-                    <span class="icon">✈️</span> Tours
-                </button>
-                <button class="menu-item" data-tab="disney">
-                    <span class="icon">🎢</span> Paquetes Disney
-                </button>
-                <button class="menu-item" data-tab="hoteles">
-                    <span class="icon">🏨</span> Hoteles
-                </button>
-                <button class="menu-item" data-tab="reservas">
-                    <span class="icon">📋</span> Reservas
-                </button>
-                <button class="menu-item" data-tab="reportes">
-                    <span class="icon">📊</span> Reportes
-                </button>
+            <nav class="menu">
+                <button class="menu-btn active" data-type="crucero">⛴️ Cruceros</button>
+                <button class="menu-btn" data-type="boleto">✈️ Boletos Aéreos</button>
+                <button class="menu-btn" data-type="disney">🏰 Paquetes Disney</button>
+                <button class="menu-btn" data-type="tour">🌍 Tours</button>
             </nav>
             <div class="sidebar-footer">
-                <button class="btn-logout">🚪 Cerrar Sesión</button>
+                <a href="../index.html" class="btn-back">← Volver al sitio</a>
             </div>
         </aside>
 
-        <!-- MAIN CONTENT -->
-        <main class="main-content">
+        <!-- MAIN AREA -->
+        <main class="main-area">
             <!-- HEADER -->
-            <header class="cms-header">
-                <h1 id="page-title">Gestión de Cruceros</h1>
-                <div class="header-actions">
-                    <input type="text" id="search-input" placeholder="Buscar...">
-                    <button class="btn-nuevo" id="btn-nuevo-item">➕ Nuevo</button>
+            <header class="top-bar">
+                <h1 id="section-title">Gestión de Cruceros</h1>
+                <div class="actions">
+                    <input type="text" id="search-box" placeholder="Buscar..." class="search-input">
+                    <button id="btn-nuevo" class="btn btn-primary">+ Nuevo</button>
                 </div>
             </header>
 
-            <!-- CONTENIDO DINAMICO -->
-            <div class="content-area">
-                <!-- TAB: CRUCEROS -->
-                <div class="tab-content active" id="tab-cruceros">
-                    <div class="items-grid" id="cruceros-grid">
-                        <p class="loading">Cargando cruceros...</p>
-                    </div>
-                </div>
-
-                <!-- TAB: TOURS -->
-                <div class="tab-content" id="tab-tours">
-                    <div class="items-grid" id="tours-grid">
-                        <p class="loading">Cargando tours...</p>
-                    </div>
-                </div>
-
-                <!-- TAB: DISNEY -->
-                <div class="tab-content" id="tab-disney">
-                    <div class="items-grid" id="disney-grid">
-                        <p class="loading">Cargando paquetes Disney...</p>
-                    </div>
-                </div>
-
-                <!-- TAB: HOTELES -->
-                <div class="tab-content" id="tab-hoteles">
-                    <div class="items-grid" id="hoteles-grid">
-                        <p class="loading">Cargando hoteles...</p>
-                    </div>
-                </div>
-
-                <!-- TAB: RESERVAS -->
-                <div class="tab-content" id="tab-reservas">
-                    <div class="reservas-table">
-                        <table id="reservas-tabla">
-                            <thead>
-                                <tr>
-                                    <th>ID Reserva</th>
-                                    <th>Usuario</th>
-                                    <th>Crucero</th>
-                                    <th>Fecha</th>
-                                    <th>Total</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="reservas-tbody">
-                                <tr><td colspan="7" class="loading">Cargando reservas...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- TAB: REPORTES -->
-                <div class="tab-content" id="tab-reportes">
-                    <div class="reportes-container">
-                        <div class="reporte-card">
-                            <h4>Ventas Totales</h4>
-                            <p id="total-ventas" class="reporte-valor">$0.00</p>
-                        </div>
-                        <div class="reporte-card">
-                            <h4>Reservas Confirmadas</h4>
-                            <p id="reservas-confirmadas" class="reporte-valor">0</p>
-                        </div>
-                        <div class="reporte-card">
-                            <h4>Clientes Registrados</h4>
-                            <p id="clientes-registrados" class="reporte-valor">0</p>
-                        </div>
-                        <div class="reporte-card">
-                            <h4>Cruceros Activos</h4>
-                            <p id="cruceros-activos" class="reporte-valor">0</p>
-                        </div>
-                    </div>
+            <!-- CONTENT -->
+            <div class="content-main">
+                <div id="items-container" class="items-list">
+                    <p class="loading-text">Cargando...</p>
                 </div>
             </div>
         </main>
-    </div>
 
-    <!-- MODAL: CREAR/EDITAR -->
-    <div class="modal" id="modal-editar">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">Nuevo Crucero</h2>
-                <button class="btn-cerrar">&times;</button>
-            </div>
-            <form id="form-editar" class="form-editar">
-                <!-- Los campos se generan dinámicamente según el tipo -->
-                <div id="form-fields"></div>
-                <div class="form-actions">
-                    <button type="submit" class="btn-guardar">💾 Guardar</button>
-                    <button type="button" class="btn-cancelar">✕ Cancelar</button>
+        <!-- MODAL FORM -->
+        <div id="modal-form" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">Nuevo Producto</h2>
+                    <button class="btn-close" id="btn-close-modal">✕</button>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL: CONFIRMAR ELIMINACION -->
-    <div class="modal" id="modal-confirmar">
-        <div class="modal-content small">
-            <h3>¿Estás seguro?</h3>
-            <p id="confirm-message">¿Deseas eliminar este elemento?</p>
-            <div class="form-actions">
-                <button class="btn-eliminar">🗑️ Eliminar</button>
-                <button class="btn-cancelar">Cancelar</button>
+                <form id="form-producto" class="form-producto">
+                    <div id="form-fields"></div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="btn-cancelar">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="cms.js"></script>
 </body>
 </html>

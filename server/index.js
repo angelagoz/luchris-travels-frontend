@@ -18,6 +18,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ========================================
+// SERVIR ARCHIVOS ESTÁTICOS (CMS y Frontend)
+// ========================================
+
+app.use('/cms', express.static('../cms'));
+app.use(express.static('../'));
+
+// ========================================
 // CONEXION A MONGODB
 // ========================================
 

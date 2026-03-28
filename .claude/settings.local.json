@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(curl -X POST https://luchris-travels-backend.onrender.com/api/cruceros -H \"Content-Type: application/json\" -d '{:*)"
+      "Bash(curl -X POST https://luchris-travels-backend.onrender.com/api/cruceros -H \"Content-Type: application/json\" -d '{:*)",
+      "WebSearch"
     ]
   }
 }
