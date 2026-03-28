@@ -227,16 +227,46 @@
     // Cargar productos
     async function cargarProductos() {
       try {
-        const url = CONFIG.obtenerURL(`/productos/tipo/${tipo}`);
-        console.log('📍 Cargando desde:', url);
+        let productos = [];
 
-        const response = await fetch(url);
-        const data = await response.json();
+        // Si es Disney, cargar también Universal
+        if (tipo === 'disney') {
+          const urlDisney = CONFIG.obtenerURL(`/productos/tipo/disney`);
+          const urlUniversal = CONFIG.obtenerURL(`/productos/tipo/universal`);
+
+          console.log('📍 Cargando Disney desde:', urlDisney);
+          console.log('📍 Cargando Universal desde:', urlUniversal);
+
+          const [responseDisney, responseUniversal] = await Promise.all([
+            fetch(urlDisney),
+            fetch(urlUniversal)
+          ]);
+
+          const dataDisney = await responseDisney.json();
+          const dataUniversal = await responseUniversal.json();
+
+          if (dataDisney.success && dataDisney.datos) {
+            productos = [...productos, ...dataDisney.datos];
+          }
+          if (dataUniversal.success && dataUniversal.datos) {
+            productos = [...productos, ...dataUniversal.datos];
+          }
+        } else {
+          const url = CONFIG.obtenerURL(`/productos/tipo/${tipo}`);
+          console.log('📍 Cargando desde:', url);
+
+          const response = await fetch(url);
+          const data = await response.json();
+
+          if (data.success && data.datos) {
+            productos = data.datos;
+          }
+        }
 
         const grid = document.getElementById('catalogo-grid');
 
-        if (data.success && data.datos && data.datos.length > 0) {
-          grid.innerHTML = data.datos.map(p => `
+        if (productos.length > 0) {
+          grid.innerHTML = productos.map(p => `
             <div class="catalogo-card">
               <img src="${p.fotos && p.fotos.length > 0 ? p.fotos[0].url : 'https://via.placeholder.com/300x200?text=Producto'}" alt="${p.nombre}">
               <div class="catalogo-card-body">
