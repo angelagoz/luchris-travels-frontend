@@ -5,15 +5,6 @@
 const express = require('express');
 const router = express.Router();
 const Cotizacion = require('../models/Cotizacion');
-const {
-    enviarConfirmacionCotizacion,
-    enviarNotificacionAdmin,
-    enviarRespuestaCliente
-} = require('../services/emailService');
-const {
-    generarReporteCotizacion,
-    generarReporteEstadisticas
-} = require('../services/pdfService');
 
 // ========================================
 // POST - CREAR NUEVA COTIZACIÓN
@@ -21,46 +12,39 @@ const {
 
 router.post('/', async (req, res) => {
     try {
-        const { nombre, email, telefono, fecha, camarote, pasajeros, comentarios } = req.body;
+        const { nombre, email, telefono, fecha, camarote, pasajeros, comentarios, items, monto_total } = req.body;
 
         // Validación básica
-        if (!nombre || !email || !telefono || !fecha || !camarote || !pasajeros) {
+        if (!nombre || !email) {
             return res.status(400).json({
                 success: false,
-                error: 'Faltan campos requeridos'
+                error: 'Nombre y email son requeridos'
             });
         }
 
-        // Crear nueva cotización
+        // Crear nueva cotización (soporta dos tipos: reserva específica o carrito)
         const cotizacion = new Cotizacion({
             nombre,
             email,
-            telefono,
-            fecha,
-            camarote,
-            pasajeros,
-            comentarios: comentarios || ''
+            telefono: telefono || '',
+            fecha: fecha || new Date(),
+            camarote: camarote || 'No especificado',
+            pasajeros: pasajeros || 1,
+            comentarios: comentarios || '',
+            // Nuevos campos para cotizaciones de carrito
+            items: items || [],
+            monto_total: monto_total || 0,
+            tipo: items ? 'carrito' : 'reserva'
         });
 
         await cotizacion.save();
 
-        // Enviar emails (no fallar si hay error)
-        try {
-            // Email de confirmación al cliente
-            await enviarConfirmacionCotizacion(cotizacion);
-
-            // Email de notificación al admin
-            const emailAdmin = process.env.ADMIN_EMAIL || 'luchristravels@gmail.com';
-            await enviarNotificacionAdmin(cotizacion, emailAdmin);
-
-        } catch (emailError) {
-            console.log('⚠️ Error enviando emails:', emailError.message);
-            // Continuar aunque falle el email
-        }
+        console.log(`✅ Cotización creada: ${cotizacion._id}`);
 
         res.status(201).json({
             success: true,
             mensaje: 'Cotización recibida correctamente',
+            cotizacion_id: cotizacion._id,
             cotizacionId: cotizacion._id
         });
 
@@ -198,38 +182,6 @@ router.delete('/:id', async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            error: error.message
-        });
-    }
-});
-
-// ========================================
-// GET - GENERAR PDF DE UNA COTIZACIÓN
-// ========================================
-
-router.get('/:id/pdf', async (req, res) => {
-    try {
-        await generarReporteCotizacion(req.params.id, res);
-    } catch (error) {
-        console.error('Error generando PDF de cotización:', error);
-        res.status(500).json({
-            success: false,
-            error: error.message
-        });
-    }
-});
-
-// ========================================
-// GET - GENERAR PDF DE ESTADÍSTICAS
-// ========================================
-
-router.get('/reporte/estadisticas', async (req, res) => {
-    try {
-        await generarReporteEstadisticas(res);
-    } catch (error) {
-        console.error('Error generando PDF de estadísticas:', error);
         res.status(500).json({
             success: false,
             error: error.message

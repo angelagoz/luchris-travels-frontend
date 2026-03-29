@@ -137,53 +137,55 @@ router.get('/estado/:sessionId', async (req, res) => {
 });
 
 // ========================================
-// POST - PROCESAR PAGO MANUAL (TARJETA)
+// POST - PROCESAR PAGO DIRECTO CON PAYMENT METHOD
 // ========================================
 
 router.post('/pago-directo', async (req, res) => {
     try {
-        const { reservaId, token, monto } = req.body;
+        const { paymentMethodId, email, nombre, monto, items } = req.body;
 
-        if (!reservaId || !token || !monto) {
+        if (!paymentMethodId || !monto) {
             return res.status(400).json({
                 success: false,
                 error: 'Faltan campos requeridos'
             });
         }
 
-        // Crear cargo en Stripe
-        const charge = await stripe.charges.create({
-            amount: Math.round(monto * 100),
+        // Crear Payment Intent
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: Math.round(monto),
             currency: 'usd',
-            source: token,
-            description: `Reserva #${reservaId}`
+            payment_method: paymentMethodId,
+            confirm: true,
+            return_url: process.env.FRONTEND_URL || 'http://localhost:5000',
+            receipt_email: email,
+            description: `Pago de viaje - ${nombre}`,
+            metadata: {
+                email: email,
+                nombre: nombre,
+                itemCount: items ? items.length : 0
+            }
         });
 
-        // Actualizar reserva
-        const reserva = await Reserva.findByIdAndUpdate(
-            reservaId,
-            {
-                estado: 'pagada',
-                pago: {
-                    metodo: 'tarjeta',
-                    transaccionId: charge.id,
-                    fecha: new Date(),
-                    monto: monto
-                }
-            },
-            { new: true }
-        );
-
-        res.json({
-            success: true,
-            mensaje: 'Pago procesado exitosamente',
-            transaccionId: charge.id,
-            reserva
-        });
+        if (paymentIntent.status === 'succeeded' || paymentIntent.status === 'processing') {
+            res.json({
+                success: true,
+                message: 'Pago procesado exitosamente',
+                paymentIntentId: paymentIntent.id,
+                status: paymentIntent.status
+            });
+        } else {
+            res.json({
+                success: false,
+                error: 'El pago no se completó',
+                status: paymentIntent.status
+            });
+        }
     } catch (error) {
+        console.error('Error en pago directo:', error);
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message || 'Error al procesar el pago'
         });
     }
 });

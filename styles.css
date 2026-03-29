@@ -1419,3 +1419,484 @@ a:hover {
         width: 100%;
     }
 }
+
+/* ========================================
+   MEJORAS MODERNAS - ANIMACIONES Y DISEÑO
+   ======================================== */
+
+/* Animaciones modernas */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(22, 101, 192, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(22, 101, 192, 0);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Mejoras de colores con gradientes modernos */
+:root {
+    --gradient-primary: linear-gradient(135deg, #003366 0%, #1565c0 100%);
+    --gradient-secondary: linear-gradient(135deg, #E63946 0%, #FF6B6B 100%);
+    --gradient-accent: linear-gradient(135deg, #2E8B9E 0%, #00BCD4 100%);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Mejoras de tipografía */
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 2.25rem;
+}
+
+p {
+    line-height: 1.8;
+    letter-spacing: 0.3px;
+}
+
+/* Mejora de cards - Hover effects modernos */
+.card {
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-img {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.3s ease;
+}
+
+.card:hover .card-img::after {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+/* Botones mejorados */
+.btn, button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary, .btn-cta, .card-cta {
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover, .btn-cta:hover, .card-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, #0d47a1 0%, #0d47a1 100%);
+}
+
+/* Contenedores con espaciado mejorado */
+.container {
+    padding: 32px 24px;
+}
+
+/* Skeleton loading (placeholder moderno) */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 8px;
+}
+
+.skeleton-card {
+    height: 280px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+/* Producto detalle - Estilos consolidados */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+}
+
+.product-images {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.main-image {
+    width: 100%;
+    height: 400px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    animation: fadeIn 0.6s ease;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.gallery img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s;
+}
+
+.gallery img:hover, .gallery img.active {
+    opacity: 1;
+    border: 2px solid #1565c0;
+    transform: scale(1.05);
+}
+
+.product-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    color: #1a1a2e;
+    animation: fadeInUp 0.6s ease;
+}
+
+.product-cat {
+    display: inline-block;
+    background: #00bcd4;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.6s ease 0.1s backwards;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.stars {
+    color: #ff9800;
+}
+
+.description {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    font-size: 1rem;
+    animation: fadeInUp 0.6s ease 0.2s backwards;
+}
+
+.price-section {
+    border-top: 2px solid #e8e8e8;
+    padding-top: 30px;
+    margin-top: 30px;
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #c8102e;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.6s ease 0.3s backwards;
+}
+
+.price-label {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+/* Formulario de cotización mejorado */
+.cotization-form {
+    background: linear-gradient(135deg, #f8f9fa 0%, #f0f1f3 100%);
+    padding: 24px;
+    border-radius: 12px;
+    margin-top: 20px;
+    border-left: 4px solid #1565c0;
+}
+
+.cotization-form h3 {
+    margin-bottom: 20px;
+    color: #0f172a;
+    font-size: 1.1rem;
+}
+
+.cotization-form h4 {
+    margin-bottom: 12px;
+    color: #0f172a;
+    font-size: 0.95rem;
+}
+
+.cotization-form input,
+.cotization-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.cotization-form input:focus,
+.cotization-form select:focus {
+    outline: none;
+    border-color: #1565c0;
+    box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+}
+
+.cotization-form button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+}
+
+.cotization-form button:first-of-type {
+    background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+    animation: fadeInUp 0.6s ease 0.4s backwards;
+}
+
+.cotization-form button:first-of-type:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(21, 101, 192, 0.4);
+}
+
+.cotization-form button:last-of-type {
+    background: #25d366;
+    color: white;
+}
+
+.cotization-form button:last-of-type:hover {
+    background: #1fa857;
+    transform: translateY(-2px);
+}
+
+/* Pasajero selectors */
+.pasajero-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 6px;
+    transition: all 0.2s;
+}
+
+.pasajero-selector:focus-within {
+    border-color: #1565c0;
+    box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+}
+
+.pasajero-selector button {
+    background: #f0f0f0;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.pasajero-selector button:hover {
+    background: #e0e0e0;
+    transform: scale(1.1);
+}
+
+.pasajero-selector input {
+    width: 45px;
+    text-align: center;
+    border: none;
+    font-weight: bold;
+    background: transparent;
+}
+
+/* Details section */
+.details {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 2px solid #e8e8e8;
+}
+
+.details h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    margin-bottom: 20px;
+}
+
+.detail-label {
+    color: #1565c0;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.detail-value {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Loading y Error states */
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e8e8e8;
+    border-top: 4px solid #1565c0;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error {
+    background: #ffebee;
+    color: #c8102e;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    animation: fadeInUp 0.3s ease;
+}
+
+/* Responsive improvements */
+@media(max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .product-info h1 {
+        font-size: 1.8rem;
+    }
+
+    .price {
+        font-size: 2rem;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        padding: 20px 16px;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+    }
+}

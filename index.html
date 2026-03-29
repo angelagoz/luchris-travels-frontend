@@ -3,1762 +3,1412 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luchris Travels & Tours — Agencia de Viajes</title>
+<title>Luchris Travels Tours — Cruceros · Parques · Tours · Baní RD</title>
+<meta name="description" content="Agencia de viajes en Baní, RD. Especialistas en cruceros, Disney, Universal y tours nacionales e internacionales.">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ===== BASE ===== */
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#1a1a2e;}
-a{text-decoration:none;color:inherit;}
-ul{list-style:none;}
 
-/* ===== TOPBAR ===== */
-.topbar{
-  background:#c8102e;
-  color:#fff;
-  font-size:.78rem;
-  font-weight:600;
-  padding:0;
-  text-align:center;
-}
-.topbar-inner{
-  max-width:1200px;
-  margin:0 auto;
-  display:flex;
-  justify-content:center;
-  gap:32px;
-  padding:7px 24px;
-  flex-wrap:wrap;
-}
-.topbar-item{
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-.topbar-icon{
-  font-size:1rem;
-}
-.topbar a{color:#fff;text-decoration:underline;}
+/* =============================================
+   RESET & BASE
+============================================= */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body { font-family:'Nunito', sans-serif; background:#f7f9fc; color:#222; overflow-x:hidden; }
+a { text-decoration:none; color:inherit; }
+ul { list-style:none; }
+img { display:block; max-width:100%; }
 
-/* ===== NAVBAR ===== */
-.navbar{
-  background:#fff;
-  border-bottom:2px solid #e8e8e8;
-  position:sticky;top:0;z-index:999;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-.nav-inner{
-  max-width:1200px;margin:0 auto;
-  padding:0 24px;height:68px;
-  display:flex;align-items:center;gap:16px;
-}
-.brand{
-  font-size:1.5rem;font-weight:900;
-  color:#1565c0;letter-spacing:-.02em;
-  display:flex;align-items:center;gap:6px;
-}
-.brand span{color:#c8102e;}
-.logo-img{
-  height:52px;
-  width:auto;
-  object-fit:contain;
-  display:block;
-}
-.nav-menu{display:flex;align-items:center;gap:8px;margin-left:auto;}
-.nav-menu li{display:flex;align-items:center;}
-.nav-menu a{
-  font-size:.8rem;font-weight:700;
-  color:#333;padding:10px 16px;
-  border-radius:6px;transition:.2s;
-  white-space:nowrap;
-  display:flex;align-items:center;gap:6px;
-  position:relative;
-}
-.nav-menu a:hover{background:#e8f0fe;color:#1565c0;}
-.nav-carrito a{padding:10px 12px;}
-.carrito-badge{
-  position:absolute;top:-6px;right:0;
-  background:#c8102e;color:#fff;
-  width:18px;height:18px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.65rem;font-weight:bold;
-}
-.nav-cta{
-  background:#c8102e;color:#fff;
-  padding:10px 20px;border-radius:6px;
-  font-weight:800;font-size:.8rem;
-  transition:.2s;
-  display:flex;align-items:center;gap:6px;
-}
-.nav-cta:hover{background:#a50e25;color:#fff;}
-
-/* Hamburger */
-.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;margin-left:auto;}
-.hbg span{width:24px;height:2px;background:#333;border-radius:2px;display:block;transition:.3s;}
-.hbg.x span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-.hbg.x span:nth-child(2){opacity:0;}
-.hbg.x span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-.mob-nav{
-  display:none;position:fixed;
-  inset:0;top:68px;background:#fff;
-  z-index:998;flex-direction:column;
-  padding:20px;gap:6px;
-  border-top:2px solid #e8e8e8;
-}
-.mob-nav.open{display:flex;}
-.mob-nav a{font-size:1rem;font-weight:700;padding:14px 16px;border-radius:8px;color:#333;transition:.2s;}
-.mob-nav a:hover{background:#e8f0fe;color:#1565c0;}
-.mob-nav .nav-cta{text-align:center;margin-top:8px;}
-
-/* ===== HERO BANNER ===== */
-.hero{
-  position:relative;
-  height:520px;
-  overflow:hidden;
-  background:#0b1f3a;
-}
-.hero-slide{
-  position:absolute;inset:0;
-  opacity:0;transition:opacity 1.2s ease;
-}
-.hero-slide.active{opacity:1;}
-.hero-slide img{
-  width:100%;height:100%;
-  object-fit:cover;object-position:center;
-}
-.hero-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(
-    to right,
-    rgba(10,30,70,.85) 0%,
-    rgba(10,30,70,.55) 50%,
-    rgba(10,30,70,.2) 100%
-  );
-}
-.hero-text{
-  position:absolute;inset:0;z-index:2;
-  display:flex;flex-direction:column;
-  justify-content:center;
-  padding:0 72px;
-  max-width:680px;
-}
-.hero-text .tag{
-  display:inline-block;
-  background:#c8102e;color:#fff;
-  font-size:.65rem;font-weight:800;
-  letter-spacing:.18em;text-transform:uppercase;
-  padding:6px 16px;border-radius:50px;
-  margin-bottom:16px;width:fit-content;
-}
-.hero-text h1{
-  font-size:clamp(1.9rem,4vw,3rem);
-  font-weight:900;color:#fff;
-  line-height:1.15;margin-bottom:12px;
-}
-.hero-text p{
-  font-size:.95rem;color:rgba(255,255,255,.88);
-  line-height:1.7;margin-bottom:28px;
-}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
-.btn-red{
-  background:#c8102e;color:#fff;
-  padding:14px 30px;border-radius:8px;
-  font-weight:800;font-size:.85rem;
-  border:none;cursor:pointer;transition:.2s;
-}
-.btn-red:hover{background:#a50e25;}
-.btn-white{
-  background:#fff;color:#1565c0;
-  padding:14px 30px;border-radius:8px;
-  font-weight:800;font-size:.85rem;
-  border:2px solid #fff;cursor:pointer;transition:.2s;
-}
-.btn-white:hover{background:transparent;color:#fff;border-color:#fff;}
-
-/* Hero controls */
-.hero-dots{
-  position:absolute;bottom:20px;left:72px;
-  display:flex;gap:8px;z-index:3;
-}
-.hdot{
-  width:9px;height:9px;border-radius:50%;
-  background:rgba(255,255,255,.4);
-  border:1px solid rgba(255,255,255,.7);
-  cursor:pointer;transition:.3s;
-}
-.hdot.active{background:#fff;transform:scale(1.3);}
-.harr{
-  position:absolute;top:50%;
-  transform:translateY(-50%);z-index:3;
-  width:40px;height:40px;border-radius:50%;
-  background:rgba(255,255,255,.15);
-  border:1px solid rgba(255,255,255,.4);
-  color:#fff;font-size:1.2rem;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:.3s;
-}
-.harr:hover{background:rgba(255,255,255,.35);}
-.harr.l{left:16px;}.harr.r{right:16px;}
-
-/* ===== BUSCADOR ===== */
-.search-section{
-  background:#fff;
-  padding:0 24px;
-}
-.search-box{
-  max-width:1000px;margin:-44px auto 0;
-  position:relative;z-index:10;
-  background:#fff;
-  border-radius:14px;
-  box-shadow:0 8px 40px rgba(0,0,0,.15);
-  overflow:hidden;
-}
-.search-tabs{
-  display:flex;
-  border-bottom:2px solid #f0f0f0;
-  background:#f8f9ff;
-}
-.stab{
-  flex:1;padding:14px 10px;
-  text-align:center;
-  font-size:.8rem;font-weight:700;
-  color:#666;cursor:pointer;
-  border-bottom:3px solid transparent;
-  transition:.2s;white-space:nowrap;
-}
-.stab:hover{color:#1565c0;background:#fff;}
-.stab.on{
-  color:#1565c0;
-  border-bottom-color:#1565c0;
-  background:#fff;
-}
-.search-fields{
-  padding:20px 24px;
-  display:flex;gap:12px;
-  align-items:flex-end;flex-wrap:wrap;
-}
-.sf{
-  display:flex;flex-direction:column;
-  gap:5px;flex:1;min-width:140px;
-}
-.sf label{
-  font-size:.62rem;font-weight:800;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:#999;
-}
-.sf select,.sf input{
-  border:1.5px solid #e0e0e0;
-  border-radius:8px;padding:11px 13px;
-  font-size:.88rem;font-weight:600;
-  color:#222;outline:none;
-  font-family:inherit;
-  background:#fff;transition:.2s;
-}
-.sf select:focus,.sf input:focus{border-color:#1565c0;}
-.sf input::placeholder{color:#bbb;font-weight:400;}
-.btn-buscar{
-  background:#1565c0;color:#fff;
-  padding:12px 28px;border-radius:8px;
-  font-size:.88rem;font-weight:800;
-  border:none;cursor:pointer;
-  white-space:nowrap;transition:.2s;
-}
-.btn-buscar:hover{background:#1976d2;}
-
-/* ===== TRUST BAR ===== */
-.trust{
-  background:#f8f9ff;
-  border-top:1px solid #e8e8e8;
-  border-bottom:1px solid #e8e8e8;
-  padding:14px 24px;
-  margin-top:48px;
-}
-.trust-inner{
-  max-width:1200px;margin:0 auto;
-  display:flex;justify-content:space-around;
-  flex-wrap:wrap;gap:12px;
-}
-.ti{
-  display:flex;align-items:center;gap:8px;
-  font-size:.8rem;font-weight:700;color:#444;
+/* =============================================
+   VARIABLES
+============================================= */
+:root {
+  --blue:   #1565c0;
+  --blue2:  #1976d2;
+  --sky:    #e8f4fd;
+  --red:    #c8102e;
+  --gold:   #f5a623;
+  --dark:   #1a2340;
+  --gray:   #6b7280;
+  --light:  #f7f9fc;
+  --white:  #ffffff;
+  --border: #e5e7eb;
+  --radius: 12px;
+  --shadow: 0 2px 16px rgba(0,0,0,.08);
+  --shadow2:0 8px 32px rgba(0,0,0,.12);
 }
 
-/* ===== SECCIONES ===== */
-.section{padding:60px 24px;}
-.section.gris{background:#f7f8fc;}
-.section.blanco{background:#fff;}
-.wrap{max-width:1200px;margin:0 auto;}
+/* =============================================
+   NAVBAR
+============================================= */
+#nav {
+  position: fixed; top:0; left:0; width:100%; z-index:999;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  height: 70px;
+  display: flex; align-items: center;
+  padding: 0 40px;
+  gap: 32px;
+  box-shadow: 0 1px 8px rgba(0,0,0,.06);
+  transition: box-shadow .3s;
+}
+#nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.12); }
 
-.sec-head{
-  display:flex;justify-content:space-between;
-  align-items:flex-end;margin-bottom:28px;
-  flex-wrap:wrap;gap:12px;
-}
-.sec-title{
-  font-size:1.5rem;font-weight:900;
-  color:#0b1f3a;
-}
-.sec-sub{font-size:.86rem;color:#888;margin-top:4px;}
-.ver-mas{
-  font-size:.8rem;font-weight:700;
-  color:#1565c0;border:1.5px solid #1565c0;
-  padding:7px 16px;border-radius:7px;transition:.2s;
-}
-.ver-mas:hover{background:#1565c0;color:#fff;}
-
-/* ===== CARDS ===== */
-.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-
-.card{
-  background:#fff;border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 2px 14px rgba(0,0,0,.07);
-  transition:.25s;cursor:pointer;
-}
-.card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 12px 32px rgba(0,0,0,.13);
-}
-.card-img{
-  position:relative;height:190px;
-  overflow:hidden;
-  background:#f0f0f0;
-}
-.card-img img{
-  width:100%;height:100%;
-  object-fit:cover;transition:.6s;
-}
-.card:hover .card-img img{transform:scale(1.06);}
-.badge{
-  position:absolute;top:10px;left:10px;
-  font-size:.6rem;font-weight:800;
-  letter-spacing:.08em;text-transform:uppercase;
-  padding:4px 12px;border-radius:50px;
-}
-.b-azul{background:#1565c0;color:#fff;}
-.b-rojo{background:#c8102e;color:#fff;}
-.b-dorado{background:#f5a623;color:#0b1f3a;}
-.b-verde{background:#2e7d32;color:#fff;}
-.card-body{padding:14px 16px 18px;}
-.card-cat{
-  font-size:.65rem;font-weight:700;
-  color:#1565c0;text-transform:uppercase;
-  letter-spacing:.1em;margin-bottom:5px;
-}
-.card-title{
-  font-size:.96rem;font-weight:800;
-  color:#0b1f3a;margin-bottom:6px;line-height:1.3;
-}
-.card-desc{
-  font-size:.78rem;color:#777;
-  line-height:1.65;margin-bottom:13px;
-}
-.card-footer{
-  display:flex;align-items:center;
-  justify-content:space-between;
-}
-.precio{font-size:.72rem;color:#999;}
-.precio strong{font-size:1.1rem;color:#0b1f3a;font-weight:900;}
-.card-cta{
-  background:#1565c0;color:#fff;
-  padding:8px 16px;border-radius:6px;
-  font-size:.74rem;font-weight:800;
-  border:none;cursor:pointer;transition:.2s;
-}
-.card-cta:hover{background:#1976d2;}
-
-/* ===== LOADING STATE ===== */
-.loading-container{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-  padding:20px 0;
-}
-.loading-card{
-  background:#f0f0f0;border-radius:12px;
-  height:300px;animation:pulse 2s infinite;
-}
-@keyframes pulse{
-  0%,100%{opacity:.7;}
-  50%{opacity:1;}
+.nav-logo img {
+  height: 52px; width: auto;
+  border-radius: 6px;
 }
 
-/* ===== PARQUES — CARDS GRANDES ===== */
-.park-card{
-  border-radius:12px;overflow:hidden;
-  position:relative;height:420px;
-  cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.12);
-  transition:.3s;
+.nav-links {
+  display: flex; align-items: center; gap: 6px;
+  margin-left: auto;
 }
-.park-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 16px 40px rgba(0,0,0,.2);
+.nav-links a {
+  font-size: .82rem; font-weight: 700;
+  color: var(--dark); padding: 8px 14px;
+  border-radius: 8px;
+  transition: background .2s, color .2s;
+  white-space: nowrap;
 }
-.park-card img{
-  width:100%;height:100%;
-  object-fit:cover;transition:.6s;
+.nav-links a:hover { background: var(--sky); color: var(--blue); }
+.nav-links .btn-cta {
+  background: var(--blue); color: var(--white);
+  padding: 9px 22px; border-radius: 8px;
+  font-weight: 800; font-size: .82rem;
 }
-.park-card:hover img{transform:scale(1.04);}
-.park-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(
-    to top,rgba(0,0,0,.88) 0%,
-    rgba(0,0,0,.2) 60%,transparent 100%
-  );
+.nav-links .btn-cta:hover { background: var(--blue2); color: var(--white); }
+
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; margin-left: auto;
 }
-.park-body{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:28px 26px;
+.hamburger span {
+  width: 24px; height: 2px;
+  background: var(--dark); display: block; border-radius: 2px;
+  transition: .3s;
 }
-.park-tag{
-  display:inline-block;
-  font-size:.62rem;font-weight:800;
-  letter-spacing:.14em;text-transform:uppercase;
-  padding:5px 14px;border-radius:50px;
-  margin-bottom:10px;
+.hamburger.x span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
+.hamburger.x span:nth-child(2){ opacity:0; }
+.hamburger.x span:nth-child(3){ transform:rotate(-45deg) translate(5px,-5px); }
+
+.mob-menu {
+  display: none; position: fixed; inset:0; top:70px;
+  background: var(--white); z-index: 998;
+  flex-direction: column; padding: 24px;
+  gap: 4px;
+  border-top: 1px solid var(--border);
 }
-.pt-disney{background:#f5a623;color:#0b1f3a;}
-.pt-universal{background:#00bcd4;color:#0b1f3a;}
-.park-card h3{
-  font-size:1.55rem;font-weight:900;
-  color:#fff;margin-bottom:8px;line-height:1.2;
+.mob-menu.open { display: flex; }
+.mob-menu a {
+  font-size: 1rem; font-weight: 700; padding: 14px 16px;
+  border-radius: 8px; color: var(--dark);
+  transition: background .2s;
 }
-.park-card p{
-  font-size:.84rem;color:rgba(255,255,255,.85);
-  margin-bottom:14px;line-height:1.6;
-}
-.park-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
-.pchip{
-  font-size:.62rem;font-weight:700;
-  padding:4px 12px;border-radius:50px;
-  background:rgba(255,255,255,.18);
-  border:1px solid rgba(255,255,255,.38);
-  color:#fff;
-}
-.btn-park{
-  background:#fff;color:#1565c0;
-  padding:11px 24px;border-radius:8px;
-  font-size:.8rem;font-weight:800;
-  border:none;cursor:pointer;transition:.2s;
-}
-.btn-park:hover{
-  box-shadow:0 4px 18px rgba(0,0,0,.2);
-  transform:translateY(-1px);
+.mob-menu a:hover { background: var(--sky); color: var(--blue); }
+.mob-menu .btn-cta {
+  background: var(--blue); color: var(--white);
+  text-align: center; margin-top: 8px; padding: 16px;
 }
 
-/* ===== POR QUÉ ELEGIRNOS ===== */
-.why-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
-}
-.why-box{
-  background:#fff;border-radius:12px;
-  padding:28px 22px;text-align:center;
-  box-shadow:0 2px 12px rgba(0,0,0,.06);
-  border-top:4px solid #1565c0;
-  transition:.25s;
-}
-.why-box:hover{transform:translateY(-4px);}
-.why-ico{font-size:2.6rem;margin-bottom:14px;}
-.why-box h4{
-  font-size:.96rem;font-weight:800;
-  color:#0b1f3a;margin-bottom:8px;
-}
-.why-box p{font-size:.8rem;color:#777;line-height:1.65;}
-
-/* ===== COTIZACIÓN ===== */
-.cot-section{
-  background:linear-gradient(135deg,#0b1f3a 0%,#1565c0 100%);
-  padding:60px 24px;
-}
-.cot-inner{
-  max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1.5fr;
-  gap:40px;align-items:start;
-}
-.cot-info h2{
-  font-size:1.8rem;font-weight:900;
-  color:#fff;margin-bottom:12px;line-height:1.2;
-}
-.cot-info p{
-  font-size:.9rem;color:rgba(255,255,255,.8);
-  line-height:1.75;margin-bottom:28px;
-}
-.cot-datos{display:flex;flex-direction:column;gap:14px;}
-.cdat{
-  display:flex;align-items:flex-start;gap:12px;
-}
-.cdat-ico{
-  width:36px;height:36px;border-radius:50%;
-  background:rgba(255,255,255,.15);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.95rem;flex-shrink:0;
-}
-.cdat label{
-  font-size:.58rem;font-weight:700;
-  color:#fff;opacity:1;letter-spacing:.12em;
-  text-transform:uppercase;display:block;margin-bottom:3px;
-}
-.cdat p,.cdat a{
-  font-size:.88rem;font-weight:700;color:#fff;
-}
-.soc-row{display:flex;gap:10px;margin-top:24px;}
-.soc{
-  width:38px;height:38px;border-radius:50%;
-  background:rgba(255,255,255,.13);
-  border:1px solid rgba(255,255,255,.25);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.9rem;transition:.3s;
-}
-.soc:hover{background:rgba(255,255,255,.28);}
-
-/* FORMULARIO */
-.cot-form{
-  background:#fff;border-radius:14px;
-  padding:32px 28px;
-  box-shadow:0 4px 24px rgba(0,0,0,.15);
-}
-.cot-form h3{
-  font-size:1.15rem;font-weight:800;
-  color:#0b1f3a;margin-bottom:22px;
-}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:13px;}
-.fg label{
-  font-size:.6rem;font-weight:800;
-  color:#999;text-transform:uppercase;letter-spacing:.1em;
-}
-.fg input,.fg select,.fg textarea{
-  border:1.5px solid #e0e0e0;border-radius:8px;
-  padding:11px 13px;font-family:inherit;
-  font-size:.88rem;font-weight:600;color:#222;
-  outline:none;transition:.2s;background:#fff;width:100%;
-}
-.fg input:focus,.fg select:focus,.fg textarea:focus{
-  border-color:#1565c0;
-}
-.fg input::placeholder,.fg textarea::placeholder{
-  color:#bbb;font-weight:400;
-}
-.fg textarea{resize:vertical;min-height:90px;}
-.btn-enviar{
-  width:100%;padding:14px;
-  background:#c8102e;color:#fff;
-  font-family:inherit;font-size:.9rem;
-  font-weight:800;border:none;border-radius:8px;
-  cursor:pointer;transition:.2s;margin-top:4px;
-}
-.btn-enviar:hover{background:#a50e25;}
-
-/* ===== FOOTER ===== */
-footer{
-  background:#0b1f3a;color:#fff;
-  padding:50px 24px 24px;
-}
-.footer-wrap{max-width:1200px;margin:0 auto;}
-.footer-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:36px;margin-bottom:36px;
-}
-.f-brand-name{
-  font-size:1.25rem;font-weight:900;
-  margin-bottom:12px;
-}
-.f-brand-name span{color:#f5a623;}
-.f-desc{
-  font-size:.78rem;color:rgba(255,255,255,.44);
-  line-height:1.85;max-width:260px;
-}
-.fcol h5{
-  font-size:.66rem;font-weight:800;
-  letter-spacing:.18em;text-transform:uppercase;
-  color:#c8102e;margin-bottom:14px;
-}
-.fcol ul{display:flex;flex-direction:column;gap:9px;}
-.fcol ul a{
-  font-size:.8rem;color:rgba(255,255,255,.45);transition:.2s;
-}
-.fcol ul a:hover{color:#fff;}
-.footer-bot{
-  border-top:1px solid rgba(255,255,255,.07);
-  padding-top:20px;
-  display:flex;justify-content:space-between;
-  align-items:center;flex-wrap:wrap;gap:10px;
-}
-.footer-bot p{font-size:.72rem;color:rgba(255,255,255,.32);}
-.footer-tag{font-size:.72rem;color:#f5a623;font-weight:700;}
-
-/* ===== WHATSAPP ===== */
-.wa-btn{
-  position:fixed;bottom:26px;right:26px;
-  z-index:888;width:56px;height:56px;
-  border-radius:50%;background:#25d366;
-  color:#fff;display:flex;align-items:center;
-  justify-content:center;font-size:1.5rem;
-  box-shadow:0 6px 24px rgba(37,211,102,.5);
-  transition:.3s;animation:wapulse 2.5s infinite;
-}
-.wa-btn:hover{transform:scale(1.1);}
-@keyframes wapulse{
-  0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.5);}
-  50%{box-shadow:0 6px 44px rgba(37,211,102,.75);}
+/* =============================================
+   HERO — SLIDER
+============================================= */
+.hero {
+  margin-top: 70px;
+  position: relative;
+  height: 520px;
+  overflow: hidden;
+  border-radius: 0;
 }
 
-/* ===== ANIMACIÓN ENTRADA ===== */
-.fade{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s;}
-.fade.show{opacity:1;transform:translateY(0);}
-
-/* ===== ERROR MESSAGE ===== */
-.error-message{
-  text-align:center;
-  padding:40px 20px;
-  color:#c8102e;
-  font-weight:600;
+.hero-slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.hero-slide.active { opacity: 1; }
+.hero-slide::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(21,101,192,.75) 0%, rgba(21,101,192,.2) 60%, transparent 100%);
 }
 
-/* ===== RESPONSIVE ===== */
+.hero-content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 0 60px;
+  max-width: 620px;
+}
+.hero-content h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800; color: var(--white);
+  line-height: 1.2; margin-bottom: 14px;
+}
+.hero-content p {
+  font-size: 1rem; color: rgba(255,255,255,.9);
+  line-height: 1.7; margin-bottom: 28px;
+  font-weight: 600;
+}
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-white {
+  background: var(--white); color: var(--blue);
+  padding: 13px 28px; border-radius: 8px;
+  font-weight: 800; font-size: .85rem;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 16px rgba(0,0,0,.15);
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+.btn-outline-white {
+  background: transparent; color: var(--white);
+  padding: 13px 28px; border-radius: 8px;
+  font-weight: 800; font-size: .85rem;
+  border: 2px solid rgba(255,255,255,.7);
+  transition: background .2s;
+}
+.btn-outline-white:hover { background: rgba(255,255,255,.15); }
+
+/* Dots */
+.hero-dots {
+  position: absolute; bottom: 20px; left: 60px; z-index: 3;
+  display: flex; gap: 8px;
+}
+.hero-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,.4); border: 1px solid rgba(255,255,255,.7);
+  cursor: pointer; transition: .3s;
+}
+.hero-dot.active { background: var(--white); transform: scale(1.3); }
+
+/* Arrows */
+.hero-arrow {
+  position: absolute; top: 50%; z-index: 3;
+  transform: translateY(-50%);
+  width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  border: 1px solid rgba(255,255,255,.5);
+  color: var(--white); font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .3s;
+}
+.hero-arrow:hover { background: rgba(255,255,255,.45); }
+.hero-arrow.left { left: 16px; }
+.hero-arrow.right { right: 16px; }
+
+/* =============================================
+   QUICK SEARCH BAR
+============================================= */
+.search-bar {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow2);
+  padding: 20px 28px;
+  margin: -40px 60px 0;
+  position: relative; z-index: 10;
+  display: flex; gap: 12px; align-items: flex-end;
+  flex-wrap: wrap;
+}
+.search-group {
+  display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 160px;
+}
+.search-group label {
+  font-size: .68rem; font-weight: 800; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gray);
+}
+.search-group select, .search-group input {
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: .88rem; font-weight: 600;
+  color: var(--dark); outline: none;
+  transition: border-color .2s;
+  background: var(--white);
+}
+.search-group select:focus, .search-group input:focus { border-color: var(--blue); }
+.btn-search {
+  background: var(--blue); color: var(--white);
+  padding: 12px 28px; border-radius: 8px;
+  font-size: .88rem; font-weight: 800;
+  border: none; cursor: pointer;
+  transition: background .2s, transform .2s;
+  white-space: nowrap;
+}
+.btn-search:hover { background: var(--blue2); transform: translateY(-1px); }
+
+/* =============================================
+   SECTIONS COMMON
+============================================= */
+.section { padding: 70px 60px; }
+.section-alt { background: var(--white); }
+.section-title {
+  font-size: 1.6rem; font-weight: 800; color: var(--dark);
+  margin-bottom: 6px;
+}
+.section-sub {
+  font-size: .92rem; color: var(--gray); margin-bottom: 36px;
+  font-weight: 600;
+}
+.section-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 36px; flex-wrap: wrap; gap: 12px;
+}
+.view-all {
+  font-size: .82rem; font-weight: 800; color: var(--blue);
+  border: 2px solid var(--blue); padding: 8px 18px;
+  border-radius: 8px; transition: background .2s, color .2s;
+}
+.view-all:hover { background: var(--blue); color: var(--white); }
+
+/* =============================================
+   CATEGORY PILLS
+============================================= */
+.categories {
+  padding: 32px 60px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: 12px; overflow-x: auto;
+  scrollbar-width: none;
+}
+.categories::-webkit-scrollbar { display: none; }
+.cat-pill {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--light); border: 2px solid var(--border);
+  border-radius: 50px; padding: 10px 20px;
+  font-size: .82rem; font-weight: 700; color: var(--dark);
+  white-space: nowrap; cursor: pointer;
+  transition: all .2s; flex-shrink: 0;
+}
+.cat-pill:hover, .cat-pill.active {
+  background: var(--sky); border-color: var(--blue); color: var(--blue);
+}
+.cat-pill .ico { font-size: 1.1rem; }
+
+/* =============================================
+   CARDS GRID
+============================================= */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .25s, box-shadow .25s;
+  cursor: pointer;
+}
+.card:hover { transform: translateY(-5px); box-shadow: var(--shadow2); }
+
+.card-img {
+  position: relative; height: 190px; overflow: hidden;
+}
+.card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s ease;
+}
+.card:hover .card-img img { transform: scale(1.06); }
+.card-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--blue); color: var(--white);
+  font-size: .62rem; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; padding: 5px 12px; border-radius: 50px;
+}
+.card-badge.red { background: var(--red); }
+.card-badge.gold { background: var(--gold); color: var(--dark); }
+
+.card-body { padding: 16px 18px 20px; }
+.card-tag {
+  font-size: .68rem; font-weight: 700; color: var(--blue);
+  text-transform: uppercase; letter-spacing: .1em;
+  margin-bottom: 6px;
+}
+.card-title {
+  font-size: 1rem; font-weight: 800; color: var(--dark);
+  margin-bottom: 8px; line-height: 1.3;
+}
+.card-desc {
+  font-size: .8rem; color: var(--gray);
+  line-height: 1.6; margin-bottom: 14px;
+}
+.card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-price { font-size: .75rem; color: var(--gray); }
+.card-price strong { font-size: 1.1rem; color: var(--dark); font-weight: 800; }
+.card-btn {
+  background: var(--blue); color: var(--white);
+  padding: 8px 16px; border-radius: 6px;
+  font-size: .75rem; font-weight: 800;
+  transition: background .2s;
+}
+.card-btn:hover { background: var(--blue2); }
+
+/* =============================================
+   PARKS SECTION — 2 big cards
+============================================= */
+.parks-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.park-card {
+  border-radius: var(--radius); overflow: hidden;
+  position: relative; height: 360px;
+  cursor: pointer; box-shadow: var(--shadow);
+  transition: transform .3s, box-shadow .3s;
+}
+.park-card:hover { transform: translateY(-5px); box-shadow: var(--shadow2); }
+.park-card-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform .6s ease;
+  filter: brightness(.55);
+}
+.park-card:hover .park-card-bg { transform: scale(1.04); filter: brightness(.65); }
+.park-card-body {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 32px 28px;
+}
+.park-tag {
+  display: inline-block;
+  font-size: .65rem; font-weight: 800; letter-spacing: .14em;
+  text-transform: uppercase; padding: 5px 14px;
+  border-radius: 50px; margin-bottom: 12px;
+  color: var(--dark);
+}
+.park-tag.dis { background: var(--gold); }
+.park-tag.uni { background: #00d4d4; }
+.park-card h3 {
+  font-size: 1.6rem; font-weight: 800; color: var(--white);
+  margin-bottom: 8px; line-height: 1.2;
+}
+.park-card p {
+  font-size: .85rem; color: rgba(255,255,255,.85);
+  margin-bottom: 18px; line-height: 1.6;
+}
+.park-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.park-chip {
+  font-size: .65rem; font-weight: 700;
+  padding: 5px 12px; border-radius: 50px;
+  background: rgba(255,255,255,.2);
+  border: 1px solid rgba(255,255,255,.4);
+  color: var(--white);
+}
+.btn-park {
+  display: inline-block;
+  background: var(--white); color: var(--blue);
+  padding: 11px 24px; border-radius: 8px;
+  font-size: .8rem; font-weight: 800;
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-park:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.2); }
+
+/* =============================================
+   NAVIERAS — LOGO STRIP
+============================================= */
+.navieras-section { background: var(--white); padding: 60px 60px; }
+.navieras-cats { display: flex; flex-direction: column; gap: 32px; margin-top: 36px; }
+.naviera-cat-title {
+  font-size: .72rem; font-weight: 800; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--blue);
+  padding-bottom: 10px; border-bottom: 2px solid var(--sky);
+  margin-bottom: 14px;
+}
+.navieras-row {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.naviera-box {
+  background: var(--light); border: 2px solid var(--border);
+  border-radius: 10px; padding: 14px 20px;
+  display: flex; align-items: center; gap: 9px;
+  font-size: .78rem; font-weight: 700; color: var(--dark);
+  transition: all .2s; cursor: pointer; white-space: nowrap;
+}
+.naviera-box:hover { background: var(--sky); border-color: var(--blue); color: var(--blue); }
+.naviera-box .ni { font-size: 1.2rem; }
+
+/* Ticker */
+.ticker-section {
+  background: var(--blue); padding: 16px 0;
+  overflow: hidden;
+}
+.ticker-track {
+  display: flex; gap: 40px;
+  animation: ticker 30s linear infinite;
+  white-space: nowrap;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-item {
+  flex-shrink: 0; display: flex; align-items: center; gap: 10px;
+  font-size: .8rem; font-weight: 700; color: rgba(255,255,255,.75);
+}
+.ticker-item span { color: var(--gold); font-size: .6rem; }
+@keyframes ticker { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+/* =============================================
+   WHY US
+============================================= */
+.why-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 20px;
+}
+.why-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 28px 24px; text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform .25s, box-shadow .25s;
+}
+.why-card:hover { transform: translateY(-4px); box-shadow: var(--shadow2); }
+.why-icon { font-size: 2.4rem; margin-bottom: 14px; }
+.why-card h4 { font-size: 1rem; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+.why-card p { font-size: .82rem; color: var(--gray); line-height: 1.6; }
+
+/* =============================================
+   TESTIMONIALS
+============================================= */
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.testi-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 28px 24px; box-shadow: var(--shadow);
+  border-left: 4px solid var(--blue);
+  transition: transform .25s;
+}
+.testi-card:hover { transform: translateY(-3px); }
+.testi-text {
+  font-size: .9rem; color: var(--dark); line-height: 1.7;
+  margin-bottom: 20px; font-style: italic;
+}
+.testi-text::before { content: '"'; font-size: 1.6rem; color: var(--blue); line-height: 0; vertical-align: -.4em; margin-right: 2px; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; color: var(--white); font-size: .9rem;
+  flex-shrink: 0;
+}
+.testi-name { font-weight: 800; font-size: .85rem; color: var(--dark); }
+.testi-loc { font-size: .72rem; color: var(--gray); margin-top: 2px; }
+.stars { color: var(--gold); font-size: .75rem; margin-top: 3px; }
+
+/* =============================================
+   CONTACT SECTION
+============================================= */
+.contact-wrap {
+  display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px;
+  align-items: start;
+}
+.contact-info-box {
+  background: var(--blue); border-radius: var(--radius);
+  padding: 36px 32px; color: var(--white);
+}
+.contact-info-box img { width: 150px; border-radius: 8px; margin-bottom: 24px; }
+.contact-info-box h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+.contact-info-box p { font-size: .88rem; opacity: .85; margin-bottom: 28px; line-height: 1.6; }
+.cinfo-item { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.cinfo-item .ico {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+.cinfo-item div label { font-size: .62rem; font-weight: 700; opacity: .7; letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: 2px; }
+.cinfo-item div p, .cinfo-item div a { font-size: .88rem; font-weight: 700; color: var(--white); }
+.contact-social { display: flex; gap: 10px; margin-top: 28px; }
+.soc-btn {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .95rem; transition: background .3s;
+}
+.soc-btn:hover { background: rgba(255,255,255,.3); }
+
+.contact-form-box {
+  background: var(--white); border-radius: var(--radius);
+  padding: 36px 32px; box-shadow: var(--shadow);
+}
+.contact-form-box h3 { font-size: 1.3rem; font-weight: 800; color: var(--dark); margin-bottom: 24px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fg { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.fg label { font-size: .7rem; font-weight: 800; color: var(--gray); text-transform: uppercase; letter-spacing: .1em; }
+.fg input, .fg select, .fg textarea {
+  border: 2px solid var(--border); border-radius: 8px;
+  padding: 11px 14px; font-family: 'Nunito', sans-serif;
+  font-size: .88rem; font-weight: 600; color: var(--dark);
+  outline: none; transition: border-color .2s; background: var(--white);
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--blue); }
+.fg input::placeholder, .fg textarea::placeholder { color: #bbb; }
+.fg select option { background: var(--white); }
+.fg textarea { resize: vertical; min-height: 100px; }
+.btn-send {
+  width: 100%; padding: 14px; margin-top: 4px;
+  background: var(--blue); color: var(--white);
+  font-family: 'Nunito', sans-serif; font-size: .9rem;
+  font-weight: 800; border: none; border-radius: 8px;
+  cursor: pointer; transition: background .2s, transform .2s;
+}
+.btn-send:hover { background: var(--blue2); transform: translateY(-2px); }
+
+/* =============================================
+   FOOTER
+============================================= */
+footer {
+  background: var(--dark); color: var(--white);
+  padding: 56px 60px 28px;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px; margin-bottom: 44px;
+}
+.footer-logo img { width: 140px; border-radius: 8px; margin-bottom: 16px; }
+.footer-desc { font-size: .82rem; color: rgba(255,255,255,.55); line-height: 1.8; max-width: 260px; }
+.footer-col h5 {
+  font-size: .72rem; font-weight: 800; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 18px;
+}
+.footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul a {
+  font-size: .82rem; color: rgba(255,255,255,.55);
+  transition: color .2s;
+}
+.footer-col ul a:hover { color: var(--white); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 22px;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 10px;
+}
+.footer-bottom p { font-size: .76rem; color: rgba(255,255,255,.4); }
+.footer-tag { font-size: .74rem; color: var(--gold); font-weight: 700; }
+
+/* =============================================
+   WHATSAPP
+============================================= */
+.wa-btn {
+  position: fixed; bottom: 26px; right: 26px; z-index: 888;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25d366; color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; box-shadow: 0 6px 24px rgba(37,211,102,.45);
+  transition: transform .3s, box-shadow .3s;
+  animation: wapulse 2.5s ease infinite;
+}
+.wa-btn:hover { transform: scale(1.1); box-shadow: 0 8px 36px rgba(37,211,102,.65); }
+@keyframes wapulse {
+  0%,100%{ box-shadow: 0 6px 24px rgba(37,211,102,.45); }
+  50%{ box-shadow: 0 6px 40px rgba(37,211,102,.7); }
+}
+
+/* =============================================
+   SCROLL REVEAL
+============================================= */
+.fade-up {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* =============================================
+   STATS BAR
+============================================= */
+.stats-bar {
+  background: var(--sky); border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 60px;
+  display: flex; justify-content: space-around;
+  flex-wrap: wrap; gap: 16px;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-size: 2rem; font-weight: 800; color: var(--blue); display: block; line-height: 1;
+}
+.stat-label { font-size: .72rem; font-weight: 700; color: var(--gray); margin-top: 4px; }
+
+/* =============================================
+   RESPONSIVE
+============================================= */
 @media(max-width:1024px){
-  .grid-4{grid-template-columns:repeat(2,1fr);}
-  .loading-container{grid-template-columns:repeat(2,1fr);}
-  .why-grid{grid-template-columns:repeat(2,1fr);}
-  .footer-grid{grid-template-columns:1fr 1fr;}
+  .why-grid { grid-template-columns: repeat(2,1fr); }
+  .testi-grid { grid-template-columns: repeat(2,1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .navieras-row { justify-content: flex-start; }
 }
 @media(max-width:768px){
-  .nav-menu{display:none;}
-  .hbg{display:flex;}
-  .hero{height:400px;}
-  .hero-text{padding:0 24px;max-width:100%;}
-  .hero-dots{left:24px;}
-  .harr{display:none;}
-  .search-fields{flex-direction:column;}
-  .grid-2{grid-template-columns:1fr;}
-  .cot-inner{grid-template-columns:1fr;}
-  .footer-grid{grid-template-columns:1fr 1fr;}
-  .form-row{grid-template-columns:1fr;}
-  .trust-inner{justify-content:flex-start;flex-direction:column;gap:8px;}
+  #nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero { height: 400px; }
+  .hero-content { padding: 0 24px; }
+  .hero-dots { left: 24px; }
+  .search-bar { margin: -30px 20px 0; padding: 16px 18px; flex-direction: column; }
+  .section { padding: 50px 20px; }
+  .navieras-section { padding: 50px 20px; }
+  .stats-bar { padding: 24px 20px; }
+  .categories { padding: 20px; }
+  .parks-grid { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr 1fr; }
+  .contact-wrap { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer { padding: 40px 20px 20px; }
 }
-@media(max-width:560px){
-  .topbar-inner{gap:16px;padding:6px 12px;}
-  .topbar{font-size:.7rem;}
-  .topbar-icon{font-size:.9rem;}
-  .grid-3,.grid-4{grid-template-columns:1fr;}
-  .loading-container{grid-template-columns:1fr;}
-  .why-grid{grid-template-columns:1fr;}
-  .footer-grid{grid-template-columns:1fr;}
-}
-
-/* ===== SWIPER CARRUSEL ===== */
-.swiper{width:100%;height:auto;}
-.swiper-slide{display:flex;justify-content:center;}
-.swiper-button-next,.swiper-button-prev{color:#1565c0;top:50%;transform:translateY(-50%);}
-.swiper-button-next:after,.swiper-button-prev:after{font-size:24px;}
-.swiper-pagination-bullet{background:#1565c0;}
-.swiper-pagination-bullet-active{background:#c8102e;}
-
-/* Selector de idioma */
-.nav-lang select{padding:6px 10px;border:1px solid #ddd;border-radius:4px;cursor:pointer;font-weight:600;background:#fff;font-size:.8rem;transition:.2s;}
-.nav-lang select:hover{border-color:#1565c0;box-shadow:0 2px 4px rgba(21,101,192,0.1);}
-
-/* Ideas de Viaje */
-.ideas-viaje{padding:30px 24px;background:#f8f9fa;text-align:center;}
-.ideas-container{max-width:1200px;margin:0 auto;}
-.ideas-header{margin-bottom:24px;}
-.ideas-header h2{font-size:1.3rem;color:#333;margin-bottom:6px;font-weight:700;}
-.ideas-header p{font-size:.85rem;color:#666;}
-.ideas-grid{width:100%;height:auto;margin-bottom:20px;position:relative;}
-.ideas-grid.swiper-wrapper{display:flex;}
-.idea-card{background:white;padding:16px 12px;border-radius:10px;cursor:pointer;transition:all .3s;border:2px solid transparent;box-shadow:0 2px 6px rgba(0,0,0,0.06);}
-.idea-card:hover{background:#e8f0fe;border-color:#1565c0;box-shadow:0 3px 12px rgba(21,101,192,0.12);transform:translateY(-2px);}
-.idea-icon{font-size:2rem;margin-bottom:8px;}
-.idea-text{font-weight:600;color:#333;font-size:.8rem;line-height:1.3;}
-.ideas-grid .swiper-button-next,
-.ideas-grid .swiper-button-prev{color:#1565c0;top:50%;transform:translateY(-50%);}
-.ideas-grid .swiper-button-next:after,
-.ideas-grid .swiper-button-prev:after{font-size:24px;}
-.ideas-grid .swiper-pagination-bullet{background:#1565c0;}
-.ideas-grid .swiper-pagination-bullet-active{background:#c8102e;}
-
-.btn-ver-mas{background:#1565c0;color:white;border:none;padding:8px 24px;border-radius:6px;font-weight:700;cursor:pointer;transition:.3s;font-size:.85rem;}
-.btn-ver-mas:hover{background:#0d47a1;box-shadow:0 4px 12px rgba(21,101,192,0.3);}
-
-@media(max-width:768px){
-.ideas-header h2{font-size:1.1rem;}
-.ideas-grid{grid-template-columns:repeat(3,1fr);gap:12px;}
-.idea-card{padding:12px 8px;}
-.idea-icon{font-size:1.5rem;}
+@media(max-width:480px){
+  .hero h1 { font-size: 1.6rem; }
+  .why-grid { grid-template-columns: 1fr; }
+  .cards-grid { grid-template-columns: 1fr; }
 }
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-<script src="translations.js"></script>
 </head>
 <body>
 
-<!-- ── TOPBAR ── -->
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="topbar-item">
-      <span class="topbar-icon">📞</span>
-      <a href="tel:+18295502847">+1 (829) 550-2847</a>
-    </div>
-    <div class="topbar-item">
-      <span class="topbar-icon">📧</span>
-      <a href="mailto:luchristravels@gmail.com">luchristravels@gmail.com</a>
-    </div>
-    <div class="topbar-item">
-      <span class="topbar-icon">📍</span>
-      <span>Baní, República Dominicana</span>
-    </div>
-    <div class="topbar-item">
-      <span class="topbar-icon">🕐</span>
-      <span>Lun–Sáb 8:00AM–6:00PM</span>
-    </div>
-  </div>
-</div>
-
-<nav class="navbar">
-  <div class="nav-inner">
-    <div class="brand">
-      LUCHRIS <span>TRAVELS & TOURS</span>
-    </div>
-    <ul class="nav-menu">
-      <li><a href="#destinos" data-i18n="nav.destinos">Destinos</a></li>
-      <li><a href="#nosotros" data-i18n="nav.nosotros">Nosotros</a></li>
-      <li><a href="#cruceros" data-i18n="nav.cruceros">Cruceros</a></li>
-      <li><a href="#parques" data-i18n="nav.parques">Parques</a></li>
-      <li class="nav-lang">
-        <select id="lang-selector" onchange="setLanguage(this.value)" style="padding:6px 10px;border:1px solid #ddd;border-radius:4px;cursor:pointer;font-weight:600;background:#fff;">
-          <option value="es">🇪🇸 Español</option>
-          <option value="en">🇺🇸 English</option>
-          <option value="fr">🇫🇷 Français</option>
-        </select>
-      </li>
-      <li class="nav-carrito"><a href="carrito-simple.html"><span class="carrito-badge" id="carrito-count">0</span>🛒 Carrito</a></li>
-      <li><a href="#cotizar" class="nav-cta" data-i18n="nav.cotizar">✈️ Cotizar</a></li>
-    </ul>
-    <button class="hbg" id="hbg" onclick="openMob()">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+<!-- ==============================
+  NAVBAR
+============================== -->
+<nav id="nav">
+  <a href="#inicio" class="nav-logo">
+    <img src="logo-luchris.png" alt="Luchris Travels Tours">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#parques">Parques</a></li>
+    <li><a href="#cruceros">Cruceros</a></li>
+    <li><a href="#navieras">Navieras</a></li>
+    <li><a href="#destinos">Destinos</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto" class="btn-cta">✈️ Cotizar</a></li>
+  </ul>
+  <button class="hamburger" id="hbg" onclick="toggleMob()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- ── MENÚ MÓVIL ── -->
-<div class="mob-nav" id="mobNav">
-  <a href="#destinos" onclick="closeMob()">Destinos</a>
-  <a href="#cruceros" onclick="closeMob()">Cruceros</a>
+<!-- Mobile menu -->
+<div class="mob-menu" id="mobMenu">
   <a href="#parques" onclick="closeMob()">Parques Temáticos</a>
+  <a href="#cruceros" onclick="closeMob()">Cruceros</a>
+  <a href="#navieras" onclick="closeMob()">Navieras</a>
+  <a href="#destinos" onclick="closeMob()">Destinos</a>
   <a href="#nosotros" onclick="closeMob()">Nosotros</a>
-  <a href="carrito.html" onclick="closeMob()">🛒 Ver Carrito</a>
-  <a href="#cotizar" onclick="closeMob()" class="nav-cta">✈️ Cotizar Ahora</a>
+  <a href="#contacto" onclick="closeMob()" class="btn-cta">✈️ Cotizar Ahora</a>
 </div>
 
-<!-- ── HERO BANNER ── -->
+<!-- ==============================
+  HERO SLIDER
+============================== -->
 <section class="hero" id="inicio">
-  <div class="hero-slide active">
-    <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=1600&q=85&auto=format&fit=crop" alt="Crucero de lujo">
-    <div class="hero-overlay"></div>
-    <div class="hero-text">
-      <span class="tag">🚢 Cruceros</span>
-      <h1 data-i18n="hero.cruceros_title">Los mejores cruceros del mundo</h1>
-      <p data-i18n="hero.cruceros_desc">Caribe, Mediterráneo, Danubio y más. Todas las navieras, el mejor precio, asesoría personalizada.</p>
-      <div class="hero-btns">
-        <button class="btn-red" onclick="ir('cotizar')" data-i18n="hero.btn_cotizar">Cotizar ahora</button>
-        <button class="btn-white" onclick="ir('cruceros')" data-i18n="hero.btn_ver">Ver cruceros</button>
-      </div>
-    </div>
-  </div>
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=85&auto=format&fit=crop" alt="Playa caribe">
-    <div class="hero-overlay"></div>
-    <div class="hero-text">
-      <span class="tag">🌴 Caribe</span>
-      <h1 data-i18n="hero.caribe_title">Playas paradisíacas te esperan</h1>
-      <p data-i18n="hero.caribe_desc">Paquetes todo incluido al Caribe para toda la familia. Arena blanca, aguas cristalinas y sol todo el año.</p>
-      <div class="hero-btns">
-        <button class="btn-red" onclick="ir('cotizar')" data-i18n="hero.btn_cotizar">Cotizar ahora</button>
-        <button class="btn-white" onclick="ir('destinos')" data-i18n="hero.btn_ver">Ver destinos</button>
-      </div>
-    </div>
-  </div>
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=1600&q=85&auto=format&fit=crop" alt="París Europa">
-    <div class="hero-overlay"></div>
-    <div class="hero-text">
-      <span class="tag">🏛️ Europa</span>
-      <h1 data-i18n="hero.europa_title">Europa te está esperando</h1>
-      <p data-i18n="hero.europa_desc">Roma, París, Barcelona, Atenas. Tours completos con vuelo, hotel y guía en español incluido.</p>
-      <div class="hero-btns">
-        <button class="btn-red" onclick="ir('cotizar')" data-i18n="hero.btn_cotizar">Cotizar ahora</button>
-        <button class="btn-white" onclick="ir('destinos')" data-i18n="hero.btn_ver">Ver tours Europa</button>
-      </div>
-    </div>
-  </div>
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1453747063559-36695c8771bd?w=1600&q=85&auto=format&fit=crop" alt="Disney">
-    <div class="hero-overlay"></div>
-    <div class="hero-text">
-      <span class="tag">🏰 Disney & Universal</span>
-      <h1 data-i18n="hero.disney_title">Vive la magia en familia</h1>
-      <p data-i18n="hero.disney_desc">Paquetes completos a Walt Disney World y Universal Studios. Hotel, tickets y traslados desde RD.</p>
-      <div class="hero-btns">
-        <button class="btn-red" onclick="ir('cotizar')" data-i18n="hero.btn_cotizar">Cotizar ahora</button>
-        <button class="btn-white" onclick="ir('parques')" data-i18n="hero.btn_ver">Ver parques</button>
-      </div>
-    </div>
-  </div>
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1520483601560-389dff434fdf?w=1600&q=85&auto=format&fit=crop" alt="Mediterráneo">
-    <div class="hero-overlay"></div>
-    <div class="hero-text">
-      <span class="tag">⛵ Mediterráneo</span>
-      <h1 data-i18n="hero.mediterraneo_title">Italia, Grecia y España en un viaje</h1>
-      <p data-i18n="hero.mediterraneo_desc">La experiencia definitiva a bordo de los cruceros más lujosos del Mediterráneo.</p>
-      <div class="hero-btns">
-        <button class="btn-red" onclick="ir('cotizar')" data-i18n="hero.btn_cotizar">Cotizar ahora</button>
-        <button class="btn-white" onclick="ir('cruceros')" data-i18n="hero.btn_ver">Ver cruceros</button>
-      </div>
+  <div class="hero-slide active" style="background-image:url('https://picsum.photos/id/1011/1920/800')"></div>
+  <div class="hero-slide" style="background-image:url('https://picsum.photos/id/1015/1920/800')"></div>
+  <div class="hero-slide" style="background-image:url('https://picsum.photos/id/1001/1920/800')"></div>
+  <div class="hero-slide" style="background-image:url('https://picsum.photos/id/1041/1920/800')"></div>
+  <div class="hero-slide" style="background-image:url('https://picsum.photos/id/1035/1920/800')"></div>
+
+  <div class="hero-content">
+    <h1>Tu próxima aventura<br>comienza aquí</h1>
+    <p>Tours · Cruceros · Disney · Universal · Vuelos<br>Baní, República Dominicana</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-white">Solicitar Cotización</a>
+      <a href="#servicios" class="btn-outline-white">Ver Servicios</a>
     </div>
   </div>
 
   <div class="hero-dots" id="heroDots"></div>
-  <button class="harr l" onclick="cambiarSlide(-1)">&#8249;</button>
-  <button class="harr r" onclick="cambiarSlide(1)">&#8250;</button>
+  <button class="hero-arrow left" onclick="heroChange(-1)">‹</button>
+  <button class="hero-arrow right" onclick="heroChange(1)">›</button>
 </section>
 
-<!-- ── BUSCADOR ── -->
-<div class="search-section">
-  <div class="search-box">
-    <div class="search-tabs">
-      <div class="stab on" onclick="selTab(this)">🚢 Cruceros</div>
-      <div class="stab" onclick="selTab(this)">🏰 Parques</div>
-      <div class="stab" onclick="selTab(this)">✈️ Tours</div>
-      <div class="stab" onclick="selTab(this)">🌴 Destinos</div>
-      <div class="stab" onclick="selTab(this)">💍 Luna de Miel</div>
+<!-- ==============================
+  SEARCH BAR
+============================== -->
+<div class="search-bar">
+  <div class="search-group">
+    <label>Tipo de viaje</label>
+    <select>
+      <option>Selecciona...</option>
+      <option>Crucero Marítimo</option>
+      <option>Crucero Fluvial</option>
+      <option>Paquete Disney</option>
+      <option>Paquete Universal</option>
+      <option>Tour Nacional</option>
+      <option>Tour Internacional</option>
+    </select>
+  </div>
+  <div class="search-group">
+    <label>Destino</label>
+    <input type="text" placeholder="¿A dónde quieres ir?">
+  </div>
+  <div class="search-group">
+    <label>Fecha de viaje</label>
+    <input type="date">
+  </div>
+  <div class="search-group">
+    <label>Pasajeros</label>
+    <select>
+      <option>1 persona</option>
+      <option>2 personas</option>
+      <option>3-4 personas</option>
+      <option>5+ personas</option>
+    </select>
+  </div>
+  <button class="btn-search" onclick="alert('¡Te contactaremos pronto!')">🔍 Buscar</button>
+</div>
+
+<!-- ==============================
+  STATS BAR
+============================== -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num" data-target="15">0</span><span class="stat-num">+</span><div class="stat-label">Años de experiencia</div></div>
+  <div class="stat-item"><span class="stat-num" data-target="5000">0</span><span class="stat-num">+</span><div class="stat-label">Clientes felices</div></div>
+  <div class="stat-item"><span class="stat-num" data-target="120">0</span><span class="stat-num">+</span><div class="stat-label">Destinos</div></div>
+  <div class="stat-item"><span class="stat-num" data-target="25">0</span><span class="stat-num">+</span><div class="stat-label">Navieras</div></div>
+</div>
+
+<!-- ==============================
+  CATEGORY PILLS
+============================== -->
+<div class="categories">
+  <div class="cat-pill active"><span class="ico">🚢</span> Cruceros</div>
+  <div class="cat-pill"><span class="ico">🏰</span> Disney</div>
+  <div class="cat-pill"><span class="ico">🎢</span> Universal</div>
+  <div class="cat-pill"><span class="ico">✈️</span> Tours Internacionales</div>
+  <div class="cat-pill"><span class="ico">🌴</span> Caribe</div>
+  <div class="cat-pill"><span class="ico">🏛️</span> Europa</div>
+  <div class="cat-pill"><span class="ico">🌊</span> Cruceros Fluviales</div>
+  <div class="cat-pill"><span class="ico">💎</span> Lujo</div>
+  <div class="cat-pill"><span class="ico">🗺️</span> Tours Nacionales</div>
+</div>
+
+<!-- ==============================
+  DESTINOS POPULARES
+============================== -->
+<section class="section" id="destinos">
+  <div class="section-header fade-up">
+    <div>
+      <h2 class="section-title">Destinos Populares</h2>
+      <p class="section-sub">Los lugares más solicitados por nuestros clientes</p>
     </div>
-    <div class="search-fields">
-      <div class="sf">
-        <label>Tipo de viaje</label>
-        <select>
-          <option>Selecciona...</option>
-          <option>Crucero — Caribe</option>
-          <option>Crucero — Mediterráneo</option>
-          <option>Crucero Fluvial</option>
-          <option>Paquete Disney World</option>
-          <option>Paquete Universal Studios</option>
-          <option>Tour Nacional (RD)</option>
-          <option>Tour Internacional</option>
-        </select>
+    <a href="#contacto" class="view-all">Ver todos →</a>
+  </div>
+  <div class="cards-grid">
+    <div class="card fade-up">
+      <div class="card-img">
+        <img src="https://picsum.photos/id/1001/500/300" alt="Caribe">
+        <div class="card-badge gold">⭐ Favorito</div>
       </div>
-      <div class="sf">
-        <label>Destino</label>
-        <input type="text" placeholder="¿A dónde quieres ir?">
+      <div class="card-body">
+        <div class="card-tag">🌴 Caribe</div>
+        <div class="card-title">El Caribe — Playas Paradisíacas</div>
+        <div class="card-desc">Aguas cristalinas, arena blanca y sol todo el año. El destino perfecto para toda la familia.</div>
+        <div class="card-footer">
+          <div class="card-price">Desde <strong>$499</strong></div>
+          <a href="#contacto" class="card-btn">Cotizar</a>
+        </div>
       </div>
-      <div class="sf">
-        <label>Fecha de salida</label>
-        <input type="date">
-      </div>
-      <div class="sf">
-        <label>Pasajeros</label>
-        <select>
-          <option>1 persona</option>
-          <option>2 personas</option>
-          <option>3–4 personas</option>
-          <option>5–8 personas</option>
-          <option>9+ personas (grupo)</option>
-        </select>
-      </div>
-      <button class="btn-buscar" onclick="ir('cotizar')">🔍 Buscar</button>
     </div>
+    <div class="card fade-up">
+      <div class="card-img">
+        <img src="https://picsum.photos/id/1041/500/300" alt="Europa">
+        <div class="card-badge">🏛️ Europa</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">🏛️ Europa</div>
+        <div class="card-title">Europa — Historia y Cultura</div>
+        <div class="card-desc">Roma, París, Barcelona y más. Recorre las ciudades más fascinantes del viejo continente.</div>
+        <div class="card-footer">
+          <div class="card-price">Desde <strong>$1,299</strong></div>
+          <a href="#contacto" class="card-btn">Cotizar</a>
+        </div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="card-img">
+        <img src="https://picsum.photos/id/1080/500/300" alt="Miami">
+        <div class="card-badge">🇺🇸 USA</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">🇺🇸 Miami & Florida</div>
+        <div class="card-title">Miami & Orlando, Florida</div>
+        <div class="card-desc">Playas, compras, parques temáticos y la diversión sin fin de la soleada Florida.</div>
+        <div class="card-footer">
+          <div class="card-price">Desde <strong>$699</strong></div>
+          <a href="#contacto" class="card-btn">Cotizar</a>
+        </div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="card-img">
+        <img src="https://picsum.photos/id/1039/500/300" alt="Cancún">
+        <div class="card-badge red">🔥 Oferta</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">🇲🇽 México</div>
+        <div class="card-title">Cancún & Riviera Maya</div>
+        <div class="card-desc">Todo incluido en los mejores hoteles de Cancún. Playa, gastronomía y cultura maya.</div>
+        <div class="card-footer">
+          <div class="card-price">Desde <strong>$599</strong></div>
+          <a href="#contacto" class="card-btn">Cotizar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+  PARQUES TEMÁTICOS
+============================== -->
+<section class="section section-alt" id="parques">
+  <div class="section-header fade-up">
+    <div>
+      <h2 class="section-title">Parques Temáticos</h2>
+      <p class="section-sub">Paquetes completos con hotel, tickets y traslados incluidos</p>
+    </div>
+  </div>
+  <div class="parks-grid">
+    <div class="park-card fade-up">
+      <div class="park-card-bg" style="background-image:url('https://picsum.photos/id/1043/900/500')"></div>
+      <div class="park-card-body">
+        <span class="park-tag dis">⭐ Especialistas Disney</span>
+        <h3>Walt Disney World<br>& Disneyland</h3>
+        <p>Orlando, París, Tokio y más. Hotel oficial Disney, tickets multi-día y traslados desde RD.</p>
+        <div class="park-chips">
+          <span class="park-chip">🏰 Magic Kingdom</span>
+          <span class="park-chip">🚀 EPCOT</span>
+          <span class="park-chip">🎬 Hollywood Studios</span>
+          <span class="park-chip">🦁 Animal Kingdom</span>
+        </div>
+        <a href="#contacto" class="btn-park">Cotizar Paquete Disney</a>
+      </div>
+    </div>
+    <div class="park-card fade-up">
+      <div class="park-card-bg" style="background-image:url('https://picsum.photos/id/1036/900/500')"></div>
+      <div class="park-card-body">
+        <span class="park-tag uni">🎬 Universal Studios</span>
+        <h3>Universal Studios<br>& Islands of Adventure</h3>
+        <p>Harry Potter, Jurassic World, Minions y Marvel. Adrenalina pura en Orlando y Hollywood.</p>
+        <div class="park-chips">
+          <span class="park-chip">⚡ Harry Potter</span>
+          <span class="park-chip">🦕 Jurassic World</span>
+          <span class="park-chip">🕷️ Marvel</span>
+          <span class="park-chip">🌊 Volcano Bay</span>
+        </div>
+        <a href="#contacto" class="btn-park">Cotizar Paquete Universal</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+  CRUCEROS
+============================== -->
+<section class="section" id="cruceros">
+  <div class="section-header fade-up">
+    <div>
+      <h2 class="section-title">Cruceros</h2>
+      <p class="section-sub">Especialistas en cruceros marítimos y fluviales — todas las navieras</p>
+    </div>
+    <a href="#contacto" class="view-all">Ver cruceros →</a>
+  </div>
+  <div class="cards-grid">
+    <div class="card fade-up">
+      <div class="card-img">
+        <img src="https://picsum.photos/id/1015/500/300" alt="Crucero Caribe">
+        <div class="card-badge gold">🌴 Caribe</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">🚢 Crucero Marítimo</div>
+        <div class="card-title">Crucero por el Caribe</div>
+        <div class="card-desc">7 noches visitando las islas más hermosas del Caribe. Salidas desde Miami, San Juan y Colón.</div>
+        <div class="card-footer">
+          <div class="card-price">Desde <strong>$799</strong></div>
+          <a href="#contacto" class="card-btn">Cotizar</a>
+        </div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="card-img">
+        <img src="https://picsum.photos/id/1032/500/300" alt="Mediterráneo">
+        <div class="card-badge">🏛️ Mediterráneo</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">🚢 Crucero Marítimo</div>
+        <div class="card-title">Crucero Mediterráneo</div>
+        <div class="card-desc">Italia, Grecia, España y Francia en un solo viaje. La experiencia europea definitiva.</div>
+        <div class="card-footer">
+          <div class="card-price">Desde <strong>$1,499</strong></div>
+          <a href="#contacto" class="card-btn">Cotizar</a>
+        </div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="card-img">
+        <img src="https://picsum.photos/id/1002/500/300" alt="Crucero Fluvial">
+        <div class="card-badge red">🏞️ Fluvial</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">🏞️ Crucero Fluvial</div>
+        <div class="card-title">Danubio & Rin — Europa</div>
+        <div class="card-desc">Navega por los ríos más bellos de Europa. Pueblos encantadores, viñedos y castillos medievales.</div>
+        <div class="card-footer">
+          <div class="card-price">Desde <strong>$1,899</strong></div>
+          <a href="#contacto" class="card-btn">Cotizar</a>
+        </div>
+      </div>
+    </div>
+    <div class="card fade-up">
+      <div class="card-img">
+        <img src="https://picsum.photos/id/1011/500/300" alt="Crucero Lujo">
+        <div class="card-badge gold">💎 Lujo</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">💎 Crucero de Lujo</div>
+        <div class="card-title">Silversea & Regent — Ultra Lujo</div>
+        <div class="card-desc">La cima de la experiencia en cruceros. All-inclusive total, máximo 200 pasajeros y destinos exclusivos.</div>
+        <div class="card-footer">
+          <div class="card-price">Desde <strong>$3,999</strong></div>
+          <a href="#contacto" class="card-btn">Cotizar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+  NAVIERAS
+============================== -->
+<section class="navieras-section section-alt" id="navieras">
+  <div class="fade-up">
+    <h2 class="section-title">Navieras con las que trabajamos</h2>
+    <p class="section-sub">Marítimas, fluviales, de lujo y de expedición — acceso a todas las líneas líderes del mundo</p>
+  </div>
+  <div class="navieras-cats fade-up">
+    <div>
+      <div class="naviera-cat-title">⭐ Premium & Populares</div>
+      <div class="navieras-row">
+        <div class="naviera-box"><span class="ni">🚢</span> Royal Caribbean</div>
+        <div class="naviera-box"><span class="ni">🛳️</span> Norwegian Cruise Line</div>
+        <div class="naviera-box"><span class="ni">⚓</span> MSC Cruceros</div>
+        <div class="naviera-box"><span class="ni">🎉</span> Carnival Cruise Line</div>
+        <div class="naviera-box"><span class="ni">⭐</span> Celebrity Cruises</div>
+        <div class="naviera-box"><span class="ni">👑</span> Princess Cruises</div>
+        <div class="naviera-box"><span class="ni">🏛️</span> Holland America</div>
+        <div class="naviera-box"><span class="ni">🏰</span> Disney Cruise Line</div>
+        <div class="naviera-box"><span class="ni">❤️</span> Virgin Voyages</div>
+        <div class="naviera-box"><span class="ni">🌊</span> Costa Cruceros</div>
+      </div>
+    </div>
+    <div>
+      <div class="naviera-cat-title">💎 Lujo & Ultra Lujo</div>
+      <div class="navieras-row">
+        <div class="naviera-box"><span class="ni">💎</span> Silversea Cruises</div>
+        <div class="naviera-box"><span class="ni">👑</span> Regent Seven Seas</div>
+        <div class="naviera-box"><span class="ni">🥂</span> Seabourn Cruises</div>
+        <div class="naviera-box"><span class="ni">🎶</span> Cunard Line</div>
+        <div class="naviera-box"><span class="ni">🌍</span> Oceania Cruises</div>
+        <div class="naviera-box"><span class="ni">⛵</span> Windstar Cruises</div>
+        <div class="naviera-box"><span class="ni">⚜️</span> Azamara Cruises</div>
+        <div class="naviera-box"><span class="ni">🏨</span> Ritz-Carlton Yacht</div>
+      </div>
+    </div>
+    <div>
+      <div class="naviera-cat-title">🏞️ Cruceros Fluviales</div>
+      <div class="navieras-row">
+        <div class="naviera-box"><span class="ni">🏔️</span> Viking River Cruises</div>
+        <div class="naviera-box"><span class="ni">🌺</span> AmaWaterways</div>
+        <div class="naviera-box"><span class="ni">🌏</span> Uniworld River Cruises</div>
+        <div class="naviera-box"><span class="ni">🛶</span> Avalon Waterways</div>
+        <div class="naviera-box"><span class="ni">🇫🇷</span> CroisiEurope</div>
+        <div class="naviera-box"><span class="ni">🌿</span> Emerald Waterways</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ticker -->
+<div class="ticker-section">
+  <div class="ticker-track">
+    <div class="ticker-item">Royal Caribbean <span>✦</span></div>
+    <div class="ticker-item">Norwegian <span>✦</span></div>
+    <div class="ticker-item">MSC Cruceros <span>✦</span></div>
+    <div class="ticker-item">Carnival <span>✦</span></div>
+    <div class="ticker-item">Celebrity Cruises <span>✦</span></div>
+    <div class="ticker-item">Princess Cruises <span>✦</span></div>
+    <div class="ticker-item">Holland America <span>✦</span></div>
+    <div class="ticker-item">Disney Cruise Line <span>✦</span></div>
+    <div class="ticker-item">Virgin Voyages <span>✦</span></div>
+    <div class="ticker-item">Silversea <span>✦</span></div>
+    <div class="ticker-item">Regent Seven Seas <span>✦</span></div>
+    <div class="ticker-item">Cunard Line <span>✦</span></div>
+    <div class="ticker-item">Viking Ocean <span>✦</span></div>
+    <div class="ticker-item">AmaWaterways <span>✦</span></div>
+    <div class="ticker-item">Uniworld <span>✦</span></div>
+    <div class="ticker-item">CroisiEurope <span>✦</span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item">Royal Caribbean <span>✦</span></div>
+    <div class="ticker-item">Norwegian <span>✦</span></div>
+    <div class="ticker-item">MSC Cruceros <span>✦</span></div>
+    <div class="ticker-item">Carnival <span>✦</span></div>
+    <div class="ticker-item">Celebrity Cruises <span>✦</span></div>
+    <div class="ticker-item">Princess Cruises <span>✦</span></div>
+    <div class="ticker-item">Holland America <span>✦</span></div>
+    <div class="ticker-item">Disney Cruise Line <span>✦</span></div>
+    <div class="ticker-item">Virgin Voyages <span>✦</span></div>
+    <div class="ticker-item">Silversea <span>✦</span></div>
+    <div class="ticker-item">Regent Seven Seas <span>✦</span></div>
+    <div class="ticker-item">Cunard Line <span>✦</span></div>
+    <div class="ticker-item">Viking Ocean <span>✦</span></div>
+    <div class="ticker-item">AmaWaterways <span>✦</span></div>
+    <div class="ticker-item">Uniworld <span>✦</span></div>
+    <div class="ticker-item">CroisiEurope <span>✦</span></div>
   </div>
 </div>
 
-<!-- ── IDEAS DE VIAJE ── -->
-<section class="ideas-viaje">
-  <div class="ideas-container">
-    <div class="ideas-header">
-      <h2 data-i18n="ideas.titulo">Nuestras ideas de viaje</h2>
-      <p data-i18n="ideas.subtitulo">Aquí podrás ver nuestras ideas de viaje</p>
+<!-- ==============================
+  POR QUÉ ELEGIRNOS
+============================== -->
+<section class="section" id="nosotros">
+  <div class="fade-up">
+    <h2 class="section-title">¿Por qué elegir Luchris Travels?</h2>
+    <p class="section-sub">Tu tranquilidad y satisfacción son nuestra prioridad</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card fade-up">
+      <div class="why-icon">🏆</div>
+      <h4>15+ Años de Experiencia</h4>
+      <p>Más de una década creando viajes inolvidables para familias dominicanas.</p>
     </div>
-    <div class="ideas-grid swiper" id="ideas-carousel">
-      <div class="swiper-wrapper">
-        <div class="idea-card swiper-slide" onclick="window.location.href='catalogo.html?tipo=cruceros'" style="cursor:pointer;">
-          <div class="idea-icon">🚢</div>
-          <div class="idea-text" data-i18n="ideas.cruceros">Cruceros</div>
-        </div>
-        <div class="idea-card swiper-slide" onclick="window.location.href='catalogo.html?tipo=destinos'" style="cursor:pointer;">
-          <div class="idea-icon">🌴</div>
-          <div class="idea-text" data-i18n="ideas.destinos">Destinos</div>
-        </div>
-        <div class="idea-card swiper-slide" onclick="window.location.href='catalogo.html?tipo=disney'" style="cursor:pointer;">
-          <div class="idea-icon">🏰</div>
-          <div class="idea-text" data-i18n="ideas.disney">Paquetes Disney & Universal</div>
-        </div>
-        <div class="idea-card swiper-slide" onclick="window.location.href='catalogo.html?tipo=tours'" style="cursor:pointer;">
-          <div class="idea-icon">✈️</div>
-          <div class="idea-text" data-i18n="ideas.tours">Tours Internacionales</div>
-        </div>
-        <div class="idea-card swiper-slide" onclick="window.location.href='catalogo.html?tipo=boleto'" style="cursor:pointer;">
-          <div class="idea-icon">🎫</div>
-          <div class="idea-text" data-i18n="ideas.boletos">Boletos Aéreos</div>
-        </div>
-      </div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-pagination"></div>
+    <div class="why-card fade-up">
+      <div class="why-icon">💬</div>
+      <h4>Asesoría Personalizada</h4>
+      <p>Te acompañamos en cada paso — desde la cotización hasta que regresas a casa.</p>
+    </div>
+    <div class="why-card fade-up">
+      <div class="why-icon">💰</div>
+      <h4>Mejor Precio Garantizado</h4>
+      <p>Negociamos directamente con navieras y hoteles para ofrecerte el mejor precio.</p>
+    </div>
+    <div class="why-card fade-up">
+      <div class="why-icon">🌍</div>
+      <h4>+120 Destinos</h4>
+      <p>Desde el Caribe hasta Asia — tenemos paquetes para cualquier destino del mundo.</p>
     </div>
   </div>
 </section>
 
-<!-- ── TRUST BAR ── -->
-<div class="trust" style="margin-top:50px;">
-  <div class="trust-inner">
-    <div class="ti">✅ Asesoría 100% personalizada</div>
-    <div class="ti">💰 Mejor precio garantizado</div>
-    <div class="ti">🚢 Todas las navieras disponibles</div>
-    <div class="ti">📞 Atención Lun–Sáb 8AM–6PM</div>
-    <div class="ti">⭐ Miles de clientes felices</div>
+<!-- ==============================
+  TESTIMONIOS
+============================== -->
+<section class="section section-alt">
+  <div class="fade-up">
+    <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+    <p class="section-sub">Miles de familias ya viajaron con nosotros</p>
   </div>
-</div>
-
-<!-- ── CRUCEROS — DINÁMICO ── -->
-<section class="section blanco" id="cruceros">
-  <div class="wrap">
-    <div class="sec-head fade">
-      <div>
-        <div class="sec-title">Cruceros</div>
-        <div class="sec-sub">Marítimos, fluviales y de lujo — todas las navieras al mejor precio</div>
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <p class="testi-text">El crucero por el Mediterráneo fue un sueño hecho realidad. Luchris Travels se encargó de absolutamente todo. ¡Volveremos sin duda!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">MR</div>
+        <div>
+          <div class="testi-name">María Rodríguez</div>
+          <div class="testi-loc">📍 Santo Domingo, RD</div>
+          <div class="stars">★★★★★</div>
+        </div>
       </div>
-      <a href="javascript:void(0)" onclick="mostrarTodosCruceros()" class="ver-mas">Ver todos →</a>
     </div>
-    <div class="grid-4" id="cruceros-grid">
-      <div class="card">
-        <div class="card-img">
-          <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80" alt="Crucero Royal Caribbean">
-        </div>
-        <div class="card-body">
-          <h3>Crucero Royal Caribbean</h3>
-          <p class="f-desc">7 noches Caribe Occidental con entretenimiento incluido</p>
-          <div class="card-footer">
-            <span class="precio">$1,299</span>
-            <button class="btn-secondary" onclick="ir('cruceros')">Ver Detalles</button>
-          </div>
+    <div class="testi-card fade-up">
+      <p class="testi-text">Fuimos a Disney World con tres niños y fue perfecto. Hotel dentro del parque, FastPass y traslados. Exactamente como prometieron.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">JP</div>
+        <div>
+          <div class="testi-name">Jorge Peña</div>
+          <div class="testi-loc">📍 Santiago, RD</div>
+          <div class="stars">★★★★★</div>
         </div>
       </div>
-
-      <div class="card">
-        <div class="card-img">
-          <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" alt="Crucero Carnival">
-        </div>
-        <div class="card-body">
-          <h3>Crucero Carnival</h3>
-          <p class="f-desc">5 noches visitando Barbados y St. Lucia</p>
-          <div class="card-footer">
-            <span class="precio">$899</span>
-            <button class="btn-secondary" onclick="ir('cruceros')">Ver Detalles</button>
-          </div>
+    </div>
+    <div class="testi-card fade-up">
+      <p class="testi-text">El crucero fluvial por el Danubio superó todas mis expectativas. Nunca imaginé que un viaje de ese nivel fuera accesible desde RD.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">CA</div>
+        <div>
+          <div class="testi-name">Carmen Arias</div>
+          <div class="testi-loc">📍 Baní, RD</div>
+          <div class="stars">★★★★★</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PARQUES TEMÁTICOS ── -->
-<section class="section gris" id="parques">
-  <div class="wrap">
-    <div class="sec-head fade">
-      <div>
-        <div class="sec-title">Parques Temáticos</div>
-        <div class="sec-sub">Hotel oficial, tickets multi-día y traslados desde República Dominicana</div>
+<!-- ==============================
+  CONTACTO
+============================== -->
+<section class="section" id="contacto">
+  <div class="fade-up">
+    <h2 class="section-title">Contáctanos</h2>
+    <p class="section-sub">Solicita tu cotización gratis — te respondemos en menos de 24 horas</p>
+  </div>
+  <div class="contact-wrap">
+    <div class="contact-info-box fade-up">
+      <img src="logo-luchris.png" alt="Luchris Travels Tours">
+      <h3>Luchris Travels Tours</h3>
+      <p>Tu agencia de viajes de confianza en Baní, RD. Estamos listos para ayudarte a planificar el viaje de tus sueños.</p>
+      <div class="cinfo-item">
+        <div class="ico">📞</div>
+        <div><label>Teléfono / WhatsApp</label><a href="https://wa.me/18295502847" target="_blank">+1 (829) 550-2847</a></div>
+      </div>
+      <div class="cinfo-item">
+        <div class="ico">📧</div>
+        <div><label>Email</label><a href="mailto:luchristravels@gmail.com">luchristravels@gmail.com</a></div>
+      </div>
+      <div class="cinfo-item">
+        <div class="ico">📍</div>
+        <div><label>Dirección</label><p>Calle Primera #11, Res. Peravia, Baní, RD</p></div>
+      </div>
+      <div class="cinfo-item">
+        <div class="ico">⏰</div>
+        <div><label>Horario</label><p>Lun – Sáb: 8:00 AM – 6:00 PM</p></div>
+      </div>
+      <div class="contact-social">
+        <a class="soc-btn" href="https://www.instagram.com/luchristravels/" target="_blank">📸</a>
+        <a class="soc-btn" href="https://wa.me/18295502847" target="_blank">💬</a>
+        <a class="soc-btn" href="mailto:luchristravels@gmail.com">📧</a>
+        <a class="soc-btn" href="#">👍</a>
       </div>
     </div>
-    <div class="grid-2">
-      <div class="park-card fade">
-        <img src="https://images.unsplash.com/photo-1453747063559-36695c8771bd?w=900&q=85&auto=format&fit=crop" alt="Walt Disney World">
-        <div class="park-overlay"></div>
-        <div class="park-body">
-          <span class="park-tag pt-disney">⭐ Especialistas Disney</span>
-          <h3>Walt Disney World & Disneyland</h3>
-          <p>Orlando, París, Tokio y más. Hotel oficial, tickets multi-día y traslados puerta a puerta.</p>
-          <div class="park-chips">
-            <span class="pchip">🏰 Magic Kingdom</span>
-            <span class="pchip">🚀 EPCOT</span>
-            <span class="pchip">🎬 Hollywood Studios</span>
-            <span class="pchip">🦁 Animal Kingdom</span>
-            <span class="pchip">✨ All-Inclusive</span>
-          </div>
-          <button class="btn-park" onclick="ir('cotizar')">Cotizar Paquete Disney</button>
-        </div>
-      </div>
 
-      <div class="park-card fade">
-        <img src="https://images.unsplash.com/photo-1585155967849-91c736589c75?w=900&q=85&auto=format&fit=crop" alt="Universal Studios">
-        <div class="park-overlay"></div>
-        <div class="park-body">
-          <span class="park-tag pt-universal">🎬 Universal Studios</span>
-          <h3>Universal Studios & Islands of Adventure</h3>
-          <p>Harry Potter, Jurassic World, Minions, Marvel y Epic Universe. Adrenalina pura en Orlando.</p>
-          <div class="park-chips">
-            <span class="pchip">⚡ Harry Potter</span>
-            <span class="pchip">🦕 Jurassic World</span>
-            <span class="pchip">🕷️ Marvel</span>
-            <span class="pchip">🌊 Volcano Bay</span>
-            <span class="pchip">🎟️ Epic Universe</span>
-          </div>
-          <button class="btn-park" onclick="ir('cotizar')">Cotizar Paquete Universal</button>
+    <div class="contact-form-box fade-up">
+      <h3>Solicitar cotización gratuita</h3>
+      <div class="form-row">
+        <div class="fg"><label>Nombre</label><input type="text" placeholder="Tu nombre completo"></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="tu@email.com"></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Teléfono</label><input type="tel" placeholder="+1 809 000 0000"></div>
+        <div class="fg"><label>Tipo de viaje</label>
+          <select>
+            <option value="">Seleccionar...</option>
+            <option>Tour Nacional (RD)</option>
+            <option>Tour Internacional</option>
+            <option>Paquete Disney World</option>
+            <option>Paquete Disneyland París</option>
+            <option>Paquete Universal Studios</option>
+            <option>Crucero Marítimo — Caribe</option>
+            <option>Crucero Marítimo — Mediterráneo</option>
+            <option>Crucero Marítimo — Otro destino</option>
+            <option>Crucero Fluvial</option>
+            <option>Crucero de Lujo</option>
+            <option>Parque + Crucero combinado</option>
+            <option>Luna de Miel</option>
+            <option>Viaje Corporativo / Grupo</option>
+          </select>
         </div>
       </div>
+      <div class="form-row">
+        <div class="fg"><label>Fecha aproximada</label><input type="date"></div>
+        <div class="fg"><label>Pasajeros</label>
+          <select>
+            <option>1 persona</option>
+            <option>2 personas</option>
+            <option>3 – 4 personas</option>
+            <option>5 – 8 personas</option>
+            <option>9+ personas (grupo)</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label>Mensaje</label><textarea placeholder="Cuéntanos sobre tu viaje ideal — destino, presupuesto, fechas, preferencias..."></textarea></div>
+      <button class="btn-send" onclick="sendForm(this)">✈️ Enviar Solicitud de Cotización</button>
     </div>
   </div>
 </section>
 
-<!-- ── BOLETOS AÉREOS ── -->
-<section class="section blanco" id="boletos-section">
-  <div class="wrap">
-    <div class="sec-head fade">
-      <div>
-        <div class="sec-title">Boletos Aéreos</div>
-        <div class="sec-sub">Vuelos internacionales desde República Dominicana — Directos y con conexiones</div>
-      </div>
-      <a onclick="mostrarTodosBoletos()" class="ver-mas" style="cursor:pointer;">Ver todos →</a>
-    </div>
-    <div class="grid-4" id="boletos-grid">
-    </div>
-  </div>
-</section>
-
-<!-- ── POR QUÉ ELEGIRNOS ── -->
-<section class="section gris" id="nosotros">
-  <div class="wrap">
-    <div class="sec-head fade">
-      <div>
-        <div class="sec-title">¿Por qué elegir Luchris Travels & Tours?</div>
-        <div class="sec-sub">Tu tranquilidad y satisfacción son nuestra prioridad</div>
-      </div>
-    </div>
-    <div class="why-grid">
-      <div class="why-box fade">
-        <div class="why-ico">🏆</div>
-        <h4>15+ Años de Experiencia</h4>
-        <p>Más de una década creando viajes inolvidables para familias dominicanas.</p>
-      </div>
-      <div class="why-box fade">
-        <div class="why-ico">💬</div>
-        <h4>Asesoría Personalizada</h4>
-        <p>Te acompañamos desde la consulta hasta que regresas. Siempre disponibles.</p>
-      </div>
-      <div class="why-box fade">
-        <div class="why-ico">💰</div>
-        <h4>Mejor Precio Garantizado</h4>
-        <p>Negociamos directo con navieras y hoteles para darte el mejor precio.</p>
-      </div>
-      <div class="why-box fade">
-        <div class="why-ico">🌍</div>
-        <h4>+120 Destinos</h4>
-        <p>Desde el Caribe hasta Asia. Paquetes para cualquier destino y presupuesto.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── SECCIÓN DE COTIZACIÓN ── -->
-<section class="cot-section" id="cotizar">
-  <div class="cot-inner">
-    <div class="cot-info fade">
-      <h2>Solicita tu cotización gratis</h2>
-      <p>Cuéntanos tu viaje ideal y nuestros asesores te contactarán en menos de 24 horas con la mejor propuesta personalizada para ti.</p>
-      <div class="cot-datos">
-        <div class="cdat">
-          <div class="cdat-ico">📞</div>
-          <div>
-            <label>WhatsApp / Teléfono</label>
-            <a href="https://wa.me/18295502847" target="_blank">+1 (829) 550-2847</a>
-          </div>
-        </div>
-        <div class="cdat">
-          <div class="cdat-ico">📧</div>
-          <div>
-            <label>Email</label>
-            <a href="mailto:luchristravels@gmail.com">luchristravels@gmail.com</a>
-          </div>
-        </div>
-        <div class="cdat">
-          <div class="cdat-ico">📍</div>
-          <div>
-            <label>Oficina</label>
-            <p>Calle Primera #11, Res. Peravia, Baní, RD</p>
-          </div>
-        </div>
-        <div class="cdat">
-          <div class="cdat-ico">⏰</div>
-          <div>
-            <label>Horario</label>
-            <p>Lunes – Sábado: 8:00 AM – 6:00 PM</p>
-          </div>
-        </div>
-      </div>
-      <div class="soc-row">
-        <a class="soc" href="https://www.instagram.com/luchristravels/" target="_blank" title="Instagram">📸</a>
-        <a class="soc" href="https://wa.me/18295502847" target="_blank" title="WhatsApp">💬</a>
-        <a class="soc" href="mailto:luchristravels@gmail.com" title="Email">📧</a>
-      </div>
-    </div>
-
-    <div class="cot-form fade">
-      <h3>Formulario de cotización</h3>
-      <form onsubmit="solicitarCotizacion(event)">
-        <div class="form-row">
-          <div class="fg">
-            <label>Nombre completo</label>
-            <input type="text" name="nombre" placeholder="Tu nombre" required>
-          </div>
-          <div class="fg">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="tu@email.com" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="fg">
-            <label>Teléfono / WhatsApp</label>
-            <input type="tel" name="telefono" placeholder="+1 809 000 0000" required>
-          </div>
-          <div class="fg">
-            <label>Tipo de viaje</label>
-            <select name="tipo" required>
-              <option value="">Seleccionar...</option>
-              <option>Crucero — Caribe</option>
-              <option>Crucero — Mediterráneo</option>
-              <option>Crucero Fluvial</option>
-              <option>Paquete Disney World</option>
-              <option>Paquete Universal Studios</option>
-              <option>Tour Nacional (RD)</option>
-              <option>Tour Internacional</option>
-              <option>Luna de Miel</option>
-              <option>Grupo / Corporativo</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="fg">
-            <label>Fecha aproximada</label>
-            <input type="date" name="fecha" required>
-          </div>
-          <div class="fg">
-            <label>Número de pasajeros</label>
-            <select name="pasajeros" required>
-              <option>1 persona</option>
-              <option>2 personas</option>
-              <option>3 – 4 personas</option>
-              <option>5 – 8 personas</option>
-              <option>9+ personas (grupo)</option>
-            </select>
-          </div>
-        </div>
-        <div class="fg">
-          <label>Cuéntanos tu viaje ideal</label>
-          <textarea name="comentarios" placeholder="Destino de interés, presupuesto aproximado, preferencias especiales..."></textarea>
-        </div>
-        <button type="submit" class="btn-enviar">✈️ Enviar Solicitud de Cotización</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- ── FOOTER ── -->
+<!-- ==============================
+  FOOTER
+============================== -->
 <footer>
-  <div class="footer-wrap">
-    <div class="footer-grid">
-      <div>
-        <div class="f-brand-name">LUCHRIS <span>TRAVELS</span></div>
-        <p class="f-desc">Tu agencia de viajes de confianza en Baní, República Dominicana. Especialistas en cruceros, Disney, Universal y tours nacionales e internacionales.</p>
-        <div class="soc-row" style="margin-top:18px;">
-          <a class="soc" href="https://www.instagram.com/luchristravels/" target="_blank">📸</a>
-          <a class="soc" href="https://wa.me/18295502847" target="_blank">💬</a>
-          <a class="soc" href="mailto:luchristravels@gmail.com">📧</a>
-        </div>
-      </div>
-      <div class="fcol">
-        <h5>Servicios</h5>
-        <ul>
-          <li><a href="#cruceros">Cruceros Marítimos</a></li>
-          <li><a href="#cruceros">Cruceros Fluviales</a></li>
-          <li><a href="#parques">Paquetes Disney</a></li>
-          <li><a href="#parques">Universal Studios</a></li>
-          <li><a href="#tours">Tours Nacionales</a></li>
-          <li><a href="#tours">Tours Internacionales</a></li>
-        </ul>
-      </div>
-      <div class="fcol">
-        <h5>Destinos</h5>
-        <ul>
-          <li><a href="#cruceros">El Caribe</a></li>
-          <li><a href="#cruceros">Europa</a></li>
-          <li><a href="#cruceros">Miami & Florida</a></li>
-          <li><a href="#cruceros">Cancún & México</a></li>
-          <li><a href="#cruceros">París</a></li>
-          <li><a href="#cruceros">Italia</a></li>
-        </ul>
-      </div>
-      <div class="fcol">
-        <h5>Contacto</h5>
-        <ul>
-          <li><a href="https://wa.me/18295502847" target="_blank">📞 (829) 550-2847</a></li>
-          <li><a href="mailto:luchristravels@gmail.com">📧 luchristravels@gmail.com</a></li>
-          <li><a href="#">📍 Baní, RD</a></li>
-          <li><a href="https://www.instagram.com/luchristravels/" target="_blank">📸 @luchristravels</a></li>
-          <li><a href="#cotizar">✉️ Solicitar Cotización</a></li>
-        </ul>
-      </div>
+  <div class="footer-grid">
+    <div class="footer-logo">
+      <img src="logo-luchris.png" alt="Luchris Travels Tours">
+      <p class="footer-desc">Tu agencia de viajes de confianza en Baní, República Dominicana. Especialistas en cruceros, parques Disney & Universal, tours nacionales e internacionales.</p>
     </div>
-    <div class="footer-bot">
-      <p>© 2026 Luchris Travels & Tours. Todos los derechos reservados — Baní, República Dominicana</p>
-      <span class="footer-tag">✈️ Tu Mundo, Tu Aventura</span>
+    <div class="footer-col">
+      <h5>Servicios</h5>
+      <ul>
+        <li><a href="#cruceros">Cruceros Marítimos</a></li>
+        <li><a href="#cruceros">Cruceros Fluviales</a></li>
+        <li><a href="#parques">Paquetes Disney</a></li>
+        <li><a href="#parques">Universal Studios</a></li>
+        <li><a href="#destinos">Tours Nacionales</a></li>
+        <li><a href="#destinos">Tours Internacionales</a></li>
+      </ul>
     </div>
+    <div class="footer-col">
+      <h5>Destinos</h5>
+      <ul>
+        <li><a href="#destinos">El Caribe</a></li>
+        <li><a href="#destinos">Europa</a></li>
+        <li><a href="#destinos">Miami & Florida</a></li>
+        <li><a href="#destinos">Cancún & México</a></li>
+        <li><a href="#destinos">París</a></li>
+        <li><a href="#destinos">Italia</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contacto</h5>
+      <ul>
+        <li><a href="https://wa.me/18295502847" target="_blank">📞 (829) 550-2847</a></li>
+        <li><a href="mailto:luchristravels@gmail.com">📧 luchristravels@gmail.com</a></li>
+        <li><a href="#">📍 Baní, República Dominicana</a></li>
+        <li><a href="https://www.instagram.com/luchristravels/" target="_blank">📸 @luchristravels</a></li>
+        <li><a href="#contacto">✉️ Solicitar Cotización</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Luchris Travels Tours. Todos los derechos reservados — Baní, República Dominicana</p>
+    <span class="footer-tag">✈️ Tu Mundo, Tu Aventura</span>
   </div>
 </footer>
 
-<!-- ── BOTÓN WHATSAPP ── -->
-<a href="https://wa.me/18295502847" class="wa-btn" target="_blank" rel="noopener" title="Escríbenos por WhatsApp">💬</a>
+<!-- WhatsApp -->
+<a href="https://wa.me/18295502847" class="wa-btn" target="_blank" rel="noopener" title="WhatsApp">💬</a>
 
-<!-- ── JAVASCRIPT ── -->
+<!-- ==============================
+  JAVASCRIPT
+============================== -->
 <script>
-// ─── CONFIG ───
-const CONFIG = {
-  apiBase: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:5000/api'
-    : 'https://luchris-travels-backend.onrender.com/api',
+/* NAV */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
 
-  obtenerURL: function(endpoint) {
-    return this.apiBase + endpoint;
-  }
-};
-
-// ─── NAVEGACIÓN SUAVE ───
-function ir(id){
-  const el = document.getElementById(id);
-  if(el) window.scrollTo({top: el.offsetTop - 68, behavior:'smooth'});
-}
-
-// ─── MENÚ MÓVIL ───
-function openMob(){
-  document.getElementById('mobNav').classList.toggle('open');
+/* MOBILE MENU */
+function toggleMob() {
+  document.getElementById('mobMenu').classList.toggle('open');
   document.getElementById('hbg').classList.toggle('x');
 }
-function closeMob(){
-  document.getElementById('mobNav').classList.remove('open');
+function closeMob() {
+  document.getElementById('mobMenu').classList.remove('open');
   document.getElementById('hbg').classList.remove('x');
 }
 
-// ─── HERO SLIDER ───
+/* HERO SLIDER */
 const slides = document.querySelectorAll('.hero-slide');
 const dotsEl = document.getElementById('heroDots');
-let actual = 0;
+let cur = 0;
 
 slides.forEach((_, i) => {
   const d = document.createElement('div');
-  d.className = 'hdot' + (i === 0 ? ' active' : '');
-  d.onclick = () => irSlide(i);
+  d.className = 'hero-dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => goTo(i);
   dotsEl.appendChild(d);
 });
 
-function irSlide(n) {
-  slides[actual].classList.remove('active');
-  dotsEl.children[actual].classList.remove('active');
-  actual = (n + slides.length) % slides.length;
-  slides[actual].classList.add('active');
-  dotsEl.children[actual].classList.add('active');
+function goTo(n) {
+  slides[cur].classList.remove('active');
+  dotsEl.children[cur].classList.remove('active');
+  cur = (n + slides.length) % slides.length;
+  slides[cur].classList.add('active');
+  dotsEl.children[cur].classList.add('active');
 }
+function heroChange(dir) { goTo(cur + dir); }
+const autoSlide = setInterval(() => goTo(cur + 1), 5000);
 
-function cambiarSlide(dir) { irSlide(actual + dir); }
+/* CATEGORY PILLS */
+document.querySelectorAll('.cat-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.cat-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
 
-setInterval(() => irSlide(actual + 1), 5500);
+/* COUNTERS */
+const cObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const tgt = parseInt(el.dataset.target);
+    let cur2 = 0, step = tgt / 60;
+    const t = setInterval(() => {
+      cur2 = Math.min(cur2 + step, tgt);
+      el.textContent = Math.floor(cur2).toLocaleString();
+      if (cur2 >= tgt) clearInterval(t);
+    }, 25);
+    cObs.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(el => cObs.observe(el));
 
-// ─── TABS BUSCADOR ───
-function selTab(el) {
-  document.querySelectorAll('.stab').forEach(t => t.classList.remove('on'));
-  el.classList.add('on');
-}
-
-// ─── ANIMACIÓN AL HACER SCROLL ───
-const observador = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('show'), i * 80);
-    }
+/* SCROLL REVEAL */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
   });
 }, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-document.querySelectorAll('.fade').forEach(el => observador.observe(el));
-
-// ─── CREAR TARJETA DE PRODUCTO ───
-function crearTarjetaProducto(producto) {
-  const esMaritimo = producto.salida === 'Miami' || producto.salida === 'Republica Dominicana' || !producto.salida;
-  const badge = esMaritimo ? '🚢 Marítimo' : '🌊 Fluvial';
-  const badgeColor = esMaritimo ? 'b-azul' : 'b-verde';
-
-  return `
-    <div class="card fade">
-      <div class="card-img" style="background: linear-gradient(135deg, #1565c0, #0d47a1); display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem;">
-        ${esMaritimo ? '⛴️' : '🚢'}
-        <span class="badge ${badgeColor}">${badge}</span>
-      </div>
-      <div class="card-body">
-        <div class="card-cat">🚢 ${producto.naviera}</div>
-        <div class="card-title">${producto.nombre}</div>
-        <div class="card-desc">${producto.descripcion}</div>
-        <div class="card-footer">
-          <div class="precio">Desde <strong>$999</strong></div>
-          <button class="card-cta" onclick="ir('cotizar')">Cotizar</button>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-// ─── CARGAR CRUCEROS ───
-async function cargarCruceros() {
-  const grid = document.getElementById('cruceros-grid');
-  try {
-    console.log('🔄 Cargando cruceros desde:', CONFIG.obtenerURL('/cruceros'));
-    const response = await fetch(CONFIG.obtenerURL('/cruceros'));
-    const data = await response.json();
-
-    console.log('📊 Respuesta del API:', data);
-
-    if (data.success && data.datos && data.datos.length > 0) {
-      console.log('✅ Cruceros encontrados:', data.datos.length);
-      grid.innerHTML = data.datos.slice(0, 4).map(p => {
-        const esMaritimo = p.salida === 'Miami' || p.salida === 'Republica Dominicana';
-        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">${esMaritimo ? '⛴️' : '🚢'}</div><div class="card-body"><div class="card-cat">${p.naviera}</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base || 999}</strong></div><button class="card-cta" onclick="agregarCarrito('${p.nombre}', ${p.precio_base || 999}, 'crucero')">🛒 Agregar</button></div></div></div>`;
-      }).join('');
-    } else {
-      console.log('❌ No hay cruceros o respuesta inválida');
-      grid.innerHTML = '<div class="error-message">No hay cruceros disponibles en este momento.</div>';
-    }
-  } catch (error) {
-    console.error('❌ Error cargando cruceros:', error);
-    grid.innerHTML = '<div class="error-message">Error al cargar cruceros. Intenta más tarde.</div>';
-  }
-}
-
-// ─── CARGAR DISNEY ───
-async function cargarDisney() {
-  const grid = document.getElementById('disney-grid');
-  try {
-    console.log('🔄 Cargando Disney desde:', CONFIG.obtenerURL('/productos/tipo/disney'));
-    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/disney'));
-    const data = await response.json();
-
-    console.log('📊 Disney respuesta:', data);
-
-    if (data.success && data.datos && data.datos.length > 0) {
-      console.log('✅ Paquetes Disney encontrados:', data.datos.length);
-      grid.innerHTML = data.datos.slice(0, 4).map(p => {
-        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">🏰</div><div class="card-body"><div class="card-cat">🎢 Paquete Disney</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta" onclick="agregarCarrito('${p.nombre}', ${p.precio_base}, 'disney')">🛒 Agregar</button></div></div></div>`;
-      }).join('');
-    } else {
-      console.log('❌ No hay Disney o respuesta inválida');
-      grid.innerHTML = '<div class="error-message">No hay paquetes Disney disponibles en este momento.</div>';
-    }
-  } catch (error) {
-    console.error('❌ Error cargando Disney:', error);
-    grid.innerHTML = '<div class="error-message">Error al cargar paquetes. Intenta más tarde.</div>';
-  }
-}
-
-// ─── CARGAR BOLETOS ───
-async function cargarBoletos() {
-  const grid = document.getElementById('boletos-grid');
-  try {
-    console.log('🔄 Cargando boletos desde:', CONFIG.obtenerURL('/productos/tipo/boleto'));
-    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/boleto'));
-    const data = await response.json();
-
-    console.log('📊 Boletos respuesta:', data);
-
-    if (data.success && data.datos && data.datos.length > 0) {
-      console.log('✅ Boletos encontrados:', data.datos.length);
-      grid.innerHTML = data.datos.slice(0, 4).map(p => {
-        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">✈️</div><div class="card-body"><div class="card-cat">🛫 Vuelo Internacional</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta" onclick="agregarCarrito('${p.nombre}', ${p.precio_base}, 'boleto')">🛒 Agregar</button></div></div></div>`;
-      }).join('');
-    } else {
-      console.log('❌ No hay boletos o respuesta inválida');
-      grid.innerHTML = '<div class="error-message">No hay boletos disponibles en este momento.</div>';
-    }
-  } catch (error) {
-    console.error('❌ Error cargando boletos:', error);
-    grid.innerHTML = '<div class="error-message">Error al cargar boletos. Intenta más tarde.</div>';
-  }
-}
-
-// ─── CARGAR UNIVERSAL STUDIOS ───
-async function cargarUniversal() {
-  const grid = document.getElementById('universal-grid');
-  try {
-    console.log('🔄 Cargando Universal desde tours de Orlando...');
-    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/tour'));
-    const data = await response.json();
-
-    console.log('📊 Tours respuesta:', data);
-
-    if (data.success && data.datos && data.datos.length > 0) {
-      // Filtrar solo los tours de Orlando (que son los paquetes de Universal)
-      const universalPackages = data.datos.filter(p =>
-        p.destino && p.destino.includes('Orlando')
-      );
-
-      console.log('✅ Paquetes Universal encontrados:', universalPackages.length);
-
-      if (universalPackages.length > 0) {
-        grid.innerHTML = universalPackages.slice(0, 4).map(p => {
-          return `<div class="card"><div class="card-img" style="background:#FF6B35;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">🎢</div><div class="card-body"><div class="card-cat">🎢 Universal Studios</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta" onclick="agregarCarrito('${p.nombre}', ${p.precio_base}, 'universal')">🛒 Agregar</button></div></div></div>`;
-        }).join('');
-      } else {
-        console.log('❌ No hay paquetes Universal, mostrando ejemplos');
-      }
-    } else {
-      console.log('❌ Error en respuesta, mostrando paquetes de ejemplo');
-    }
-  } catch (error) {
-    console.error('❌ Error cargando Universal:', error);
-    // Dejar los paquetes de ejemplo que están en el HTML
-  }
-}
-
-// ─── MOSTRAR TODOS LOS CRUCEROS ───
-async function mostrarTodosCruceros() {
-  const grid = document.getElementById('cruceros-grid');
-  try {
-    const response = await fetch(CONFIG.obtenerURL('/cruceros'));
-    const data = await response.json();
-
-    if (data.success && data.datos && data.datos.length > 0) {
-      grid.innerHTML = data.datos.map(p => {
-        const esMaritimo = p.salida === 'Miami' || p.salida === 'Republica Dominicana';
-        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">${esMaritimo ? '⛴️' : '🚢'}</div><div class="card-body"><div class="card-cat">${p.naviera}</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base || 999}</strong></div><button class="card-cta" onclick="agregarCarrito('${p.nombre}', ${p.precio_base || 999}, 'crucero')">🛒 Agregar</button></div></div></div>`;
-      }).join('');
-      window.scrollTo({top: grid.offsetTop - 100, behavior: 'smooth'});
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-// ─── MOSTRAR TODOS LOS DISNEY ───
-async function mostrarTodosDisney() {
-  const grid = document.getElementById('disney-grid');
-  try {
-    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/disney'));
-    const data = await response.json();
-
-    if (data.success && data.datos && data.datos.length > 0) {
-      grid.innerHTML = data.datos.map(p => {
-        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">🏰</div><div class="card-body"><div class="card-cat">🎢 Paquete Disney</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta" onclick="agregarCarrito('${p.nombre}', ${p.precio_base}, 'disney')">🛒 Agregar</button></div></div></div>`;
-      }).join('');
-      window.scrollTo({top: grid.offsetTop - 100, behavior: 'smooth'});
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-// ─── MOSTRAR TODOS LOS BOLETOS ───
-async function mostrarTodosBoletos() {
-  const grid = document.getElementById('boletos-grid');
-  try {
-    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/boleto'));
-    const data = await response.json();
-
-    if (data.success && data.datos && data.datos.length > 0) {
-      grid.innerHTML = data.datos.map(p => {
-        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">✈️</div><div class="card-body"><div class="card-cat">🛫 Vuelo Internacional</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta" onclick="agregarCarrito('${p.nombre}', ${p.precio_base}, 'boleto')">🛒 Agregar</button></div></div></div>`;
-      }).join('');
-      window.scrollTo({top: grid.offsetTop - 100, behavior: 'smooth'});
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-// ─── MOSTRAR TODOS LOS UNIVERSAL STUDIOS ───
-async function mostrarTodosUniversal() {
-  const grid = document.getElementById('universal-grid');
-  try {
-    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/tour'));
-    const data = await response.json();
-
-    if (data.success && data.datos && data.datos.length > 0) {
-      // Filtrar solo los tours de Orlando
-      const universalPackages = data.datos.filter(p =>
-        p.destino && p.destino.includes('Orlando')
-      );
-
-      if (universalPackages.length > 0) {
-        grid.innerHTML = universalPackages.map(p => {
-          return `<div class="card"><div class="card-img" style="background:#FF6B35;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">🎢</div><div class="card-body"><div class="card-cat">🎢 Universal Studios</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta" onclick="agregarCarrito('${p.nombre}', ${p.precio_base}, 'universal')">🛒 Agregar</button></div></div></div>`;
-        }).join('');
-        window.scrollTo({top: grid.offsetTop - 100, behavior: 'smooth'});
-      }
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-// ─── CARGAR TOURS ───
-async function cargarTours() {
-  const grid = document.getElementById('tours-grid');
-  try {
-    console.log('🔄 Cargando tours desde:', CONFIG.obtenerURL('/productos/tipo/tour'));
-    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/tour'));
-    const data = await response.json();
-
-    console.log('📊 Tours respuesta:', data);
-
-    if (data.success && data.datos && data.datos.length > 0) {
-      console.log('✅ Tours encontrados:', data.datos.length);
-      grid.innerHTML = data.datos.slice(0, 4).map(p => {
-        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">🌍</div><div class="card-body"><div class="card-cat">✈️ ${p.destino}</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta" onclick="agregarCarrito('${p.nombre}', ${p.precio_base}, 'tour')">🛒 Agregar</button></div></div></div>`;
-      }).join('');
-    } else {
-      console.log('❌ No hay tours o respuesta inválida');
-      grid.innerHTML = '<div class="error-message">No hay tours disponibles en este momento.</div>';
-    }
-  } catch (error) {
-    console.error('❌ Error cargando tours:', error);
-    grid.innerHTML = '<div class="error-message">Error al cargar tours. Intenta más tarde.</div>';
-  }
-}
-
-// ─── MOSTRAR TODOS LOS TOURS ───
-async function mostrarTodosTours() {
-  const grid = document.getElementById('tours-grid');
-  try {
-    const response = await fetch(CONFIG.obtenerURL('/productos/tipo/tour'));
-    const data = await response.json();
-
-    if (data.success && data.datos && data.datos.length > 0) {
-      grid.innerHTML = data.datos.map(p => {
-        return `<div class="card"><div class="card-img" style="background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-size:2rem">🌍</div><div class="card-body"><div class="card-cat">✈️ ${p.destino}</div><div class="card-title">${p.nombre}</div><div class="card-desc">${p.descripcion}</div><div class="card-footer"><div class="precio">Desde <strong>$${p.precio_base}</strong></div><button class="card-cta" onclick="agregarCarrito('${p.nombre}', ${p.precio_base}, 'tour')">🛒 Agregar</button></div></div></div>`;
-      }).join('');
-      window.scrollTo({top: grid.offsetTop - 100, behavior: 'smooth'});
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-// ─── FORMULARIO COTIZACIÓN ───
-async function solicitarCotizacion(event) {
-  event.preventDefault();
-
-  const form = event.target;
-  const formData = new FormData(form);
-
-  const cotizacion = {
-    nombre: formData.get('nombre'),
-    email: formData.get('email'),
-    telefono: formData.get('telefono'),
-    tipo: formData.get('tipo'),
-    fecha: formData.get('fecha'),
-    pasajeros: formData.get('pasajeros'),
-    comentarios: formData.get('comentarios')
-  };
-
-  const btnSubmit = form.querySelector('button[type="submit"]');
-  const textoOriginal = btnSubmit.textContent;
-  btnSubmit.disabled = true;
-  btnSubmit.textContent = '⏳ Enviando...';
-
-  try {
-    const response = await fetch(CONFIG.obtenerURL('/cotizaciones'), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(cotizacion)
-    });
-
-    const data = await response.json();
-
-    if (response.ok && data.success) {
-      alert('✅ ¡Cotización recibida!\\n\\nNos contactaremos con los detalles en breve.\\n\\nGracias por confiar en LUCHRIS TRAVELS & TOURS');
-      form.reset();
-    } else {
-      alert('⚠️ Error: ' + (data.error || 'No se pudo procesar la cotización'));
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('❌ Error al enviar. Por favor intenta de nuevo o llama al +1 (829) 550-2847');
-  } finally {
-    btnSubmit.textContent = textoOriginal;
-    btnSubmit.disabled = false;
-  }
-}
-
-// ─── SCROLL SUAVE ───
+/* SMOOTH SCROLL */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      window.scrollTo({ top: target.offsetTop - 68, behavior: 'smooth' });
-    }
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 70, behavior: 'smooth' }); }
   });
 });
 
-// ─── INICIALIZAR ───
-console.log('✅ Script cargado, inicializando...');
+/* FORM */
+function sendForm(btn) {
+  const orig = btn.textContent;
+  btn.textContent = '✅ ¡Enviado! Te contactaremos pronto.';
+  btn.style.background = '#16a34a';
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 5000);
+}
 
-// Ejecutar inmediatamente y también en load
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('📄 DOM cargado');
-  cargarCruceros();
-  cargarDisney();
-  cargarBoletos();
-  cargarTours();
-});
+/* ===== CARGAR PRODUCTOS DESDE API ===== */
+const API_URL = 'http://localhost:5000/api';
 
-// Función para inicializar Swiper en todos los grids
-async function initializeSwipers() {
-  // Esperar a que Swiper esté disponible
-  if(typeof Swiper === 'undefined') {
-    setTimeout(initializeSwipers, 100);
-    return;
-  }
-
-  document.querySelectorAll('.grid-4, .grid-3, .grid-2').forEach((grid) => {
-    if(grid.id && ['cruceros-grid','boletos-grid','disney-grid','universal-grid','tours-grid'].includes(grid.id)) {
-      const cards = grid.querySelectorAll('.card');
-
-      // Solo inicializar si hay tarjetas
-      if(cards.length > 0) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'swiper-wrapper';
-
-        cards.forEach(card => {
-          const clone = card.cloneNode(true);
-          clone.classList.add('swiper-slide');
-          wrapper.appendChild(clone);
-        });
-
-        grid.innerHTML = '';
-        grid.appendChild(wrapper);
-
-        const prevBtn = document.createElement('div');
-        prevBtn.className = 'swiper-button-prev';
-        grid.appendChild(prevBtn);
-
-        const nextBtn = document.createElement('div');
-        nextBtn.className = 'swiper-button-next';
-        grid.appendChild(nextBtn);
-
-        const pagination = document.createElement('div');
-        pagination.className = 'swiper-pagination';
-        grid.appendChild(pagination);
-
-        grid.classList.add('swiper');
-        grid.classList.remove('grid-4','grid-3','grid-2');
-
-        new Swiper(grid, {
-          spaceBetween: 20,
-          pagination: { el: '.swiper-pagination', clickable: true },
-          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-          breakpoints: {
-            320: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1200: { slidesPerView: 4 }
-          }
-        });
-      }
-    }
-  });
-
-  // Inicializar Swiper para Ideas de Viaje
-  const ideasCarousel = document.getElementById('ideas-carousel');
-  if(ideasCarousel) {
-    new Swiper(ideasCarousel, {
-      spaceBetween: 16,
-      pagination: { el: '.ideas-grid .swiper-pagination', clickable: true },
-      navigation: {
-        nextEl: '.ideas-grid .swiper-button-next',
-        prevEl: '.ideas-grid .swiper-button-prev'
-      },
-      breakpoints: {
-        320: { slidesPerView: 1.5 },
-        480: { slidesPerView: 2.5 },
-        768: { slidesPerView: 3.5 },
-        1200: { slidesPerView: 5 }
-      }
+async function cargarProductos(tipo, contenedorId) {
+  try {
+    const response = await fetch(`${API_URL}/productos?tipo=${tipo}`);
+    const data = await response.json();
+    if (!data.success || !data.datos || data.datos.length === 0) return;
+    const container = document.getElementById(contenedorId);
+    if (!container) return;
+    container.innerHTML = '';
+    data.datos.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card fade-up';
+      card.innerHTML = `
+        <div class="card-img">
+          <img src="${p.fotos[0]?.url || 'https://picsum.photos/500/300'}" alt="${p.nombre}" loading="lazy">
+          <div class="card-badge">${p.tipo}</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">${p.nombre}</div>
+          <div class="card-desc">${p.descripcion?.substring(0, 80)}...</div>
+          <div class="card-footer">
+            <div class="card-price">Desde <strong>US$${p.precio_base}</strong></div>
+            <a href="producto-detalle.html?id=${p._id}" class="card-btn">Cotizar</a>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
     });
+  } catch (error) {
+    console.error(`Error cargando ${tipo}:`, error);
   }
 }
 
-// Ejecutar cargas de datos
-cargarCruceros();
-cargarDisney();
-cargarBoletos();
-cargarUniversal();
-cargarTours();
+async function cargarCruceros() { await cargarProductos('crucero', 'cruceros-grid'); }
+async function cargarHoteles() { await cargarProductos('hotel', 'hoteles-grid'); }
+async function cargarBoletos() { await cargarProductos('boleto', 'boletos-grid'); }
+async function cargarDestinos() { await cargarProductos('tour', 'destinos-grid'); }
 
-// Inicializar Swiper después de que la página cargue
-window.addEventListener('load', () => {
-  console.log('🔄 Página completamente cargada');
-  // Esperar un poco para que los datos se inserten en el DOM
-  setTimeout(initializeSwipers, 500);
+document.addEventListener('DOMContentLoaded', () => {
+  cargarCruceros();
+  cargarHoteles();
+  cargarBoletos();
+  cargarDestinos();
 });
-
-console.log('✅ LUCHRIS TRAVELS & TOURS — Página dinámica cargada');
 </script>
-
-<!-- Carrito de Compras -->
-<script src="carrito-simple.js"></script>
-
-<!-- Swiper Carruseles -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-<!-- Botón WhatsApp Flotante -->
-<a href="https://wa.me/18295502847?text=Hola%20LUCHRIS%20TRAVELS%20%26%20TOURS%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios"
-   target="_blank"
-   class="whatsapp-btn"
-   title="Contactar por WhatsApp">
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="white">
-    <path d="M16 0C7.16 0 0 7.16 0 16c0 2.84.708 5.52 1.956 7.856L0 32l8.384-2.688C10.512 31.256 13.16 32 16 32c8.84 0 16-7.16 16-16S24.84 0 16 0zm7.84 21.36c-.344.968-1.992 1.792-2.744 1.92-.52.088-1.192.152-3.832-.84-3.28-1.248-5.368-4.544-5.528-4.752-.16-.208-1.312-1.752-1.312-3.344 0-1.592.832-2.376 1.128-2.704.232-.24.592-.304.776-.304.2 0 .4 0 .568.016.2.016.472.08.728.568.296.568 1.016 2.472 1.104 2.648.088.176.144.376.032.6-.112.224-.16.36-.32.552-.16.192-.336.424-.48.56-.16.16-.32.336-.136.656.184.32.824 1.352 1.768 2.192 1.216 1.08 2.24 1.416 2.56 1.576.224.112.424.096.576-.04.16-.176.808-.944 1.024-1.264.216-.32.432-.264.704-.16.272.104 1.728.816 2.024.96.296.144.496.216.568.336.072.12.072.688-.272 1.656z"/>
-  </svg>
-</a>
-
-<style>
-.whatsapp-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background: #25D366;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
-  transition: all 0.3s ease;
-  z-index: 999;
-}
-
-.whatsapp-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
-  background: #20BA5A;
-}
-
-@media (max-width: 768px) {
-  .whatsapp-btn {
-    width: 50px;
-    height: 50px;
-    bottom: 15px;
-    right: 15px;
-  }
-}
-</style>
-
 </body>
 </html>

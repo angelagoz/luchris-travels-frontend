@@ -5,6 +5,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const compression = require('compression');
 require('dotenv').config();
 
 const app = express();
@@ -13,9 +14,56 @@ const app = express();
 // MIDDLEWARE
 // ========================================
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Compresión gzip para optimización
+app.use(compression({
+    level: 6, // Nivel de compresión (1-9)
+    threshold: 1024, // Solo comprimir archivos > 1KB
+    filter: (req, res) => {
+        if (req.headers['x-no-compression']) {
+            return false;
+        }
+        return compression.filter(req, res);
+    }
+}));
+
+// CORS
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: false,
+    // Cache CORS preflights por 1 día
+    maxAge: 86400
+}));
+
+// JSON y URL encoded parsers
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+// Headers de caché
+app.use((req, res, next) => {
+    // Caché para recursos estáticos
+    if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/)) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // 1 año
+    } else if (req.path.startsWith('/api/')) {
+        // Caché corto para API (5 minutos)
+        res.setHeader('Cache-Control', 'public, max-age=300, must-revalidate');
+    } else {
+        // HTML: sin caché (siempre validar)
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    next();
+});
+
+// Seguridad: Headers HTTP
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    next();
+});
 
 // ========================================
 // SERVIR ARCHIVOS ESTÁTICOS (CMS y Frontend)

@@ -4,7 +4,7 @@
 
 // URL BASE DE LA API
 const CONFIG = {
-    API_URL: 'https://luchris-travels-backend.onrender.com/api',
+    API_URL: 'http://localhost:5000/api',
 
     // Endpoints de usuarios
     USUARIOS: {

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizaciones - Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial; background: #f5f5f5; }
+        .navbar { background: #1565c0; color: white; padding: 20px; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 20px; }
+        h1 { color: #1565c0; margin-bottom: 30px; }
+        .cotizacion {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid #00bcd4;
+        }
+        .cotizacion h3 { color: #333; margin-bottom: 10px; }
+        .info { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .info-item { font-size: 14px; color: #666; }
+        .info-label { font-weight: bold; color: #333; }
+        .items { background: #f9f9f9; padding: 10px; border-radius: 4px; margin: 10px 0; }
+        .item { padding: 8px 0; border-bottom: 1px solid #eee; }
+        .total { font-size: 18px; font-weight: bold; color: #c8102e; margin-top: 10px; }
+        .vacio { text-align: center; padding: 60px 20px; color: #999; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h2>📋 Cotizaciones Recibidas</h2>
+        <a href="index.html" style="color: white; text-decoration: none;">← Volver</a>
+    </div>
+
+    <div class="container">
+        <div id="cotizaciones-list"></div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        async function cargarCotizaciones() {
+            try {
+                const response = await fetch(CONFIG.API_URL + '/cotizaciones');
+                const data = await response.json();
+
+                const lista = document.getElementById('cotizaciones-list');
+
+                if (!data.datos || data.datos.length === 0) {
+                    lista.innerHTML = '<div class="vacio"><h2>📭 No hay cotizaciones</h2></div>';
+                    return;
+                }
+
+                lista.innerHTML = data.datos.map(cot => `
+                    <div class="cotizacion">
+                        <h3>📌 ${cot.nombre}</h3>
+                        <div class="info">
+                            <div class="info-item">
+                                <span class="info-label">Email:</span> ${cot.email}
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Teléfono:</span> ${cot.telefono || '-'}
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">ID:</span> ${cot._id}
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Fecha:</span> ${new Date(cot.createdAt).toLocaleDateString('es-ES')}
+                            </div>
+                        </div>
+
+                        ${cot.items && cot.items.length > 0 ? `
+                            <div class="items">
+                                <strong>Productos:</strong>
+                                ${cot.items.map(item => `
+                                    <div class="item">
+                                        ${item.nombre} - $${parseFloat(item.precio).toFixed(2)}
+                                    </div>
+                                `).join('')}
+                                <div class="total">Total: $${parseFloat(cot.monto_total).toFixed(2)}</div>
+                            </div>
+                        ` : ''}
+
+                        <div style="font-size: 12px; color: #999; margin-top: 15px;">
+                            ${cot.comentarios ? `<p><strong>Comentarios:</strong> ${cot.comentarios}</p>` : ''}
+                            <p><strong>Estado:</strong> ${cot.estado}</p>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('cotizaciones-list').innerHTML =
+                    '<div class="vacio"><h2>⚠️ Error al cargar cotizaciones</h2></div>';
+            }
+        }
+
+        cargarCotizaciones();
+        // Recargar cada 30 segundos
+        setInterval(cargarCotizaciones, 30000);
+    </script>
+</body>
+</html>

@@ -63,12 +63,13 @@
 
                 <div class="botones">
                     <button class="btn btn-secondary" onclick="location.href='index.html'">← Seguir comprando</button>
-                    <button class="btn btn-primary" onclick="cotizar()">📋 Solicitar Cotización</button>
+                    <button class="btn btn-primary" onclick="solicitarCotizacion()">📋 Solicitar Cotización</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="config.js"></script>
     <script>
         function mostrarCarrito() {
             let carrito = JSON.parse(localStorage.getItem('carrito_productos')) || [];
@@ -129,6 +130,48 @@
             // Limpiar carrito
             localStorage.setItem('carrito_productos', JSON.stringify([]));
             mostrarCarrito();
+        }
+
+        async function solicitarCotizacion() {
+            let carrito = JSON.parse(localStorage.getItem('carrito_productos')) || [];
+            if (carrito.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+
+            const email = prompt('📧 ¿Cuál es tu email?');
+            if (!email) return;
+
+            const nombre = prompt('👤 ¿Cuál es tu nombre?');
+            if (!nombre) return;
+
+            try {
+                const total = carrito.reduce((sum, item) => sum + (item.precio || 0), 0);
+
+                const response = await fetch(CONFIG.API_URL + '/cotizaciones', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email,
+                        nombre: nombre,
+                        items: carrito,
+                        monto_total: total
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.cotizacion_id) {
+                    alert(`✅ ¡Cotización creada!\n\n📌 ID: ${data.cotizacion_id}\n\nNos contactaremos con los detalles.\n\nEmail: ${email}`);
+                    localStorage.removeItem('carrito_productos');
+                    location.href = 'index.html';
+                } else {
+                    alert('❌ Error al crear cotización');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Error en la conexión');
+            }
         }
 
         // Mostrar carrito al cargar

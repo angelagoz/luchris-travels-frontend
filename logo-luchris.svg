@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define gradientes -->
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#17A2B8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0B3D5C;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Fondo blanco limpio -->
+  <rect width="1000" height="800" fill="#FFFFFF"/>
+
+  <!-- Círculo principal (brújula/globo) -->
+  <circle cx="500" cy="300" r="140" fill="none" stroke="#0B3D5C" stroke-width="8"/>
+
+  <!-- Punto central (oro) -->
+  <circle cx="500" cy="300" r="15" fill="#D4AF37" filter="url(#shadow)"/>
+
+  <!-- Líneas de dirección - Brújula -->
+  <!-- Norte (fuerte) -->
+  <line x1="500" y1="300" x2="500" y2="140" stroke="#17A2B8" stroke-width="6" stroke-linecap="round"/>
+  <polygon points="500,125 495,145 505,145" fill="#17A2B8"/>
+
+  <!-- Este (fuerte) -->
+  <line x1="500" y1="300" x2="660" y2="300" stroke="#17A2B8" stroke-width="6" stroke-linecap="round"/>
+  <polygon points="675,300 655,295 655,305" fill="#17A2B8"/>
+
+  <!-- Sur (suave) -->
+  <line x1="500" y1="300" x2="500" y2="440" stroke="#17A2B8" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Oeste (suave) -->
+  <line x1="500" y1="300" x2="340" y2="300" stroke="#17A2B8" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Arcos decorativos (movimiento) -->
+  <path d="M 380 220 Q 350 250 380 320" fill="none" stroke="#D4AF37" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+  <path d="M 620 220 Q 650 250 620 320" fill="none" stroke="#D4AF37" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- Elemento de avión (triángulo minimalista) -->
+  <g transform="translate(580, 200) rotate(-30)">
+    <polygon points="0,-30 -25,30 25,30" fill="#17A2B8" filter="url(#shadow)"/>
+    <circle cx="0" cy="15" r="8" fill="#D4AF37"/>
+  </g>
+
+  <!-- Elemento de onda (crucero) -->
+  <path d="M 300 480 Q 330 470 360 480 T 420 480" fill="none" stroke="#D4AF37" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <path d="M 320 510 Q 350 500 380 510 T 440 510" fill="none" stroke="#17A2B8" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Título Principal: LUCHRIS -->
+  <text x="500" y="600" font-family="Arial, sans-serif" font-size="90" font-weight="bold" text-anchor="middle" fill="#0B3D5C" letter-spacing="2">
+    LUCHRIS
+  </text>
+
+  <!-- Subtítulo: TRAVELS -->
+  <text x="500" y="690" font-family="Arial, sans-serif" font-size="80" font-weight="bold" text-anchor="middle" fill="#17A2B8" letter-spacing="3">
+    TRAVELS
+  </text>
+
+  <!-- Tagline -->
+  <text x="500" y="750" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#D4AF37" letter-spacing="1">
+    Viajes &amp; Experiencias Inolvidables
+  </text>
+
+  <!-- Línea decorativa bajo tagline -->
+  <line x1="250" y1="770" x2="750" y2="770" stroke="#D4AF37" stroke-width="2" opacity="0.5"/>
+
+  <!-- Información de variantes -->
+  <text x="50" y="50" font-family="Arial, sans-serif" font-size="14" fill="#999999" opacity="0.5">
+    LUCHRIS TRAVELS • Professional Logo Design • Scalable Vector
+  </text>
+</svg>

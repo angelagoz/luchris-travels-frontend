@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detalle del Producto — Luchris Travels</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* Navbar específico para esta página */
+.navbar{background:#fff;border-bottom:2px solid #e8e8e8;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;gap:16px;}
+.brand{font-size:1.5rem;font-weight:900;color:#1565c0;letter-spacing:-.02em;}
+.brand span{color:#c8102e;}
+.nav-back{margin-left:auto;}
+.nav-back a{background:#1565c0;color:#fff;padding:10px 20px;border-radius:6px;font-weight:700;font-size:.8rem;transition:.2s;}
+.nav-back a:hover{background:#0d47a1;}
+
+/* Ajustes de espaciado para esta página */
+.container{max-width:1200px;margin:0 auto;padding:40px 24px;background:#f5f5f5;}
+
+@media(max-width:768px){
+  .product-grid{grid-template-columns:1fr;gap:20px;}
+  .product-info h1{font-size:1.8rem;}
+  .price{font-size:2rem;}
+  .gallery{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="brand">Luchris<span>.</span></div>
+    <div class="nav-back">
+      <a href="index.html">← Volver</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+  <div id="productContainer">
+    <div class="loading">
+      <div class="spinner"></div>
+      <p style="margin-top:20px;color:#666;">Cargando producto...</p>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script>
+// Obtener ID del producto de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const productId = urlParams.get('id');
+
+if (!productId) {
+  document.getElementById('productContainer').innerHTML = '<div class="error">❌ Producto no encontrado. <a href="index.html" style="color:inherit;text-decoration:underline;">Volver</a></div>';
+} else {
+  // Cargar producto
+  fetch(CONFIG.obtenerURL(`/productos/${productId}`))
+    .then(res => res.json())
+    .then(data => {
+      if (data.success && data.datos) {
+        const p = data.datos;
+        const imagenURL = p.foto_principal || 'https://via.placeholder.com/800x400?text=Sin+imagen';
+
+        document.getElementById('productContainer').innerHTML = `
+          <div class="product-grid">
+            <!-- Imágenes y Videos -->
+            <div class="product-images">
+              <div class="main-image" style="background-image:url('${imagenURL}');"></div>
+              ${p.videos && p.videos.length > 0 ? `
+                <div style="margin-top:20px;">
+                  <h3 style="font-size:1.1rem;margin-bottom:10px;">📹 Videos</h3>
+                  ${p.videos.map((video, i) => {
+                    // Detectar si es URL de YouTube
+                    if (video.includes('youtube.com') || video.includes('youtu.be')) {
+                      const videoId = video.includes('youtu.be') ? video.split('/').pop().split('?')[0] : new URL(video).searchParams.get('v');
+                      return `<iframe width="100%" height="300" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen style="border-radius:8px;margin-bottom:10px;"></iframe>`;
+                    } else {
+                      return `<video width="100%" height="300" controls style="border-radius:8px;margin-bottom:10px;"><source src="${video}" type="video/mp4"></video>`;
+                    }
+                  }).join('')}
+                </div>
+              ` : ''}
+            </div>
+
+            <!-- Info -->
+            <div class="product-info">
+              <div class="product-cat">🎫 ${p.tipo?.toUpperCase() || 'PRODUCTO'}</div>
+              <h1>${p.nombre}</h1>
+              <div class="rating">
+                <span class="stars">★★★★★</span>
+                <span>(${p.num_reviews || 0} reseñas)</span>
+              </div>
+
+              <p class="description">${p.descripcion || 'Sin descripción disponible'}</p>
+
+              <div class="price-section">
+                <div class="price-label">Precio desde US$</div>
+                <div class="price">${(p.precio_base || 999).toLocaleString()}</div>
+
+                <!-- Formulario de Cotización -->
+                <div class="cotization-form" style="background:#f8f9fa;padding:24px;border-radius:12px;margin-top:20px;">
+                  <h3 style="margin-bottom:20px;color:#0f172a;">📋 Introduce el número de pasajeros</h3>
+
+                  <!-- Selectores de Pasajeros -->
+                  <div style="margin-bottom:20px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+                    <div>
+                      <label style="font-size:0.85rem;color:#666;margin-bottom:6px;display:block;font-weight:600;">👨 Adultos (+18)</label>
+                      <div style="display:flex;align-items:center;gap:8px;border:1px solid #ddd;border-radius:8px;padding:6px;">
+                        <button type="button" onclick="cambiarPasajero('adultos',-1)" style="background:#f0f0f0;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;font-weight:bold;">−</button>
+                        <input type="number" id="adultos" value="1" min="1" max="20" style="width:45px;text-align:center;border:none;font-weight:bold;" readonly>
+                        <button type="button" onclick="cambiarPasajero('adultos',1)" style="background:#f0f0f0;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;font-weight:bold;">+</button>
+                      </div>
+                    </div>
+                    <div>
+                      <label style="font-size:0.85rem;color:#666;margin-bottom:6px;display:block;font-weight:600;">👧 Ados (12-17)</label>
+                      <div style="display:flex;align-items:center;gap:8px;border:1px solid #ddd;border-radius:8px;padding:6px;">
+                        <button type="button" onclick="cambiarPasajero('adolescentes',-1)" style="background:#f0f0f0;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;font-weight:bold;">−</button>
+                        <input type="number" id="adolescentes" value="0" min="0" max="20" style="width:45px;text-align:center;border:none;font-weight:bold;" readonly>
+                        <button type="button" onclick="cambiarPasajero('adolescentes',1)" style="background:#f0f0f0;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;font-weight:bold;">+</button>
+                      </div>
+                    </div>
+                    <div>
+                      <label style="font-size:0.85rem;color:#666;margin-bottom:6px;display:block;font-weight:600;">👦 Niños (2-11)</label>
+                      <div style="display:flex;align-items:center;gap:8px;border:1px solid #ddd;border-radius:8px;padding:6px;">
+                        <button type="button" onclick="cambiarPasajero('ninos',-1)" style="background:#f0f0f0;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;font-weight:bold;">−</button>
+                        <input type="number" id="ninos" value="0" min="0" max="20" style="width:45px;text-align:center;border:none;font-weight:bold;" readonly>
+                        <button type="button" onclick="cambiarPasajero('ninos',1)" style="background:#f0f0f0;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;font-weight:bold;">+</button>
+                      </div>
+                    </div>
+                    <div>
+                      <label style="font-size:0.85rem;color:#666;margin-bottom:6px;display:block;font-weight:600;">👶 Bebés (0-1)</label>
+                      <div style="display:flex;align-items:center;gap:8px;border:1px solid #ddd;border-radius:8px;padding:6px;">
+                        <button type="button" onclick="cambiarPasajero('bebes',-1)" style="background:#f0f0f0;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;font-weight:bold;">−</button>
+                        <input type="number" id="bebes" value="0" min="0" max="5" style="width:45px;text-align:center;border:none;font-weight:bold;" readonly>
+                        <button type="button" onclick="cambiarPasajero('bebes',1)" style="background:#f0f0f0;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;font-weight:bold;">+</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Campos de Datos -->
+                  <div style="margin-bottom:20px;">
+                    <h4 style="margin-bottom:12px;color:#0f172a;font-size:0.95rem;">Introduce tus datos y recibe un presupuesto gratuito y sin compromiso</h4>
+                    <input type="text" id="apellido" placeholder="Apellido *" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin-bottom:10px;font-family:inherit;">
+                    <input type="text" id="nombre" placeholder="Nombre *" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin-bottom:10px;font-family:inherit;">
+                    <input type="email" id="email" placeholder="Email *" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin-bottom:10px;font-family:inherit;">
+                    <input type="tel" id="telefono" placeholder="Teléfono *" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-family:inherit;">
+                  </div>
+
+                  <!-- Botones -->
+                  <button onclick="solicitarCotizacion('${p.nombre}', '${p.tipo}', ${p.precio_base || 999})" style="width:100%;padding:14px;background:linear-gradient(135deg,#25d366 0%,#1fa857 100%);color:#fff;border:none;border-radius:8px;font-weight:800;font-size:.95rem;cursor:pointer;margin-bottom:10px;box-shadow:0 4px 12px rgba(37,211,102,.3);">
+                    ✅ CALCULA TU PRESUPUESTO GRATIS
+                  </button>
+                  <button onclick="compartirWhatsapp('${p.nombre}', ${p.precio_base || 999})" style="width:100%;padding:14px;background:#25d366;color:#fff;border:none;border-radius:8px;font-weight:800;font-size:.95rem;cursor:pointer;">
+                    💬 Enviar por WhatsApp
+                  </button>
+                </div>
+              </div>
+
+              <!-- Detalles -->
+              <div class="details">
+                <h3>Información del Producto</h3>
+                ${p.destino ? `<div class="detail-item"><div class="detail-label">📍 Destino</div><div class="detail-value">${p.destino}</div></div>` : ''}
+                ${p.origen ? `<div class="detail-item"><div class="detail-label">🏠 Origen</div><div class="detail-value">${p.origen}</div></div>` : ''}
+                ${p.fecha_salida ? `<div class="detail-item"><div class="detail-label">📅 Salida</div><div class="detail-value">${new Date(p.fecha_salida).toLocaleDateString('es-ES')}</div></div>` : ''}
+                ${p.fecha_regreso ? `<div class="detail-item"><div class="detail-label">🔙 Regreso</div><div class="detail-value">${new Date(p.fecha_regreso).toLocaleDateString('es-ES')}</div></div>` : ''}
+                ${p.duracion_dias ? `<div class="detail-item"><div class="detail-label">⏱️ Duración</div><div class="detail-value">${p.duracion_dias} días</div></div>` : ''}
+                ${p.capacidad ? `<div class="detail-item"><div class="detail-label">👥 Capacidad</div><div class="detail-value">${p.capacidad} pasajeros</div></div>` : ''}
+                ${p.calificacion ? `<div class="detail-item"><div class="detail-label">⭐ Calificación</div><div class="detail-value">${p.calificacion}/5</div></div>` : ''}
+                ${p.caracteristicas && p.caracteristicas.length ? `
+                  <div class="detail-item">
+                    <div class="detail-label">✨ Características</div>
+                    <div class="detail-value">
+                      ${p.caracteristicas.map(c => `• ${c}`).join('<br>')}
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        document.getElementById('productContainer').innerHTML = '<div class="error">❌ No se pudo cargar el producto. <a href="index.html" style="color:inherit;text-decoration:underline;">Volver</a></div>';
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      document.getElementById('productContainer').innerHTML = '<div class="error">❌ Error cargando el producto. <a href="index.html" style="color:inherit;text-decoration:underline;">Volver</a></div>';
+    });
+}
+
+// Cambiar cantidad de pasajeros (sin calcular precio)
+function cambiarPasajero(tipo, cambio) {
+  const input = document.getElementById(tipo);
+  let valor = parseInt(input.value) + cambio;
+  if (valor < 0) valor = 0;
+  if (tipo !== 'bebes' && valor > 20) valor = 20;
+  if (tipo === 'bebes' && valor > 5) valor = 5;
+  input.value = valor;
+}
+
+// Solicitar cotización simple
+async function solicitarCotizacion(nombre, tipo, precio) {
+  const apellido = document.getElementById('apellido').value;
+  const nombreCli = document.getElementById('nombre').value;
+  const email = document.getElementById('email').value;
+  const telefono = document.getElementById('telefono').value;
+  const adultos = parseInt(document.getElementById('adultos').value) || 1;
+  const adolescentes = parseInt(document.getElementById('adolescentes').value) || 0;
+  const ninos = parseInt(document.getElementById('ninos').value) || 0;
+  const bebes = parseInt(document.getElementById('bebes').value) || 0;
+
+  if (!apellido || !nombreCli || !email || !telefono) {
+    alert('⚠️ Por favor llena todos los campos requeridos');
+    return;
+  }
+
+  try {
+    const response = await fetch(CONFIG.obtenerURL('/cotizaciones'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre: `${apellido} ${nombreCli}`,
+        email: email,
+        telefono: telefono,
+        items: [{
+          nombre: nombre,
+          tipo: tipo,
+          pasajeros: {
+            adultos: adultos,
+            adolescentes: adolescentes,
+            ninos: ninos,
+            bebes: bebes
+          },
+          precio_base: precio
+        }],
+        monto_total: precio
+      })
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      alert(`✅ ¡Solicitud de cotización enviada!\n\nID: ${data.id}\n\nNos contactaremos a ${telefono} para confirmar disponibilidad.`);
+      window.location.href = 'index.html';
+    } else {
+      alert('❌ Error al enviar cotización');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('❌ Error enviando cotización');
+  }
+}
+
+function compartirWhatsapp(nombre, precio) {
+  const apellido = document.getElementById('apellido').value;
+  const nombreCli = document.getElementById('nombre').value;
+  const email = document.getElementById('email').value;
+  const telefono = document.getElementById('telefono').value;
+  const adultos = document.getElementById('adultos').value;
+  const adolescentes = document.getElementById('adolescentes').value;
+  const ninos = document.getElementById('ninos').value;
+  const bebes = document.getElementById('bebes').value;
+
+  if (!apellido || !nombreCli || !email || !telefono) {
+    alert('⚠️ Por favor llena todos los campos primero');
+    return;
+  }
+
+  const msg = `Hola, quiero cotizar:\n\n*${nombre}*\n\n👤 Cliente: ${apellido} ${nombreCli}\n📧 Email: ${email}\n📞 Teléfono: ${telefono}\n\n👥 Pasajeros:\n👨 Adultos: ${adultos}\n👧 Adolescentes: ${adolescentes}\n👦 Niños: ${ninos}\n👶 Bebés: ${bebes}\n\nPrecio desde: US$${precio}`;
+  const whatsappNumber = '18295502847';
+  window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+</script>
+
+</body>
+</html>
