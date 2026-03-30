@@ -790,7 +790,7 @@ footer {
     </div>
     <a href="#contacto" class="view-all">Ver todos →</a>
   </div>
-  <div id="hoteles-grid" class="cards-grid">
+  <div id="destinos-grid" class="cards-grid">
     <div class="card fade-up">
       <div class="card-img">
         <img src="https://picsum.photos/id/1001/500/300" alt="Caribe">
@@ -864,7 +864,7 @@ footer {
       <p class="section-sub">Paquetes completos con hotel, tickets y traslados incluidos</p>
     </div>
   </div>
-  <div class="parks-grid">
+  <div class="parks-grid" id="parques-grid">
     <div class="park-card fade-up">
       <div class="park-card-bg" style="background-image:url('https://picsum.photos/id/1043/900/500')"></div>
       <div class="park-card-body">
@@ -1366,11 +1366,9 @@ function sendForm(btn) {
 /* ===== CARGAR PRODUCTOS DESDE API ===== */
 // Ejecutar al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
-  cargarProductos('crucero', 'cruceros-grid');
-  cargarProductos('hotel', 'hoteles-grid');
-  cargarProductos('boleto', 'boletos-grid');
   cargarProductos('tour', 'destinos-grid');
   cargarProductos('disney', 'parques-grid');
+  cargarProductos('crucero', 'cruceros-grid');
 });
 const API_URL = 'https://luchris-travels-backend.onrender.com/api';
 
@@ -1381,6 +1379,12 @@ async function cargarProductos(tipo, contenedorId) {
     if (!data.success || !data.datos || data.datos.length === 0) return;
     const container = document.getElementById(contenedorId);
     if (!container) return;
+
+    // Para parques-grid, mantener la estructura existente (parks)
+    if (contenedorId === 'parques-grid') {
+      return; // Mantener hardcoded
+    }
+
     container.innerHTML = '';
     data.datos.forEach(p => {
       const card = document.createElement('div');
