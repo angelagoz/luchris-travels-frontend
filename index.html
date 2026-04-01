@@ -484,20 +484,28 @@ img { display:block; max-width:100%; }
 
 /* Ticker */
 .ticker-section {
-  background: var(--blue); padding: 16px 0;
+  background: var(--blue); padding: 14px 0;
   overflow: hidden;
 }
 .ticker-track {
-  display: flex; gap: 40px;
-  animation: ticker 30s linear infinite;
+  display: flex; gap: 50px; align-items: center;
+  animation: ticker 35s linear infinite;
   white-space: nowrap;
 }
 .ticker-track:hover { animation-play-state: paused; }
 .ticker-item {
-  flex-shrink: 0; display: flex; align-items: center; gap: 10px;
-  font-size: .8rem; font-weight: 700; color: rgba(255,255,255,.75);
+  flex-shrink: 0; display: flex; align-items: center; gap: 12px;
 }
-.ticker-item span { color: var(--gold); font-size: .6rem; }
+.ticker-item img {
+  height: 28px; object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: .75;
+  transition: opacity .3s;
+}
+.ticker-item img:hover { opacity: 1; }
+.ticker-sep {
+  color: var(--gold); font-size: .55rem; flex-shrink: 0;
+}
 @keyframes ticker { from{transform:translateX(0);} to{transform:translateX(-50%);} }
 
 /* =============================================
@@ -967,39 +975,39 @@ footer {
 <!-- Ticker -->
 <div class="ticker-section">
   <div class="ticker-track">
-    <div class="ticker-item">Royal Caribbean <span>✦</span></div>
-    <div class="ticker-item">Norwegian <span>✦</span></div>
-    <div class="ticker-item">MSC Cruceros <span>✦</span></div>
-    <div class="ticker-item">Carnival <span>✦</span></div>
-    <div class="ticker-item">Celebrity Cruises <span>✦</span></div>
-    <div class="ticker-item">Princess Cruises <span>✦</span></div>
-    <div class="ticker-item">Holland America <span>✦</span></div>
-    <div class="ticker-item">Disney Cruise Line <span>✦</span></div>
-    <div class="ticker-item">Virgin Voyages <span>✦</span></div>
-    <div class="ticker-item">Silversea <span>✦</span></div>
-    <div class="ticker-item">Regent Seven Seas <span>✦</span></div>
-    <div class="ticker-item">Cunard Line <span>✦</span></div>
-    <div class="ticker-item">Viking Ocean <span>✦</span></div>
-    <div class="ticker-item">AmaWaterways <span>✦</span></div>
-    <div class="ticker-item">Uniworld <span>✦</span></div>
-    <div class="ticker-item">CroisiEurope <span>✦</span></div>
+    <div class="ticker-item"><img src="logos/royal-caribbean-logo.png" alt="Royal Caribbean"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/nlc-logo.png" alt="Norwegian"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/msc-logo.png" alt="MSC Cruceros"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/carnival-logo.jpg" alt="Carnival"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/celebrity-logo.jpg" alt="Celebrity Cruises"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/princess-logo.png" alt="Princess Cruises"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/holland-america-logo.png" alt="Holland America"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/disney-logo.png" alt="Disney Cruise Line"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/virgin-voyages-logo.png" alt="Virgin Voyages"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/silversea-logo.png" alt="Silversea"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/regent-logo.png" alt="Regent Seven Seas"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/cunard-logo.png" alt="Cunard Line"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/costa-logo.png" alt="Costa Cruceros"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/seabourn-logo.png" alt="Seabourn"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/azamara-logo.png" alt="Azamara"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/amawaterways-logo.png" alt="AmaWaterways"></div><span class="ticker-sep">✦</span>
     <!-- duplicate for seamless loop -->
-    <div class="ticker-item">Royal Caribbean <span>✦</span></div>
-    <div class="ticker-item">Norwegian <span>✦</span></div>
-    <div class="ticker-item">MSC Cruceros <span>✦</span></div>
-    <div class="ticker-item">Carnival <span>✦</span></div>
-    <div class="ticker-item">Celebrity Cruises <span>✦</span></div>
-    <div class="ticker-item">Princess Cruises <span>✦</span></div>
-    <div class="ticker-item">Holland America <span>✦</span></div>
-    <div class="ticker-item">Disney Cruise Line <span>✦</span></div>
-    <div class="ticker-item">Virgin Voyages <span>✦</span></div>
-    <div class="ticker-item">Silversea <span>✦</span></div>
-    <div class="ticker-item">Regent Seven Seas <span>✦</span></div>
-    <div class="ticker-item">Cunard Line <span>✦</span></div>
-    <div class="ticker-item">Viking Ocean <span>✦</span></div>
-    <div class="ticker-item">AmaWaterways <span>✦</span></div>
-    <div class="ticker-item">Uniworld <span>✦</span></div>
-    <div class="ticker-item">CroisiEurope <span>✦</span></div>
+    <div class="ticker-item"><img src="logos/royal-caribbean-logo.png" alt="Royal Caribbean"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/nlc-logo.png" alt="Norwegian"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/msc-logo.png" alt="MSC Cruceros"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/carnival-logo.jpg" alt="Carnival"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/celebrity-logo.jpg" alt="Celebrity Cruises"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/princess-logo.png" alt="Princess Cruises"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/holland-america-logo.png" alt="Holland America"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/disney-logo.png" alt="Disney Cruise Line"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/virgin-voyages-logo.png" alt="Virgin Voyages"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/silversea-logo.png" alt="Silversea"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/regent-logo.png" alt="Regent Seven Seas"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/cunard-logo.png" alt="Cunard Line"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/costa-logo.png" alt="Costa Cruceros"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/seabourn-logo.png" alt="Seabourn"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/azamara-logo.png" alt="Azamara"></div><span class="ticker-sep">✦</span>
+    <div class="ticker-item"><img src="logos/amawaterways-logo.png" alt="AmaWaterways"></div><span class="ticker-sep">✦</span>
   </div>
 </div>
 
