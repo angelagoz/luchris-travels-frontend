@@ -323,10 +323,22 @@
             border: 3px solid #0F2E5E;
             border-left: 6px solid #00D4FF;
             border-radius: 12px;
-            padding: 2.5rem 2rem;
+            padding: 0;
             text-align: center;
             transition: all 0.3s;
             box-shadow: 0 3px 15px rgba(15,46,94,0.1);
+            overflow: hidden;
+        }
+
+        .plan-card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #0F2E5E 0%, #0A1929 100%);
+        }
+
+        .plan-card-content {
+            padding: 2.5rem 2rem;
         }
 
         .plan-card:hover {
@@ -399,7 +411,22 @@
 
         /* POR QUÉ NOSOTROS */
         .why-us {
-            background: white;
+            background: linear-gradient(to bottom, white 0%, rgba(0, 212, 255, 0.02) 100%);
+            padding: 4rem 2rem;
+        }
+
+        .why-us h2 {
+            color: #0F2E5E;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .why-us .subtitle {
+            color: #666;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
         }
 
         .why-grid {
@@ -412,15 +439,35 @@
         .why-card {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border-left: 5px solid #00D4FF;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 2rem;
             text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .why-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 212, 255, 0.15);
         }
 
         .why-icon {
             font-size: 2.5rem;
             color: white;
-            background: #00D4FF;
+            background: linear-gradient(135deg, #00D4FF 0%, #00B8D4 100%);
             width: 70px;
             height: 70px;
             display: flex;
@@ -429,6 +476,13 @@
             border-radius: 50%;
             margin: 0 auto 1.5rem;
             box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .why-card:hover .why-icon {
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
+            transform: scale(1.1) rotateZ(5deg);
         }
 
         .why-card h3 {
@@ -436,23 +490,55 @@
             margin-bottom: 1rem;
             font-size: 1.2rem;
             font-weight: bold;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .why-card:hover h3 {
+            color: #00D4FF;
         }
 
         .why-card p {
             color: #666;
             line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+
+        .why-card:hover p {
+            color: #555;
         }
 
         /* CONTACTO */
         .contact {
-            background: white;
+            background: linear-gradient(135deg, white 0%, rgba(0, 212, 255, 0.03) 100%);
+            padding: 4rem 2rem;
+        }
+
+        .contact h2 {
+            color: #0F2E5E;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .contact .subtitle {
+            color: #666;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
         }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 3rem;
             margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .contact-info {
@@ -460,6 +546,26 @@
             color: white;
             padding: 2.5rem;
             border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .contact-info:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.25);
         }
 
         .contact-info h3 {
@@ -471,13 +577,28 @@
         .contact-item {
             margin-bottom: 2rem;
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             align-items: flex-start;
+            transition: all 0.3s ease;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .contact-info:hover .contact-item {
+            background: rgba(0, 212, 255, 0.1);
         }
 
         .contact-icon {
             font-size: 1.8rem;
             color: #00D4FF;
+            transition: all 0.3s ease;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.2) rotate(-10deg);
+        }
             min-width: 40px;
         }
 
@@ -638,71 +759,88 @@
             <p class="subtitle" style="margin-bottom: 2rem;">Cobertura completa para ti y tu familia en República Dominicana</p>
             <div class="planes-grid">
                 <div class="plan-card">
-                    <h3>Mi Salud Esencial Plus</h3>
-                    <div class="plan-price">RD$1,780<small>/mes</small></div>
-                    <ul class="plan-features">
-                        <li>Cobertura hasta RD$300K</li>
-                        <li>80% ambulatorio</li>
-                        <li>70% maternidad</li>
-                        <li>Emergencias 24/7</li>
-                        <li>Red de médicos</li>
-                    </ul>
-                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Esencial%20Plus" class="plan-btn">Solicitar</a>
+                    <img src="https://images.pexels.com/photos/4194857/pexels-photo-4194857.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Seguro Médico" class="plan-card-image">
+                    <div class="plan-card-content">
+                        <h3>Mi Salud Esencial Plus</h3>
+                        <div class="plan-price">RD$1,780<small>/mes</small></div>
+                        <ul class="plan-features">
+                            <li>Cobertura hasta RD$300K</li>
+                            <li>80% ambulatorio</li>
+                            <li>70% maternidad</li>
+                            <li>Emergencias 24/7</li>
+                            <li>Red de médicos</li>
+                        </ul>
+                        <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Esencial%20Plus" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
-                    <h3>Mi Salud Superior</h3>
-                    <div class="plan-price">RD$2,795<small>/mes</small></div>
-                    <ul class="plan-features">
-                        <li>Cobertura hasta RD$500K</li>
-                        <li>100% ambulatorio</li>
-                        <li>Especialistas</li>
-                        <li>Hospitales incluidos</li>
-                        <li>Medicinas cubiertas</li>
-                    </ul>
-                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Superior" class="plan-btn">Solicitar</a>
+                    <img src="https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Seguro Médico Premium" class="plan-card-image">
+                    <div class="plan-card-content">
+                        <h3>Mi Salud Superior</h3>
+                        <div class="plan-price">RD$2,795<small>/mes</small></div>
+                        <ul class="plan-features">
+                            <li>Cobertura hasta RD$500K</li>
+                            <li>100% ambulatorio</li>
+                            <li>Especialistas</li>
+                            <li>Hospitales incluidos</li>
+                            <li>Medicinas cubiertas</li>
+                        </ul>
+                        <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Superior" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
-                    <h3>Mi Salud Royal</h3>
-                    <div class="plan-price">RD$3,725<small>/mes</small></div>
-                    <ul class="plan-features">
-                        <li>Cobertura hasta RD$800K</li>
-                        <li>80% ambulatorio</li>
-                        <li>100% maternidad</li>
-                        <li>Servicios premium</li>
-                        <li>Atención prioritaria</li>
-                    </ul>
-                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Royal" class="plan-btn">Solicitar</a>
+                    <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Seguro Médico VIP" class="plan-card-image">
+                    <div class="plan-card-content">
+                        <h3>Mi Salud Royal</h3>
+                        <div class="plan-price">RD$3,725<small>/mes</small></div>
+                        <ul class="plan-features">
+                            <li>Cobertura hasta RD$800K</li>
+                            <li>80% ambulatorio</li>
+                            <li>100% maternidad</li>
+                            <li>Servicios premium</li>
+                            <li>Atención prioritaria</li>
+                        </ul>
+                        <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Royal" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
-                    <h3>Mi Salud Max</h3>
-                    <div class="plan-price">RD$4,960<small>/mes</small></div>
-                    <ul class="plan-features">
-                        <li>Cobertura hasta RD$1M</li>
-                        <li>80% reembolso</li>
-                        <li>85% ambulatorio</li>
-                        <li>Cirugías incluidas</li>
-                        <li>Cobertura integral</li>
-                    </ul>
-                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Max" class="plan-btn">Solicitar</a>
+                    <img src="https://images.pexels.com/photos/4194857/pexels-photo-4194857.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Seguro Médico Max" class="plan-card-image">
+                    <div class="plan-card-content">
+                        <h3>Mi Salud Max</h3>
+                        <div class="plan-price">RD$4,960<small>/mes</small></div>
+                        <ul class="plan-features">
+                            <li>Cobertura hasta RD$1M</li>
+                            <li>80% reembolso</li>
+                            <li>85% ambulatorio</li>
+                            <li>Cirugías incluidas</li>
+                            <li>Cobertura integral</li>
+                        </ul>
+                        <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Max" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
-                    <h3>Mi Salud Prime</h3>
-                    <div class="plan-price">RD$9,125<small>/mes</small></div>
-                    <ul class="plan-features">
-                        <li>Cobertura hasta RD$2M</li>
-                        <li>90% reembolso</li>
-                        <li>90% ambulatorio</li>
-                        <li>Red premium</li>
-                        <li>Máxima protección</li>
-                    </ul>
-                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Prime" class="plan-btn">Solicitar</a>
+                    <img src="https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Seguro Médico Prime" class="plan-card-image">
+                    <div class="plan-card-content">
+                        <h3>Mi Salud Prime</h3>
+                        <div class="plan-price">RD$9,125<small>/mes</small></div>
+                        <ul class="plan-features">
+                            <li>Cobertura hasta RD$2M</li>
+                            <li>90% reembolso</li>
+                            <li>90% ambulatorio</li>
+                            <li>Red premium</li>
+                            <li>Máxima protección</li>
+                        </ul>
+                        <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Prime" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Seguro Médico Platinum" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Mi Salud Platinum</h3>
                     <div class="plan-price">RD$17,540<small>/mes</small></div>
                     <ul class="plan-features">
@@ -720,6 +858,8 @@
             <p class="subtitle" style="margin-bottom: 2rem;">Cobertura global para viajes y uso internacional</p>
             <div class="planes-grid">
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Seguro Buen Viaje" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Buen Viaje</h3>
                     <div class="plan-price">Desde $25<small>/mes</small></div>
                     <ul class="plan-features">
@@ -730,9 +870,12 @@
                         <li>Flexible y rápido</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Plan%20Buen%20Viaje" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/4194857/pexels-photo-4194857.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Global Health Protect" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Global Health Protect</h3>
                     <div class="plan-price">$55<small>/mes</small></div>
                     <ul class="plan-features">
@@ -743,9 +886,12 @@
                         <li>Accesible y confiable</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Protect" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Global Health Classic" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Global Health Classic</h3>
                     <div class="plan-price">$61<small>/mes</small></div>
                     <ul class="plan-features">
@@ -756,9 +902,12 @@
                         <li>Protección completa</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Classic" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/7974383/pexels-photo-7974383.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Global Health Advance" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Global Health Advance</h3>
                     <div class="plan-price">$137<small>/mes</small></div>
                     <ul class="plan-features">
@@ -769,9 +918,12 @@
                         <li>Atención prioritaria</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Advance" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Global Health University" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Global Health University</h3>
                     <div class="plan-price">$171<small>/mes</small></div>
                     <ul class="plan-features">
@@ -782,9 +934,12 @@
                         <li>Amplia cobertura</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20University" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/4194857/pexels-photo-4194857.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Global Health Executive" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Global Health Executive</h3>
                     <div class="plan-price">$200<small>/mes</small></div>
                     <ul class="plan-features">
@@ -795,9 +950,12 @@
                         <li>Máxima flexibilidad</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Executive" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Global Health Master Plus" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Global Health Master Plus</h3>
                     <div class="plan-price">$310<small>/mes</small></div>
                     <ul class="plan-features">
@@ -808,9 +966,12 @@
                         <li>Protección integral</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Master%20Plus" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Global Health Premium" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Global Health Premium</h3>
                     <div class="plan-price">$312<small>/mes</small></div>
                     <ul class="plan-features">
@@ -821,6 +982,7 @@
                         <li>Cobertura sin límites</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Premium" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -884,6 +1046,8 @@
             <p class="subtitle" style="margin-bottom: 2rem;">Encuentra el plan que se adapta a tu presupuesto y necesidades</p>
             <div class="planes-grid">
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Mi Auto Básico" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Mi Auto Básico</h3>
                     <div class="plan-price">RD$5,155<small>/año</small></div>
                     <ul class="plan-features">
@@ -897,6 +1061,8 @@
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/262049/pexels-photo-262049.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Mi Auto Flex" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Mi Auto Flex</h3>
                     <div class="plan-price">RD$23,200<small>/año</small></div>
                     <ul class="plan-features">
@@ -907,9 +1073,12 @@
                         <li>Vidrios cubiertos</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Auto%20Flex" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/305564/pexels-photo-305564.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Mi Auto Full" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Mi Auto Full</h3>
                     <div class="plan-price">RD$63,380<small>/año</small></div>
                     <ul class="plan-features">
@@ -920,9 +1089,12 @@
                         <li>Atención prioritaria</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Auto%20Full" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/1553531/pexels-photo-1553531.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Mi Auto Premier" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Mi Auto Premier</h3>
                     <div class="plan-price">RD$69,600<small>/año</small></div>
                     <ul class="plan-features">
@@ -933,6 +1105,7 @@
                         <li>Red premium exclusiva</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Auto%20Premier" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
             </div>
 
@@ -1018,6 +1191,8 @@
             <p class="subtitle" style="margin-bottom: 2rem;">Elige la cobertura que necesitas para proteger tu vivienda</p>
             <div class="planes-grid">
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/1475938/pexels-photo-1475938.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Mi Hogar Esencial" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Mi Hogar Esencial</h3>
                     <div class="plan-price">RD$8,250<small>/año</small></div>
                     <ul class="plan-features">
@@ -1028,9 +1203,12 @@
                         <li>Tramitación rápida</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Hogar%20Esencial" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Mi Hogar Total" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Mi Hogar Total</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1041,9 +1219,12 @@
                         <li>Red de reparaciones</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20una%20cotizaci%C3%B3n%20para%20Mi%20Hogar%20Total" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/3585518/pexels-photo-3585518.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Incendio y Líneas Aliadas" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Incendio y Líneas Aliadas</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1054,9 +1235,12 @@
                         <li>Cobertura amplia</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Incendio%20y%20L%C3%ADneas%20Aliadas" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/5084316/pexels-photo-5084316.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Rotura Accidental de Cristales" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Rotura Accidental de Cristales</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1067,9 +1251,12 @@
                         <li>Amplia red de proveedores</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Rotura%20de%20Cristales" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/5632406/pexels-photo-5632406.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Todo Riesgo Objetos Valiosos" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Todo Riesgo Objetos Valiosos</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1080,9 +1267,12 @@
                         <li>Protección Premium</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Todo%20Riesgo%20Objetos%20Valiosos" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/287217/pexels-photo-287217.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Responsabilidad Civil" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Responsabilidad Civil</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1093,6 +1283,7 @@
                         <li>Defensa legal</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Responsabilidad%20Civil" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
             </div>
 
@@ -1178,6 +1369,8 @@
             <p class="subtitle" style="margin-bottom: 2rem;">Elige el plan que mejor se adapte a las necesidades de tu familia</p>
             <div class="planes-grid">
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Vida Individual" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Vida Individual</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1188,9 +1381,12 @@
                         <li>Beneficiarios designables</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Vida%20Individual" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/4194857/pexels-photo-4194857.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Vida Colectivo" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Vida Colectivo</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1201,9 +1397,12 @@
                         <li>Opciones flexibles</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Vida%20Colectivo" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Vida Escolar" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Vida Escolar</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1214,9 +1413,12 @@
                         <li>Cobertura amplia</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Vida%20Escolar" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Últimos Gastos" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Últimos Gastos</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1227,9 +1429,12 @@
                         <li>Tranquilidad familiar</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20%C3%9Altimos%20Gastos" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/4194857/pexels-photo-4194857.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Accidentes Colectivo" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Accidentes Colectivo</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1240,9 +1445,12 @@
                         <li>Protección completa</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Accidentes%20Colectivo" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Accidentes Escolar" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Accidentes Escolar</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1253,9 +1461,12 @@
                         <li>Prima muy baja</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Accidentes%20Escolar" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Accidentes Campamento" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Accidentes Campamento</h3>
                     <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
                     <ul class="plan-features">
@@ -1266,6 +1477,7 @@
                         <li>Protección total</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Accidentes%20Campamento" class="plan-btn">Cotizar Ahora</a>
+                    </div>
                 </div>
             </div>
 
@@ -1351,6 +1563,8 @@
             <p class="subtitle" style="margin-bottom: 2rem;">Protección completa para perros y gatos de todas las edades</p>
             <div class="planes-grid">
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Mi Mascota Básico" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Mi Mascota Básico</h3>
                     <div class="plan-price">RD$750<small>/mes</small></div>
                     <ul class="plan-features">
@@ -1361,9 +1575,12 @@
                         <li>Reembolso disponible</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Mascota%20B%C3%A1sico" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
 
                 <div class="plan-card">
+                    <img src="https://images.pexels.com/photos/1108100/pexels-photo-1108100.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Mi Mascota Plus" class="plan-card-image">
+                    <div class="plan-card-content">
                     <h3>Mi Mascota Plus</h3>
                     <div class="plan-price">RD$1,200<small>/mes</small></div>
                     <ul class="plan-features">
@@ -1374,6 +1591,7 @@
                         <li>Cobertura completa</li>
                     </ul>
                     <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Mascota%20Plus" class="plan-btn">Solicitar</a>
+                    </div>
                 </div>
             </div>
 
