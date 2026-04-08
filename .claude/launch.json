@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "luchris-server",
+      "name": "hergoz-proyecto-server",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["http-server", "-c-1", "-p", "8080"],
+      "runtimeArgs": ["http-server", "-c-1", "-p", "8080", "-o", "hergoz_spa.html"],
       "port": 8080
     }
   ]

@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HERGOZ - Seguros Humano</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* HEADER */
+        header {
+            background: white;
+            border-bottom: 3px solid #0F2E5E;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #0F2E5E;
+            cursor: pointer;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #00D4FF;
+        }
+
+        nav a.active {
+            color: #00D4FF;
+            border-bottom: 2px solid #00D4FF;
+            padding-bottom: 0.5rem;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #0F2E5E 0%, #0A1929 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            min-height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .price-badge {
+            background: #00D4FF;
+            color: #0F2E5E;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 1.5rem 0;
+        }
+
+        .btn-group {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #00D4FF;
+            color: #0F2E5E;
+        }
+
+        .btn-primary:hover {
+            background: #00B8D4;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,212,255,0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0F2E5E;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f0f0;
+        }
+
+        /* SECCIONES */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* CARRUSEL */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15,46,94,0.7) 0%, rgba(10,25,41,0.7) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .carousel-content {
+            text-align: center;
+            color: white;
+            z-index: 3;
+        }
+
+        .carousel-content h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .carousel-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,212,255,0.8);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            z-index: 4;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(0,212,255,1);
+        }
+
+        .carousel-btn.prev {
+            left: 20px;
+        }
+
+        .carousel-btn.next {
+            right: 20px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 4;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .carousel-dot.active {
+            background: white;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            color: #0F2E5E;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* PLANES */
+        .planes {
+            background: #f8f9fa;
+        }
+
+        .planes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .plan-card {
+            background: white;
+            border: 3px solid #0F2E5E;
+            border-left: 6px solid #00D4FF;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 3px 15px rgba(15,46,94,0.1);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,212,255,0.2);
+            border-color: #00D4FF;
+        }
+
+        .plan-card h3 {
+            color: #0F2E5E;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            color: #00D4FF;
+            font-weight: bold;
+            margin: 1.5rem 0;
+        }
+
+        .plan-price small {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .plan-features li {
+            padding: 0.6rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+            color: #555;
+        }
+
+        .plan-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00D4FF;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .plan-btn {
+            background: #0F2E5E;
+            color: white;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            border: 2px solid #0F2E5E;
+        }
+
+        .plan-btn:hover {
+            background: transparent;
+            color: #0F2E5E;
+            transform: scale(1.05);
+            border-color: #0F2E5E;
+        }
+
+        /* POR QUÉ NOSOTROS */
+        .why-us {
+            background: white;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .why-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #00D4FF;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .why-icon {
+            font-size: 2.5rem;
+            color: white;
+            background: #00D4FF;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .why-card h3 {
+            color: #0F2E5E;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .why-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* CONTACTO */
+        .contact {
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #0F2E5E 0%, #0A1929 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+        }
+
+        .contact-info h3 {
+            color: white;
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+        }
+
+        .contact-item {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            font-size: 1.8rem;
+            color: #00D4FF;
+            min-width: 40px;
+        }
+
+        .contact-info p {
+            color: white;
+            margin: 0.3rem 0;
+        }
+
+        .contact-info a {
+            color: #00D4FF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-info a:hover {
+            color: white;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0F2E5E;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            color: #00D4FF;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-content p {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .footer-links a {
+            color: #00D4FF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo" onclick="navigateTo('inicio')">
+                <span>HERGOZ</span>
+            </div>
+            <ul>
+                <li><a class="nav-link" data-page="medicos" onclick="navigateTo('medicos')">Seguros Médicos</a></li>
+                <li><a class="nav-link" data-page="autos" onclick="navigateTo('autos')">Seguros de Autos</a></li>
+                <li><a class="nav-link" data-page="hogar" onclick="navigateTo('hogar')">Seguros de Hogar</a></li>
+                <li><a class="nav-link" data-page="vida" onclick="navigateTo('vida')">Seguros de Vida</a></li>
+                <li><a class="nav-link" data-page="mascotas" onclick="navigateTo('mascotas')">Seguros de Mascotas</a></li>
+                <li><a class="nav-link" data-page="contacto" onclick="navigateTo('contacto')">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- PÁGINA: INICIO -->
+    <div id="inicio" class="page active">
+        <div class="carousel" id="heroCarousel">
+            <div class="carousel-slide active" style="background-image: url('https://images.pexels.com/photos/3962286/pexels-photo-3962286.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop');"></div>
+            <div class="carousel-slide" style="background-image: url('../HERGOZ_IMAGENES/1507003211169-0a1dd7228f2d?w=1200&h=600&fit=crop');"></div>
+            <div class="carousel-slide" style="background-image: url('../HERGOZ_IMAGENES/1537151608828-fde5aeae79da?w=1200&h=600&fit=crop');"></div>
+            <div class="carousel-slide" style="background-image: url('../HERGOZ_IMAGENES/1570129477492-45a003537e1f?w=1200&h=600&fit=crop');"></div>
+            <div class="carousel-slide" style="background-image: url('../HERGOZ_IMAGENES/1552519507-da3b142c6e3d?w=1200&h=600&fit=crop');"></div>
+
+            <div class="carousel-overlay">
+                <div class="carousel-content">
+                    <h1>Protege Tu Salud, Auto y Familia</h1>
+                    <p>Seguros confiables de Humano Seguros</p>
+                    <div class="price-badge">Desde RD$1,780 al mes</div>
+                    <p style="font-size: 1.1rem; margin-top: 1.5rem;">Planes flexibles con cobertura completa</p>
+                    <div class="btn-group">
+                        <a onclick="navigateTo('medicos')" class="btn btn-primary">Seguros Médicos</a>
+                        <a onclick="navigateTo('autos')" class="btn btn-secondary">Seguros de Autos</a>
+                        <a onclick="navigateTo('hogar')" class="btn btn-primary">Seguros de Hogar</a>
+                        <a onclick="navigateTo('vida')" class="btn btn-secondary">Seguros de Vida</a>
+                        <a onclick="navigateTo('mascotas')" class="btn btn-primary">Seguros de Mascotas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-dots">
+                <span class="carousel-dot active" onclick="currentSlide(0)"></span>
+                <span class="carousel-dot" onclick="currentSlide(1)"></span>
+                <span class="carousel-dot" onclick="currentSlide(2)"></span>
+                <span class="carousel-dot" onclick="currentSlide(3)"></span>
+                <span class="carousel-dot" onclick="currentSlide(4)"></span>
+            </div>
+</div>
+    </div>
+
+    <!-- PÁGINA: SEGUROS MÉDICOS -->
+    <div id="medicos" class="page">
+        <section class="hero" style="background: linear-gradient(135deg, rgba(0,86,179,0.8) 0%, rgba(0,61,130,0.8) 100%), url('https://images.pexels.com/photos/3962286/pexels-photo-3962286.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop') center/cover; min-height: 400px;">
+            <div>
+                <h1 style="color: white; font-size: 2.8rem; margin-bottom: 1rem;">Seguros Médicos</h1>
+                <p style="color: white; font-size: 1.2rem;">Tu salud y la de tu familia en buenas manos</p>
+            </div>
+        </section>
+        <section class="planes">
+            <h2>Seguros Médicos</h2>
+            <p class="subtitle">Elige el plan que se adapte a tus necesidades</p>
+
+            <h3 style="color: #0056b3; font-size: 1.8rem; margin: 3rem 0 1rem; text-align: center;">📍 Planes Locales (RD$/mes)</h3>
+            <p class="subtitle" style="margin-bottom: 2rem;">Cobertura completa para ti y tu familia en República Dominicana</p>
+            <div class="planes-grid">
+                <div class="plan-card">
+                    <h3>Mi Salud Esencial Plus</h3>
+                    <div class="plan-price">RD$1,780<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura hasta RD$300K</li>
+                        <li>80% ambulatorio</li>
+                        <li>70% maternidad</li>
+                        <li>Emergencias 24/7</li>
+                        <li>Red de médicos</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Esencial%20Plus" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Mi Salud Superior</h3>
+                    <div class="plan-price">RD$2,795<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura hasta RD$500K</li>
+                        <li>100% ambulatorio</li>
+                        <li>Especialistas</li>
+                        <li>Hospitales incluidos</li>
+                        <li>Medicinas cubiertas</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Superior" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Mi Salud Royal</h3>
+                    <div class="plan-price">RD$3,725<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura hasta RD$800K</li>
+                        <li>80% ambulatorio</li>
+                        <li>100% maternidad</li>
+                        <li>Servicios premium</li>
+                        <li>Atención prioritaria</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Royal" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Mi Salud Max</h3>
+                    <div class="plan-price">RD$4,960<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura hasta RD$1M</li>
+                        <li>80% reembolso</li>
+                        <li>85% ambulatorio</li>
+                        <li>Cirugías incluidas</li>
+                        <li>Cobertura integral</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Max" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Mi Salud Prime</h3>
+                    <div class="plan-price">RD$9,125<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura hasta RD$2M</li>
+                        <li>90% reembolso</li>
+                        <li>90% ambulatorio</li>
+                        <li>Red premium</li>
+                        <li>Máxima protección</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Prime" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Mi Salud Platinum</h3>
+                    <div class="plan-price">RD$17,540<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura hasta RD$3M</li>
+                        <li>90% reembolso</li>
+                        <li>100% ambulatorio</li>
+                        <li>Red premium exclusiva</li>
+                        <li>Cobertura sin límites</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Platinum" class="plan-btn">Solicitar</a>
+                </div>
+            </div>
+
+            <h3 style="color: #0056b3; font-size: 1.8rem; margin: 4rem 0 1rem; text-align: center;">🌍 Planes Internacionales (USD$/mes)</h3>
+            <p class="subtitle" style="margin-bottom: 2rem;">Cobertura global para viajes y uso internacional</p>
+            <div class="planes-grid">
+                <div class="plan-card">
+                    <h3>Buen Viaje</h3>
+                    <div class="plan-price">Desde $25<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>7, 15, 30 o 365 días</li>
+                        <li>Cobertura Schengen</li>
+                        <li>Emergencias médicas</li>
+                        <li>Repatriación</li>
+                        <li>Flexible y rápido</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Plan%20Buen%20Viaje" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Global Health Protect</h3>
+                    <div class="plan-price">$55<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura USD$500K</li>
+                        <li>Cáncer tratado</li>
+                        <li>Emergencias 24/7</li>
+                        <li>Uso internacional</li>
+                        <li>Accesible y confiable</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Protect" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Global Health Classic</h3>
+                    <div class="plan-price">$61<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura USD$1.5M</li>
+                        <li>Maternidad incluida</li>
+                        <li>Red global</li>
+                        <li>Servicios premium</li>
+                        <li>Protección completa</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Classic" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Global Health Advance</h3>
+                    <div class="plan-price">$137<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura USD$2.5M</li>
+                        <li>Maternidad incluida</li>
+                        <li>Especialistas internacionales</li>
+                        <li>Telemedicina 24/7</li>
+                        <li>Atención prioritaria</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Advance" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Global Health University</h3>
+                    <div class="plan-price">$171<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura USD$300K</li>
+                        <li>Para estudiantes</li>
+                        <li>Uso internacional</li>
+                        <li>Precio especial</li>
+                        <li>Amplia cobertura</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20University" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Global Health Executive</h3>
+                    <div class="plan-price">$200<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura USD$3M</li>
+                        <li>Red premium exclusiva</li>
+                        <li>Concierge médico</li>
+                        <li>Uso local e internacional</li>
+                        <li>Máxima flexibilidad</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Executive" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Global Health Master Plus</h3>
+                    <div class="plan-price">$310<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura USD$2.5M</li>
+                        <li>Maternidad incluida</li>
+                        <li>Red global premium</li>
+                        <li>Servicios VIP</li>
+                        <li>Protección integral</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Master%20Plus" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Global Health Premium</h3>
+                    <div class="plan-price">$312<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura USD$5M</li>
+                        <li>Máxima protección</li>
+                        <li>Red global exclusiva</li>
+                        <li>Todos los servicios</li>
+                        <li>Cobertura sin límites</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Premium" class="plan-btn">Solicitar</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="why-us">
+            <h2>¿Por qué elegirnos?</h2>
+            <p class="subtitle">HERGOZ es tu asesor de confianza</p>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Asesor Dedicado</h3>
+                    <p>Te ayudamos a elegir el plan perfecto para ti y tu familia.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Atención Rápida</h3>
+                    <p>Respuesta inmediata por WhatsApp. Sin esperas, sin complicaciones.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Confiable</h3>
+                    <p>Planes de Humano Seguros, empresa líder en el país.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-star"></i></div>
+                    <h3>Transparente</h3>
+                    <p>Asesoría honesta sin sorpresas ni costos ocultos.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Flexible</h3>
+                    <p>Planes para individuos y familias a precios accesibles.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-phone"></i></div>
+                    <h3>Siempre disponible</h3>
+                    <p>Contacto directo para resolver todas tus dudas.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PÁGINA: SEGUROS DE AUTOS -->
+    <div id="autos" class="page">
+        <section class="hero" style="background: linear-gradient(135deg, rgba(0,86,179,0.8) 0%, rgba(0,61,130,0.8) 100%), url('https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop') center/cover; min-height: 400px;">
+            <div>
+                <h1 style="color: white; font-size: 2.8rem; margin-bottom: 1rem;">Seguros de Autos</h1>
+                <p style="color: white; font-size: 1.2rem;">Protege tu vehículo con la mejor cobertura</p>
+            </div>
+        </section>
+        <section class="planes">
+            <h2>Seguros de Autos</h2>
+            <p class="subtitle">Protege tu vehículo con la mejor cobertura</p>
+
+            <h3 style="color: #0056b3; font-size: 1.8rem; margin: 3rem 0 1rem; text-align: center;">🚗 Planes de Cobertura (RD$/año)</h3>
+            <p class="subtitle" style="margin-bottom: 2rem;">Encuentra el plan que se adapta a tu presupuesto y necesidades</p>
+            <div class="planes-grid">
+                <div class="plan-card">
+                    <h3>Mi Auto Básico</h3>
+                    <div class="plan-price">RD$5,155<small>/año</small></div>
+                    <ul class="plan-features">
+                        <li>Responsabilidad civil</li>
+                        <li>Protección legal</li>
+                        <li>Bonos judiciales</li>
+                        <li>Asistencia 24/7</li>
+                        <li>Red de talleres</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Auto%20Básico" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Mi Auto Flex</h3>
+                    <div class="plan-price">RD$23,200<small>/año</small></div>
+                    <ul class="plan-features">
+                        <li>Pérdida total por robo</li>
+                        <li>Daño parcial</li>
+                        <li>Deducible 5% (mín RD$10K)</li>
+                        <li>Asistencia sin límite</li>
+                        <li>Vidrios cubiertos</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Auto%20Flex" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Mi Auto Full</h3>
+                    <div class="plan-price">RD$63,380<small>/año</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura completa</li>
+                        <li>Deducible 0.5% (mín RD$10K)</li>
+                        <li>Pérdida parcial/total</li>
+                        <li>Vidrios al 10% deducible</li>
+                        <li>Atención prioritaria</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Auto%20Full" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Mi Auto Premier</h3>
+                    <div class="plan-price">RD$69,600<small>/año</small></div>
+                    <ul class="plan-features">
+                        <li>Máxima protección</li>
+                        <li>Deducible 0% (sin costo)</li>
+                        <li>Robo, pérdida, daño</li>
+                        <li>Vidrios 0% deducible</li>
+                        <li>Red premium exclusiva</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Auto%20Premier" class="plan-btn">Solicitar</a>
+                </div>
+            </div>
+
+            <section style="background: white; padding: 3rem 0;">
+                <h3 style="color: #0056b3; font-size: 1.5rem; margin: 2rem 0; text-align: center;">✨ Beneficios en Todos los Planes</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-road"></i> Asistencia Vial</h4>
+                        <p>Grúa, combustible, cambio de gomas, mecánica básica disponibles 24/7</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-laptop"></i> Contratación Online</h4>
+                        <p>Rápido y seguro. Inspecciones virtuales disponibles para tu comodidad</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-gavel"></i> Protección Legal</h4>
+                        <p>Asesoría legal completa y bonos judiciales incluidos en todos los planes</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-wrench"></i> Red de Talleres</h4>
+                        <p>Acceso a talleres autorizados con reparaciones de calidad</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <section class="why-us">
+            <h2>¿Por qué asegurar tu auto con HERGOZ?</h2>
+            <p class="subtitle">Protección confiable para tu vehículo</p>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-car"></i></div>
+                    <h3>Planes Flexibles</h3>
+                    <p>Elige la cobertura que necesitas sin pagar de más.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <h3>Mejores Precios</h3>
+                    <p>Cotizaciones competitivas con descuentos por buen manejo.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Humano Seguros</h3>
+                    <p>Empresa líder en seguros en República Dominicana.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-phone"></i></div>
+                    <h3>Atención Inmediata</h3>
+                    <p>WhatsApp 24/7 para cualquier emergencia o consulta.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Trámite Rápido</h3>
+                    <p>Proceso simple y sin complicaciones. Asegúrate en minutos.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-check-double"></i></div>
+                    <h3>Siniestros Ágiles</h3>
+                    <p>Reporte y tramitación rápida de siniestros sin esperas.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PÁGINA: SEGUROS DE HOGAR -->
+    <div id="hogar" class="page">
+        <section class="hero" style="background: linear-gradient(135deg, rgba(0,86,179,0.8) 0%, rgba(0,61,130,0.8) 100%), url('https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop') center/cover; min-height: 400px;">
+            <div>
+                <h1 style="color: white; font-size: 2.8rem; margin-bottom: 1rem;">Seguros de Hogar</h1>
+                <p style="color: white; font-size: 1.2rem;">Protege tu mayor patrimonio con confianza</p>
+            </div>
+        </section>
+        <section class="planes">
+            <h2>Seguros de Hogar</h2>
+            <p class="subtitle">Protege tu hogar y patrimonio con la mejor cobertura</p>
+
+            <h3 style="color: #0056b3; font-size: 1.8rem; margin: 3rem 0 1rem; text-align: center;">🏠 Planes de Protección del Hogar (RD$/año)</h3>
+            <p class="subtitle" style="margin-bottom: 2rem;">Elige la cobertura que necesitas para proteger tu vivienda</p>
+            <div class="planes-grid">
+                <div class="plan-card">
+                    <h3>Mi Hogar Esencial</h3>
+                    <div class="plan-price">RD$8,250<small>/año</small></div>
+                    <ul class="plan-features">
+                        <li>Daño a terceros</li>
+                        <li>Cobertura de muebles</li>
+                        <li>Asistencia del hogar</li>
+                        <li>Acceso 24/7</li>
+                        <li>Tramitación rápida</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Hogar%20Esencial" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Mi Hogar Total</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Daño a terceros</li>
+                        <li>Edificio y muebles</li>
+                        <li>Cobertura ampliada</li>
+                        <li>Asistencia premium</li>
+                        <li>Red de reparaciones</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20una%20cotizaci%C3%B3n%20para%20Mi%20Hogar%20Total" class="plan-btn">Cotizar Ahora</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Incendio y Líneas Aliadas</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Protección contra incendio</li>
+                        <li>Daños por explosión</li>
+                        <li>Impacto de proyectiles</li>
+                        <li>Caída de aeronaves</li>
+                        <li>Cobertura amplia</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Incendio%20y%20L%C3%ADneas%20Aliadas" class="plan-btn">Cotizar Ahora</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Rotura Accidental de Cristales</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Rotura de ventanas</li>
+                        <li>Puertas de vidrio</li>
+                        <li>Espejos y cristalería</li>
+                        <li>Reemplazo rápido</li>
+                        <li>Amplia red de proveedores</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Rotura%20de%20Cristales" class="plan-btn">Cotizar Ahora</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Todo Riesgo Objetos Valiosos</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Joyas y obras de arte</li>
+                        <li>Cobertura completa</li>
+                        <li>Robo y daño</li>
+                        <li>Tasación especial</li>
+                        <li>Protección Premium</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Todo%20Riesgo%20Objetos%20Valiosos" class="plan-btn">Cotizar Ahora</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Responsabilidad Civil</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Responsabilidad civil</li>
+                        <li>Daños a terceros</li>
+                        <li>Cobertura legal</li>
+                        <li>Gastos médicos</li>
+                        <li>Defensa legal</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Responsabilidad%20Civil" class="plan-btn">Cotizar Ahora</a>
+                </div>
+            </div>
+
+            <section style="background: white; padding: 3rem 0;">
+                <h3 style="color: #0056b3; font-size: 1.5rem; margin: 2rem 0; text-align: center;">✨ Beneficios en Nuestros Seguros de Hogar</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-tools"></i> Asistencia del Hogar</h4>
+                        <p>Reparaciones de emergencia, plomería, electricidad y más disponible 24/7</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-home"></i> Cobertura Amplia</h4>
+                        <p>Protección de estructura, contenido y responsabilidad civil en un solo plan</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-clock"></i> Tramitación Ágil</h4>
+                        <p>Reporte de siniestros rápido y pago sin demoras innecesarias</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-network-wired"></i> Red Extendida</h4>
+                        <p>Acceso a contratistas, técnicos y proveedores especializados</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <section class="why-us">
+            <h2>¿Por qué asegurar tu hogar con HERGOZ?</h2>
+            <p class="subtitle">Protección confiable para tu mayor patrimonio</p>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-house-damage"></i></div>
+                    <h3>Cobertura Integral</h3>
+                    <p>Protege tu vivienda, contenido y responsabilidad civil.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-headset"></i></div>
+                    <h3>Atención Personalizada</h3>
+                    <p>Asesor dedicado para elegir la cobertura perfecta.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Humano Seguros</h3>
+                    <p>Empresa líder con años de experiencia en seguros.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Respuesta Rápida</h3>
+                    <p>WhatsApp 24/7 para cualquier consulta o emergencia.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Trámite Simple</h3>
+                    <p>Contratación fácil sin papeleos complicados.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Confianza Garantizada</h3>
+                    <p>Transparencia total sin sorpresas ni costos ocultos.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PÁGINA: SEGUROS DE VIDA -->
+    <div id="vida" class="page">
+        <section class="hero" style="background: linear-gradient(135deg, rgba(0,86,179,0.8) 0%, rgba(0,61,130,0.8) 100%), url('https://images.pexels.com/photos/3761514/pexels-photo-3761514.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop') center/cover; min-height: 400px;">
+            <div>
+                <h1 style="color: white; font-size: 2.8rem; margin-bottom: 1rem;">Seguros de Vida</h1>
+                <p style="color: white; font-size: 1.2rem;">Protege el futuro de tu familia</p>
+            </div>
+        </section>
+        <section class="planes">
+            <h2>Seguros de Vida</h2>
+            <p class="subtitle">Protege el futuro de tu familia con seguridad y tranquilidad</p>
+
+            <h3 style="color: #0056b3; font-size: 1.8rem; margin: 3rem 0 1rem; text-align: center;">❤️ Planes de Vida y Protección</h3>
+            <p class="subtitle" style="margin-bottom: 2rem;">Elige el plan que mejor se adapte a las necesidades de tu familia</p>
+            <div class="planes-grid">
+                <div class="plan-card">
+                    <h3>Vida Individual</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Protección personal</li>
+                        <li>Fallecimiento accidental</li>
+                        <li>Incapacidad permanente</li>
+                        <li>Flexibilidad de montos</li>
+                        <li>Beneficiarios designables</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Vida%20Individual" class="plan-btn">Cotizar Ahora</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Vida Colectivo</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura grupal</li>
+                        <li>Protección empleados</li>
+                        <li>Costos reducidos</li>
+                        <li>Administración simple</li>
+                        <li>Opciones flexibles</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Vida%20Colectivo" class="plan-btn">Cotizar Ahora</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Vida Escolar</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura estudiantes</li>
+                        <li>Protección integral</li>
+                        <li>Accidentes escolares</li>
+                        <li>Primas asequibles</li>
+                        <li>Cobertura amplia</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Vida%20Escolar" class="plan-btn">Cotizar Ahora</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Últimos Gastos</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura funeraria</li>
+                        <li>Gastos finales</li>
+                        <li>Transporte de restos</li>
+                        <li>Servicios funerarios</li>
+                        <li>Tranquilidad familiar</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20%C3%9Altimos%20Gastos" class="plan-btn">Cotizar Ahora</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Accidentes Colectivo</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura grupos</li>
+                        <li>Accidentes laborales</li>
+                        <li>Invalidez temporal</li>
+                        <li>Costo accesible</li>
+                        <li>Protección completa</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Accidentes%20Colectivo" class="plan-btn">Cotizar Ahora</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Accidentes Escolar</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Protección estudiantes</li>
+                        <li>Accidentes en escuela</li>
+                        <li>Gastos médicos</li>
+                        <li>Invalidez cubierta</li>
+                        <li>Prima muy baja</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Accidentes%20Escolar" class="plan-btn">Cotizar Ahora</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Accidentes Campamento</h3>
+                    <div class="plan-price" style="font-size: 1.8rem; color: #666;">Cotización<small style="font-size: 0.9rem;">/personalizada</small></div>
+                    <ul class="plan-features">
+                        <li>Cobertura campamento</li>
+                        <li>Actividades recreativas</li>
+                        <li>Accidentes cubiertos</li>
+                        <li>Duración flexible</li>
+                        <li>Protección total</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Necesito%20cotizaci%C3%B3n%20para%20Accidentes%20Campamento" class="plan-btn">Cotizar Ahora</a>
+                </div>
+            </div>
+
+            <section style="background: white; padding: 3rem 0;">
+                <h3 style="color: #0056b3; font-size: 1.5rem; margin: 2rem 0; text-align: center;">✨ Coberturas Incluidas en Nuestros Seguros de Vida</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-heart"></i> Fallecimiento</h4>
+                        <p>Cobertura de fallecimiento natural y accidental con protección integral</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-wheelchair"></i> Incapacidad</h4>
+                        <p>Protección por incapacidad total y permanente con beneficios asegurados</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-church"></i> Servicios Funerarios</h4>
+                        <p>Gastos funerarios, transporte de restos y servicios integrales cubiertos</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-users"></i> Beneficiarios</h4>
+                        <p>Designación libre de beneficiarios con máxima flexibilidad y seguridad</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <section class="why-us">
+            <h2>¿Por qué elegir seguros de vida con HERGOZ?</h2>
+            <p class="subtitle">Protege lo más importante: tu familia</p>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-family"></i></div>
+                    <h3>Protección Familiar</h3>
+                    <p>Asegura el bienestar económico de tu familia.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <h3>Primas Accesibles</h3>
+                    <p>Costos competitivos para todo tipo de presupuesto.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Humano Seguros</h3>
+                    <p>Empresa confiable y líder en seguros de vida.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-phone"></i></div>
+                    <h3>Atención Dedicada</h3>
+                    <p>Asesor que te guía en la mejor opción.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-file-contract"></i></div>
+                    <h3>Trámite Rápido</h3>
+                    <p>Contratación simple y sin complicaciones.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Pago Garantizado</h3>
+                    <p>Cumplimiento seguro de beneficios asegurados.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PÁGINA: SEGUROS DE MASCOTAS -->
+    <div id="mascotas" class="page">
+        <section class="hero" style="background: linear-gradient(135deg, rgba(0,86,179,0.8) 0%, rgba(0,61,130,0.8) 100%), url('https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop') center/cover; min-height: 400px;">
+            <div>
+                <h1 style="color: white; font-size: 2.8rem; margin-bottom: 1rem;">Seguros de Mascotas</h1>
+                <p style="color: white; font-size: 1.2rem;">Cuida la salud de tu mascota con amor</p>
+            </div>
+        </section>
+        <section class="planes">
+            <h2>Seguros de Mascotas</h2>
+            <p class="subtitle">Cuida la salud de tu mascota con tranquilidad</p>
+
+            <h3 style="color: #0056b3; font-size: 1.8rem; margin: 3rem 0 1rem; text-align: center;">🐾 Planes de Protección para Mascotas (RD$/mes)</h3>
+            <p class="subtitle" style="margin-bottom: 2rem;">Protección completa para perros y gatos de todas las edades</p>
+            <div class="planes-grid">
+                <div class="plan-card">
+                    <h3>Mi Mascota Básico</h3>
+                    <div class="plan-price">RD$750<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Accidentes y enfermedades</li>
+                        <li>Cuidado preventivo</li>
+                        <li>Asistencia en parto</li>
+                        <li>Red de veterinarias</li>
+                        <li>Reembolso disponible</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Mascota%20B%C3%A1sico" class="plan-btn">Solicitar</a>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Mi Mascota Plus</h3>
+                    <div class="plan-price">RD$1,200<small>/mes</small></div>
+                    <ul class="plan-features">
+                        <li>Accidentes y enfermedades</li>
+                        <li>Cuidado preventivo premium</li>
+                        <li>Servicios funerarios</li>
+                        <li>Red extendida veterinaria</li>
+                        <li>Cobertura completa</li>
+                    </ul>
+                    <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Mascota%20Plus" class="plan-btn">Solicitar</a>
+                </div>
+            </div>
+
+            <section style="background: white; padding: 3rem 0;">
+                <h3 style="color: #0056b3; font-size: 1.5rem; margin: 2rem 0; text-align: center;">✨ Beneficios Incluidos en Ambos Planes</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-hospital"></i> Gastos Veterinarios</h4>
+                        <p>Cobertura de emergencias veterinarias y tratamientos especializados</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-shield-alt"></i> Indemnización</h4>
+                        <p>Indemnización por diagnósticos graves y situaciones complejas</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-clinic-medical"></i> Red de Clínicas</h4>
+                        <p>Acceso a amplia red de clínicas veterinarias con opción de reembolso</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; border-left: 5px solid #dc3545;">
+                        <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-headset"></i> Soporte 24/7</h4>
+                        <p>Asistente virtual en WhatsApp para consultas y tramitación de reclamos</p>
+                    </div>
+                </div>
+
+                <div style="background: #e9f1ff; padding: 2rem; border-radius: 8px; margin-top: 2rem; border-left: 5px solid #0056b3;">
+                    <h4 style="color: #0056b3; margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Información Importante</h4>
+                    <p style="color: #555;">
+                        <strong>Mascotas aceptadas:</strong> Perros y gatos de 6 meses a 8 años de edad<br>
+                        <strong>Cobertura máxima:</strong> Hasta los 10 años de edad<br>
+                        <strong>Beneficios adicionales:</strong> Acceso a comunidad Pet Lover, programa Humano Sonrisas, y descuentos exclusivos
+                    </p>
+                </div>
+            </section>
+        </section>
+
+        <section class="why-us">
+            <h2>¿Por qué asegurar a tu mascota con HERGOZ?</h2>
+            <p class="subtitle">Tu mascota merece lo mejor</p>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Amor por las Mascotas</h3>
+                    <p>Especialistas que aman y entienden a tus mascotas.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-dollar-sign"></i></div>
+                    <h3>Precios Accesibles</h3>
+                    <p>Planes económicos sin sacrificar la calidad de cobertura.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Humano Seguros</h3>
+                    <p>Empresa confiable con experiencia en seguros de mascotas.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-clinic-medical"></i></div>
+                    <h3>Red Veterinaria</h3>
+                    <p>Acceso a las mejores clínicas veterinarias del país.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-phone"></i></div>
+                    <h3>Atención Rápida</h3>
+                    <p>WhatsApp inmediato para cualquier emergencia o consulta.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-paw"></i></div>
+                    <h3>Comunidad Pet</h3>
+                    <p>Únete a comunidad de amantes de mascotas con beneficios exclusivos.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PÁGINA: CONTACTO -->
+    <div id="contacto" class="page">
+        <section class="contact">
+            <h2>Contáctanos</h2>
+            <p class="subtitle">¿Preguntas? Estamos aquí para ayudarte</p>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3><i class="fas fa-info-circle"></i> Información</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <p><strong>WhatsApp</strong></p>
+                            <p><a href="https://wa.me/18294411803">+1 (829) 441-1803</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <p><strong>Email</strong></p>
+                            <p><a href="mailto:agonpim@gmail.com">agonpim@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-user"></i></div>
+                        <div>
+                            <p><strong>Agente</strong></p>
+                            <p>HERGOZ Asesores</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-building"></i></div>
+                        <div>
+                            <p><strong>Compañía</strong></p>
+                            <p>Humano Seguros</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2.5rem; border-radius: 12px;">
+                    <h3 style="color: #0056b3; margin-bottom: 1.5rem;">Cotización Rápida</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem;">Completa este formulario y te contactaremos en breve:</p>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div>
+                            <label style="color: #0056b3; font-weight: bold; display: block; margin-bottom: 0.5rem;">Nombre</label>
+                            <input type="text" placeholder="Tu nombre completo" style="width: 100%; padding: 0.8rem; border: 2px solid #0056b3; border-radius: 6px;">
+                        </div>
+                        <div>
+                            <label style="color: #0056b3; font-weight: bold; display: block; margin-bottom: 0.5rem;">Teléfono</label>
+                            <input type="tel" placeholder="Tu teléfono" style="width: 100%; padding: 0.8rem; border: 2px solid #0056b3; border-radius: 6px;">
+                        </div>
+                        <div>
+                            <label style="color: #0056b3; font-weight: bold; display: block; margin-bottom: 0.5rem;">Me interesa</label>
+                            <select style="width: 100%; padding: 0.8rem; border: 2px solid #0056b3; border-radius: 6px;">
+                                <option>Selecciona un producto</option>
+                                <option>Seguros Médicos</option>
+                                <option>Seguros de Autos</option>
+                                <option>Seguros de Hogar</option>
+                                <option>Seguros de Vida</option>
+                                <option>Seguros de Mascotas</option>
+                                <option>Múltiples productos</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" style="margin-top: 1rem; cursor: pointer;">Solicitar Cotización</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <h3>HERGOZ - Agente de Seguros Humano</h3>
+            <p>Tu confianza es nuestro compromiso</p>
+            <div class="footer-links">
+                <a onclick="navigateTo('inicio')">Inicio</a>
+                <a onclick="navigateTo('medicos')">Seguros Médicos</a>
+                <a onclick="navigateTo('autos')">Seguros de Autos</a>
+                <a onclick="navigateTo('hogar')">Seguros de Hogar</a>
+                <a onclick="navigateTo('vida')">Seguros de Vida</a>
+                <a onclick="navigateTo('mascotas')">Seguros de Mascotas</a>
+                <a onclick="navigateTo('contacto')">Contacto</a>
+                <a href="https://wa.me/18294411803"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+            <p>&copy; 2024 HERGOZ - Agente de Seguros Humano</p>
+        </div>
+    </footer>
+
+    <script>
+        // CARRUSEL
+        let currentSlideIndex = 0;
+        let carouselInterval;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+
+            if (n >= slides.length) currentSlideIndex = 0;
+            if (n < 0) currentSlideIndex = slides.length - 1;
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlideIndex++;
+            showSlide(currentSlideIndex);
+            resetCarouselTimer();
+        }
+
+        function prevSlide() {
+            currentSlideIndex--;
+            showSlide(currentSlideIndex);
+            resetCarouselTimer();
+        }
+
+        function currentSlide(n) {
+            currentSlideIndex = n;
+            showSlide(currentSlideIndex);
+            resetCarouselTimer();
+        }
+
+        function autoSlide() {
+            currentSlideIndex++;
+            showSlide(currentSlideIndex);
+        }
+
+        function resetCarouselTimer() {
+            clearInterval(carouselInterval);
+            carouselInterval = setInterval(autoSlide, 2500);
+        }
+
+        function navigateTo(pageId) {
+            // Ocultar todas las páginas
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Mostrar la página seleccionada
+            const selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+
+            // Actualizar navegación
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`[data-page="${pageId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Actualizar URL
+            history.pushState({ page: pageId }, '', `#${pageId}`);
+        }
+
+        // Manejar botones atrás/adelante del navegador
+        window.addEventListener('popstate', (e) => {
+            if (e.state && e.state.page) {
+                navigateTo(e.state.page);
+            }
+        });
+
+        // Cargar página inicial desde URL
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.slice(1) || 'inicio';
+            navigateTo(hash);
+
+            // Iniciar carrusel
+            carouselInterval = setInterval(autoSlide, 2500);
+
+            // Pausa al pasar el mouse
+            const carousel = document.getElementById('heroCarousel');
+            if (carousel) {
+                carousel.addEventListener('mouseenter', () => clearInterval(carouselInterval));
+                carousel.addEventListener('mouseleave', () => resetCarouselTimer());
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HERGOZ - Seguros Médicos Humano</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* HEADER */
+        header {
+            background: white;
+            border-bottom: 3px solid #0056b3;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #0056b3;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #dc3545;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            min-height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .price-badge {
+            background: #dc3545;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 1.5rem 0;
+        }
+
+        .btn-group {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220,53,69,0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0056b3;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f0f0;
+        }
+
+        /* SECCIONES */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            color: #0056b3;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* PLANES */
+        .planes {
+            background: #f8f9fa;
+        }
+
+        .planes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .plan-card {
+            background: white;
+            border: 3px solid #0056b3;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 3px 15px rgba(0,86,179,0.1);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(220,53,69,0.2);
+            border-color: #dc3545;
+        }
+
+        .plan-card h3 {
+            color: #0056b3;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            color: #dc3545;
+            font-weight: bold;
+            margin: 1.5rem 0;
+        }
+
+        .plan-price small {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .plan-features li {
+            padding: 0.6rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+            color: #555;
+        }
+
+        .plan-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .plan-btn {
+            background: #0056b3;
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .plan-btn:hover {
+            background: #dc3545;
+            transform: scale(1.05);
+        }
+
+        /* POR QUÉ NOSOTROS */
+        .why-us {
+            background: white;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .why-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #dc3545;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .why-icon {
+            font-size: 3rem;
+            color: #0056b3;
+            margin-bottom: 1rem;
+        }
+
+        .why-card h3 {
+            color: #0056b3;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .why-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* TESTIMONIOS */
+        .testimonials {
+            background: #f8f9fa;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            border: 2px solid #0056b3;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial p {
+            color: #555;
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            color: #0056b3;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        /* CONTACTO */
+        .contact {
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+        }
+
+        .contact-info h3 {
+            color: white;
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+        }
+
+        .contact-item {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            font-size: 1.8rem;
+            color: #dc3545;
+            min-width: 40px;
+        }
+
+        .contact-info p {
+            color: white;
+            margin: 0.3rem 0;
+        }
+
+        .contact-info a {
+            color: #87ceeb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-info a:hover {
+            color: white;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: #0056b3;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.9rem;
+            border: 2px solid #0056b3;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #dc3545;
+            box-shadow: 0 0 10px rgba(220,53,69,0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0056b3;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            color: #dc3545;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-content p {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .footer-links a {
+            color: #87ceeb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #dc3545;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="hergoz_logo.jpg" alt="HERGOZ Logo" onerror="this.style.display='none'">
+                <span>HERGOZ</span>
+            </div>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#planes">Planes</a></li>
+                <li><a href="#nosotros">¿Por qué?</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div>
+            <h1>Protege Tu Salud y Tu Familia</h1>
+            <p>Seguros médicos flexibles de Humano Seguros</p>
+            <div class="price-badge">Desde $50 USD al mes</div>
+            <p style="font-size: 1.1rem; margin-top: 1.5rem;">Planes individuales y familiares con cobertura completa</p>
+            <div class="btn-group">
+                <a href="#planes" class="btn btn-primary">Ver Planes</a>
+                <a href="https://wa.me/18294411803?text=Hola%20HERGOZ%2C%20me%20interesa%20solicitar%20una%20cotizaci%C3%B3n%20de%20seguros%20m%C3%A9dicos" class="btn btn-secondary">Cotizar Ahora</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLANES -->
+    <section class="planes" id="planes">
+        <h2>Nuestros Planes</h2>
+        <p class="subtitle">Elige el plan que se adapte a tus necesidades</p>
+
+        <!-- PLANES LOCALES (RD$) -->
+        <h3 style="color: #0056b3; font-size: 1.8rem; margin: 3rem 0 1rem; text-align: center;">📍 Planes Locales (RD$/mes)</h3>
+        <p class="subtitle" style="margin-bottom: 2rem;">Cobertura completa para ti y tu familia en República Dominicana</p>
+        <div class="planes-grid">
+            <div class="plan-card">
+                <h3>Mi Salud Esencial Plus</h3>
+                <div class="plan-price">RD$1,780<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura hasta RD$300K</li>
+                    <li>80% ambulatorio</li>
+                    <li>70% maternidad</li>
+                    <li>Emergencias 24/7</li>
+                    <li>Red de médicos</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Esencial%20Plus" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Mi Salud Superior</h3>
+                <div class="plan-price">RD$2,795<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura hasta RD$500K</li>
+                    <li>100% ambulatorio</li>
+                    <li>Especialistas</li>
+                    <li>Hospitales incluidos</li>
+                    <li>Medicinas cubiertas</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Superior" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Mi Salud Royal</h3>
+                <div class="plan-price">RD$3,725<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura hasta RD$800K</li>
+                    <li>80% ambulatorio</li>
+                    <li>100% maternidad</li>
+                    <li>Servicios premium</li>
+                    <li>Atención prioritaria</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Royal" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Mi Salud Max</h3>
+                <div class="plan-price">RD$4,960<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura hasta RD$1M</li>
+                    <li>80% reembolso</li>
+                    <li>85% ambulatorio</li>
+                    <li>Cirugías incluidas</li>
+                    <li>Cobertura integral</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Max" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Mi Salud Prime</h3>
+                <div class="plan-price">RD$9,125<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura hasta RD$2M</li>
+                    <li>90% reembolso</li>
+                    <li>90% ambulatorio</li>
+                    <li>Red premium</li>
+                    <li>Máxima protección</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Prime" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Mi Salud Platinum</h3>
+                <div class="plan-price">RD$17,540<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura hasta RD$3M</li>
+                    <li>90% reembolso</li>
+                    <li>100% ambulatorio</li>
+                    <li>Red premium exclusiva</li>
+                    <li>Cobertura sin límites</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Mi%20Salud%20Platinum" class="plan-btn">Solicitar</a>
+            </div>
+        </div>
+
+        <!-- PLANES INTERNACIONALES (USD) -->
+        <h3 style="color: #0056b3; font-size: 1.8rem; margin: 4rem 0 1rem; text-align: center;">🌍 Planes Internacionales (USD$/mes)</h3>
+        <p class="subtitle" style="margin-bottom: 2rem;">Cobertura global para viajes y uso internacional</p>
+        <div class="planes-grid">
+            <div class="plan-card">
+                <h3>Buen Viaje</h3>
+                <div class="plan-price">Desde $25<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>7, 15, 30 o 365 días</li>
+                    <li>Cobertura Schengen</li>
+                    <li>Emergencias médicas</li>
+                    <li>Repatriación</li>
+                    <li>Flexible y rápido</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Plan%20Buen%20Viaje" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Global Health Protect</h3>
+                <div class="plan-price">$55<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura USD$500K</li>
+                    <li>Cáncer tratado</li>
+                    <li>Emergencias 24/7</li>
+                    <li>Uso internacional</li>
+                    <li>Accesible y confiable</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Protect" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Global Health Classic</h3>
+                <div class="plan-price">$61<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura USD$1.5M</li>
+                    <li>Maternidad incluida</li>
+                    <li>Red global</li>
+                    <li>Servicios premium</li>
+                    <li>Protección completa</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Classic" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Global Health Advance</h3>
+                <div class="plan-price">$137<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura USD$2.5M</li>
+                    <li>Maternidad incluida</li>
+                    <li>Especialistas internacionales</li>
+                    <li>Telemedicina 24/7</li>
+                    <li>Atención prioritaria</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Advance" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Global Health University</h3>
+                <div class="plan-price">$171<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura USD$300K</li>
+                    <li>Para estudiantes</li>
+                    <li>Uso internacional</li>
+                    <li>Precio especial</li>
+                    <li>Amplia cobertura</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20University" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Global Health Executive</h3>
+                <div class="plan-price">$200<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura USD$3M</li>
+                    <li>Red premium exclusiva</li>
+                    <li>Concierge médico</li>
+                    <li>Uso local e internacional</li>
+                    <li>Máxima flexibilidad</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Executive" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Global Health Master Plus</h3>
+                <div class="plan-price">$310<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura USD$2.5M</li>
+                    <li>Maternidad incluida</li>
+                    <li>Red global premium</li>
+                    <li>Servicios VIP</li>
+                    <li>Protección integral</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Master%20Plus" class="plan-btn">Solicitar</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Global Health Premium</h3>
+                <div class="plan-price">$312<small>/mes</small></div>
+                <ul class="plan-features">
+                    <li>Cobertura USD$5M</li>
+                    <li>Máxima protección</li>
+                    <li>Red global exclusiva</li>
+                    <li>Todos los servicios</li>
+                    <li>Cobertura sin límites</li>
+                </ul>
+                <a href="https://wa.me/18294411803?text=Estoy%20interesado%20en%20Global%20Health%20Premium" class="plan-btn">Solicitar</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- POR QUÉ NOSOTROS -->
+    <section class="why-us" id="nosotros">
+        <h2>¿Por qué elegirnos?</h2>
+        <p class="subtitle">HERGOZ es tu asesor de confianza</p>
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-handshake"></i></div>
+                <h3>Asesor Dedicado</h3>
+                <p>Te ayudamos a elegir el plan perfecto para ti y tu familia.</p>
+            </div>
+
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Atención Rápida</h3>
+                <p>Respuesta inmediata por WhatsApp. Sin esperas, sin complicaciones.</p>
+            </div>
+
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Confiable</h3>
+                <p>Planes de Humano Seguros, empresa líder en el país.</p>
+            </div>
+
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-star"></i></div>
+                <h3>Transparente</h3>
+                <p>Asesoría honesta sin sorpresas ni costos ocultos.</p>
+            </div>
+
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-check-circle"></i></div>
+                <h3>Flexible</h3>
+                <p>Planes para individuos y familias a precios accesibles.</p>
+            </div>
+
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-phone"></i></div>
+                <h3>Siempre disponible</h3>
+                <p>Contacto directo para resolver todas tus dudas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="testimonials" id="testimonios">
+        <h2>Lo Que Dicen Nuestros Clientes</h2>
+        <p class="subtitle">Miles de familias confiando en HERGOZ</p>
+        <div class="testimonials-grid">
+            <div class="testimonial">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Excelente asesor. Encontré el plan perfecto para mi familia al mejor precio."</p>
+                <p class="testimonial-author">María García, Santo Domingo</p>
+            </div>
+
+            <div class="testimonial">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Muy fácil y rápido. En minutos tenía mi seguro. ¡Recomiendo!"</p>
+                <p class="testimonial-author">Carlos López, Santiago</p>
+            </div>
+
+            <div class="testimonial">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Tengo tranquilidad. Asesor profesional y siempre atento a mis necesidades."</p>
+                <p class="testimonial-author">Rosa Rodríguez, La Romana</p>
+            </div>
+
+            <div class="testimonial">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Responde rápido por WhatsApp. Todo en línea, sin trámites. Perfecto."</p>
+                <p class="testimonial-author">Juan Martínez, Puerto Plata</p>
+            </div>
+
+            <div class="testimonial">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Mejor precio que otros. Gracias por cuidar la salud de mi familia."</p>
+                <p class="testimonial-author">Ana Pérez, San Cristóbal</p>
+            </div>
+
+            <div class="testimonial">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"El reembolso fue rápido y sin problemas. Muy recomendable."</p>
+                <p class="testimonial-author">Patricia Flores, Barahona</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="contact" id="contacto">
+        <h2>Contáctanos</h2>
+        <p class="subtitle">¿Preguntas? Estamos aquí para ayudarte</p>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3><i class="fas fa-info-circle"></i> Información</h3>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                    <div>
+                        <p><strong>WhatsApp</strong></p>
+                        <p><a href="https://wa.me/18294411803">+1 (829) 441-1803</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <p><strong>Email</strong></p>
+                        <p><a href="mailto:agonpim@gmail.com">agonpim@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-user"></i></div>
+                    <div>
+                        <p><strong>Agente</strong></p>
+                        <p>HERGOZ Asesores</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-building"></i></div>
+                    <div>
+                        <p><strong>Compañía</strong></p>
+                        <p>Humano Seguros</p>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="plan">Plan de Interés</label>
+                    <select id="plan" required>
+                        <option value="">Selecciona un plan</option>
+                        <option value="Esencial Plus">Esencial Plus - $50</option>
+                        <option value="Superior">Superior - $75</option>
+                        <option value="Royal">Royal - $100</option>
+                        <option value="Max">Max - $150</option>
+                        <option value="Prime">Prime - $200</option>
+                        <option value="Platinum">Platinum - $250</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" placeholder="Cuéntame tus necesidades..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <h3>HERGOZ - Agente de Seguros Humano</h3>
+            <p>Tu confianza es nuestro compromiso</p>
+            <div class="footer-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#planes">Planes</a>
+                <a href="#nosotros">¿Por qué?</a>
+                <a href="#contacto">Contacto</a>
+                <a href="https://wa.me/18294411803"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+            <p>&copy; 2024 HERGOZ - Agente de Seguros Humano</p>
+        </div>
+    </footer>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            const plan = document.getElementById('plan').value;
+            const mensaje = document.getElementById('mensaje').value;
+            
+            const msg = `Hola HERGOZ,%0A%0ANombre: ${nombre}%0AEmail: ${email}%0ATeléfono: ${telefono}%0APlan: ${plan}%0AMensaje: ${mensaje}`;
+            
+            window.open(`https://wa.me/18294411803?text=${msg}`);
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
