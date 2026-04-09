@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HERGOZ - CMS</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Poppins,sans-serif;background:linear-gradient(135deg,#0F2E5E,#0A1929);min-height:100vh;padding:2rem;color:#333}
+        .container{max-width:1000px;margin:0 auto}
+        header{background:white;padding:2rem;border-radius:10px;margin-bottom:2rem}
+        h1{color:#0F2E5E;margin-bottom:.5rem}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:2rem}
+        .card{background:white;padding:2rem;border-radius:10px;border-left:5px solid #00D4FF}
+        .card h3{color:#0F2E5E;margin-bottom:1rem;font-size:1.2rem}
+        .form-group{margin-bottom:1.5rem}
+        label{display:block;color:#0F2E5E;font-weight:600;margin-bottom:.5rem;font-size:.9rem}
+        input,textarea{width:100%;padding:.8rem;border:2px solid #e0e0e0;border-radius:6px;font-family:Poppins;font-size:.95rem}
+        input:focus,textarea:focus{outline:0;border-color:#0F2E5E}
+        textarea{min-height:100px;resize:vertical}
+        .btn{background:#0F2E5E;color:white;padding:.8rem;border:0;border-radius:6px;cursor:pointer;width:100%;font-weight:600;margin-top:.5rem}
+        .btn:hover{background:#00D4FF;color:#0F2E5E}
+        .msg{background:#d4edda;color:#155724;padding:1rem;border-radius:6px;margin-bottom:1rem;display:none}
+        .data{background:#f8f9fa;padding:1rem;border-radius:6px;margin-top:1rem;font-size:.85rem;font-family:monospace;max-height:250px;overflow-y:auto}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 CMS HERGOZ</h1>
+            <p style="color:#666;font-size:.95rem">Panel de administración de contenidos</p>
+        </header>
+        
+        <div id="msg" class="msg">✅ Guardado exitosamente</div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>📋 Información General</h3>
+                <div class="form-group">
+                    <label>Nombre de Empresa</label>
+                    <input type="text" id="company" value="HERGOZ">
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp</label>
+                    <input type="text" id="whatsapp" value="18294411803">
+                </div>
+                <button class="btn" onclick="save('general')">💾 Guardar</button>
+            </div>
+
+            <div class="card">
+                <h3>🏥 Seguros Médicos</h3>
+                <div class="form-group">
+                    <label>Precio Desde (RD$)</label>
+                    <input type="text" id="medicos_price" value="1,780">
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="medicos_desc">Planes flexibles con cobertura completa</textarea>
+                </div>
+                <button class="btn" onclick="save('medicos')">💾 Guardar</button>
+            </div>
+
+            <div class="card">
+                <h3>🚗 Seguros de Autos</h3>
+                <div class="form-group">
+                    <label>Descripción Principal</label>
+                    <textarea id="autos_desc">Protege tu vehículo con la mejor cobertura</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Precio Base</label>
+                    <input type="text" id="autos_price" value="5,155">
+                </div>
+                <button class="btn" onclick="save('autos')">💾 Guardar</button>
+            </div>
+
+            <div class="card">
+                <h3>🏠 Seguros de Hogar</h3>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="hogar_desc">Protege tu hogar y patrimonio con la mejor cobertura</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Precio Esencial</label>
+                    <input type="text" id="hogar_price" value="8,250">
+                </div>
+                <button class="btn" onclick="save('hogar')">💾 Guardar</button>
+            </div>
+
+            <div class="card">
+                <h3>❤️ Seguros de Vida</h3>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="vida_desc">Protege el futuro de tu familia con seguridad y tranquilidad</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Planes Disponibles</label>
+                    <input type="text" id="vida_planes" value="Individual, Colectivo, Escolar">
+                </div>
+                <button class="btn" onclick="save('vida')">💾 Guardar</button>
+            </div>
+
+            <div class="card">
+                <h3>🐾 Seguros de Mascotas</h3>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="mascotas_desc">Cuida la salud de tu mascota con tranquilidad</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Edades Aceptadas</label>
+                    <input type="text" id="mascotas_edad" value="6 meses a 8 años">
+                </div>
+                <button class="btn" onclick="save('mascotas')">💾 Guardar</button>
+            </div>
+
+            <div class="card">
+                <h3>💾 Datos Guardados</h3>
+                <div class="data" id="data">Presiona Recargar para ver datos...</div>
+                <button class="btn" onclick="load()" style="background:#28a745">🔄 Recargar</button>
+                <button class="btn" onclick="exportData()" style="background:#007bff;margin-top:.5rem">📥 Exportar JSON</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function save(type) {
+            const data = {};
+            const inputs = document.querySelectorAll(`#${type}_input, #${type}_price, #${type}_desc, #${type}_planes, #${type}_edad`);
+            inputs.forEach(el => {
+                if(el.id.includes(type)) {
+                    const key = el.id.replace(type+'_', '');
+                    data[key] = el.value;
+                }
+            });
+            if(type === 'general') {
+                data.company = document.getElementById('company').value;
+                data.whatsapp = document.getElementById('whatsapp').value;
+            }
+            localStorage.setItem(type, JSON.stringify(data));
+            document.getElementById('msg').style.display = 'block';
+            setTimeout(() => document.getElementById('msg').style.display = 'none', 2000);
+            load();
+        }
+
+        function load() {
+            let all = {};
+            ['general','medicos','autos','hogar','vida','mascotas'].forEach(type => {
+                const saved = localStorage.getItem(type);
+                if(saved) all[type] = JSON.parse(saved);
+            });
+            document.getElementById('data').textContent = JSON.stringify(all, null, 2);
+        }
+
+        function exportData() {
+            const data = JSON.stringify(JSON.parse(document.getElementById('data').textContent), null, 2);
+            const blob = new Blob([data], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'hergoz_cms_backup.json';
+            a.click();
+        }
+
+        window.addEventListener('load', load);
+    </script>
+</body>
+</html>
