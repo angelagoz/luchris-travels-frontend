@@ -48,6 +48,31 @@
             </div>
 
             <div class="card">
+                <h3>🖼️ Imágenes de Banners</h3>
+                <div class="form-group">
+                    <label>Banner Médicos (URL)</label>
+                    <input type="text" id="banner_medicos" placeholder="https://ejemplo.com/medicos.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Banner Autos (URL)</label>
+                    <input type="text" id="banner_autos" placeholder="https://ejemplo.com/autos.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Banner Hogar (URL)</label>
+                    <input type="text" id="banner_hogar" placeholder="https://ejemplo.com/hogar.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Banner Vida (URL)</label>
+                    <input type="text" id="banner_vida" placeholder="https://ejemplo.com/vida.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Banner Mascotas (URL)</label>
+                    <input type="text" id="banner_mascotas" placeholder="https://ejemplo.com/mascotas.jpg">
+                </div>
+                <button class="btn" onclick="saveBanners()">💾 Guardar</button>
+            </div>
+
+            <div class="card">
                 <h3>🏥 Seguros Médicos</h3>
                 <div class="form-group">
                     <label>Precio Desde (RD$)</label>
@@ -143,11 +168,25 @@
 
         function load() {
             let all = {};
-            ['general','medicos','autos','hogar','vida','mascotas'].forEach(type => {
+            ['general','banners','medicos','autos','hogar','vida','mascotas'].forEach(type => {
                 const saved = localStorage.getItem(type);
                 if(saved) all[type] = JSON.parse(saved);
             });
             document.getElementById('data').textContent = JSON.stringify(all, null, 2);
+        }
+
+        function saveBanners() {
+            const data = {
+                medicos: document.getElementById('banner_medicos').value,
+                autos: document.getElementById('banner_autos').value,
+                hogar: document.getElementById('banner_hogar').value,
+                vida: document.getElementById('banner_vida').value,
+                mascotas: document.getElementById('banner_mascotas').value
+            };
+            localStorage.setItem('banners', JSON.stringify(data));
+            document.getElementById('msg').style.display = 'block';
+            setTimeout(() => document.getElementById('msg').style.display = 'none', 2000);
+            load();
         }
 
         function exportData() {

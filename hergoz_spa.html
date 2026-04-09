@@ -689,6 +689,30 @@
             }
         }
     </style>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            const banners = localStorage.getItem('banners');
+            if(banners) {
+                const urls = JSON.parse(banners);
+                const sections = {
+                    medicos: document.querySelector('#medicos .hero'),
+                    autos: document.querySelector('#autos .hero'),
+                    hogar: document.querySelector('#hogar .hero'),
+                    vida: document.querySelector('#vida .hero'),
+                    mascotas: document.querySelector('#mascotas .hero')
+                };
+
+                Object.keys(sections).forEach(key => {
+                    if(sections[key] && urls[key]) {
+                        const currentBg = sections[key].style.background;
+                        sections[key].style.backgroundImage = 'url(' + urls[key] + ')';
+                        sections[key].style.backgroundSize = 'cover';
+                        sections[key].style.backgroundPosition = 'center';
+                    }
+                });
+            }
+        });
+    </script>
 </head>
 <body>
     <!-- HEADER -->
