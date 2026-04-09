@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HERGOZ - CMS PRO</title>
+    <script src="https://upload-widget.cloudinary.com/latest/index.js"></script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Poppins,sans-serif;background:linear-gradient(135deg,#0F2E5E,#0A1929);min-height:100vh;padding:2rem}
+        .container{max-width:1200px;margin:0 auto}
+        header{background:white;padding:2rem;border-radius:10px;margin-bottom:2rem}
+        h1{color:#0F2E5E}
+        .setup{background:#fff3cd;border-left:5px solid #ff9800;padding:1.5rem;border-radius:10px;margin-bottom:2rem}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:2rem}
+        .card{background:white;padding:2rem;border-radius:10px;border-left:5px solid #00D4FF}
+        .card h3{color:#0F2E5E;margin-bottom:1rem}
+        input{width:100%;padding:.8rem;border:2px solid #e0e0e0;border-radius:6px;margin:.5rem 0}
+        .btn{background:#0F2E5E;color:white;padding:.8rem;border:0;border-radius:6px;cursor:pointer;width:100%;font-weight:600}
+        .btn:hover{background:#00D4FF;color:#0F2E5E}
+        .btn-upload{background:#ff6f00}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header><h1>CMS PRO HERGOZ</h1><p>Carga de archivos con Cloudinary</p></header>
+        <div class="setup">
+            <h3>Configuracion Cloudinary</h3>
+            <p>1. Ve a cloudinary.com y crea cuenta<br>2. Copia tu Upload Preset<br>3. Pégalo aquí</p>
+            <input type="text" id="preset" placeholder="Upload Preset">
+            <button class="btn" onclick="savePreset()">Guardar</button>
+        </div>
+        <div class="grid">
+            <div class="card"><h3>Banner Medicos</h3><button class="btn btn-upload" onclick="up('medicos')">Subir</button><input id="url_medicos" placeholder="URL"><button class="btn" onclick="save('medicos')">Guardar</button></div>
+            <div class="card"><h3>Banner Autos</h3><button class="btn btn-upload" onclick="up('autos')">Subir</button><input id="url_autos" placeholder="URL"><button class="btn" onclick="save('autos')">Guardar</button></div>
+            <div class="card"><h3>Banner Hogar</h3><button class="btn btn-upload" onclick="up('hogar')">Subir</button><input id="url_hogar" placeholder="URL"><button class="btn" onclick="save('hogar')">Guardar</button></div>
+        </div>
+    </div>
+    <script>
+        function savePreset(){localStorage.setItem('preset',document.getElementById('preset').value);alert('Guardado');}
+        function up(t){const p=localStorage.getItem('preset');if(!p){alert('Configura preset');return;}const w=cloudinary.createUploadWidget({cloudName:'diy',uploadPreset:p,sources:['local','url'],resourceType:'auto'},(e,r)=>{if(r&&r.event==='success'){document.getElementById('url_'+t).value=r.info.secure_url;save(t);}});w.open();}
+        function save(t){let b=JSON.parse(localStorage.getItem('banners')||'{}');b[t]=document.getElementById('url_'+t).value;localStorage.setItem('banners',JSON.stringify(b));}
+    </script>
+</body>
+</html>
