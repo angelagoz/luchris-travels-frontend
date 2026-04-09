@@ -694,6 +694,16 @@
             const banners = localStorage.getItem('banners');
             if(banners) {
                 const urls = JSON.parse(banners);
+
+                if(urls.principal) {
+                    const slides = document.querySelectorAll('.carousel-slide');
+                    if(slides.length > 0) {
+                        slides[0].style.backgroundImage = 'url(' + urls.principal + ')';
+                        slides[0].style.backgroundSize = 'cover';
+                        slides[0].style.backgroundPosition = 'center';
+                    }
+                }
+
                 const sections = {
                     medicos: document.querySelector('#medicos .hero'),
                     autos: document.querySelector('#autos .hero'),
@@ -704,7 +714,6 @@
 
                 Object.keys(sections).forEach(key => {
                     if(sections[key] && urls[key]) {
-                        const currentBg = sections[key].style.background;
                         sections[key].style.backgroundImage = 'url(' + urls[key] + ')';
                         sections[key].style.backgroundSize = 'cover';
                         sections[key].style.backgroundPosition = 'center';
