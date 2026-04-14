@@ -814,8 +814,102 @@ Backend → Procesa con Stripe → Webhook → Actualiza Reserva →
 - Transición: 0.8 segundos
 - Videos: Muted por defecto (políticas navegador)
 
+---
+
+## 🔗 SESIÓN 14/04/2026 - INTEGRACIÓN CMS CON PÁGINA PRINCIPAL
+
+**Objetivo**: Conectar CMS PRO con index.html para cargar productos dinámicamente
+
+### ✅ COMPLETADO - INTEGRACIÓN DINÁMICA
+
+**index.html - Sección de Productos Dinámica:**
+- ✅ Carga productos desde API: `https://luchris-travels-backend.onrender.com/api/productos`
+- ✅ Muestra primeros 12 productos activos
+- ✅ Iconos según tipo: ⛴️ Cruceros, 🎒 Tours, 🏰 Disney, ✈️ Boletos, 🏨 Hoteles, 🛡️ Seguros
+- ✅ Imágenes:
+  - Primero intenta cargar de array `fotos`
+  - Si no, usa `foto_principal`
+  - Si no hay imagen, muestra icono con gradiente
+- ✅ Precios formateados en USD
+- ✅ Botón "Ver Detalles" con info del producto
+- ✅ Manejo de errores (mensaje si API falla)
+
+**cms-productos-pro.html - Panel CMS:**
+- ✅ 6 tipos de productos (Cruceros, Tours, Disney, Boletos, Hoteles, Seguros)
+- ✅ Campos avanzados (precio, descuento, duración, categorías, tags)
+- ✅ Integración Cloudinary para fotos
+- ✅ CRUD completo (crear, leer, actualizar, eliminar)
+- ✅ Interfaz profesional responsiva
+
+**Backend Status:**
+- ✅ API funcionando: 34 productos en BD
+- ✅ Todos los tipos de productos disponibles
+- ✅ Fotos y videos configurados
+- ✅ Respuestas JSON estructuradas
+
+### 📊 FLUJO COMPLETO
+
+```
+CMS PRO (cms-productos-pro.html)
+        ↓ Crear/Editar Productos
+        ↓
+   API Backend
+   /api/productos
+        ↓
+   MongoDB
+   (34 productos)
+        ↓
+ index.html
+ (Carga dinámicamente)
+        ↓
+Usuario ve productos en vivo
+```
+
+### 🎯 CASOS DE USO
+
+1. **Admin agrega nuevo crucero en CMS**:
+   - Va a cms-productos-pro.html
+   - Selecciona tipo "Crucero"
+   - Llena nombre, precio, descripción, sube fotos
+   - Click "Guardar"
+   - Se guarda en BD
+
+2. **Usuario visita index.html**:
+   - La página carga automáticamente
+   - Ve todos los cruceros, tours, etc.
+   - Puede hacer click para ver detalles
+   - Botón contactar lleva a formulario
+
+### 📁 ARCHIVOS ACTUALIZADOS
+
+**Modificados:**
+- index.html (sección productos → dinámica)
+
+**Existentes y listos:**
+- cms-productos-pro.html (panel completo)
+- Backend API (funcionando con 34 productos)
+
+### ✨ VENTAJAS
+
+✅ Cambios en tiempo real (CMS → BD → Página)
+✅ No necesita recargar manualmente
+✅ Admin puede agregar/editar sin código
+✅ Escalable a infinitos productos
+✅ Respaldo en BD (no depende de archivos)
+✅ Imágenes en Cloudinary (seguro, rápido)
+
+### 🚀 PRÓXIMOS PASOS OPCIONALES
+
+- [ ] Página de detalle individual por producto
+- [ ] Carrito de compras integrado
+- [ ] Sistema de filtros avanzados
+- [ ] Búsqueda de productos
+- [ ] Comentarios/reseñas de usuarios
+- [ ] Promociones y descuentos aplicados
+
+---
+
 ### ⏳ PRÓXIMOS PASOS:
-- Poblar BD con productos iniciales
-- Verificar carga dinámica en catálogo
-- Página de detalle de producto (producto-detalle.html)
-- Mejorar secciones restantes de la página
+- Mergear PR a main para publicar en Vercel
+- Verificar carga dinámica en producción
+- Agregar más secciones si lo necesitas
